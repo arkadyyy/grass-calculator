@@ -15,11 +15,12 @@ var grassDict = {
 };
 function findBestResult(width, length) {
   if (width < 2 && length < 2) {
-    let loss =
+    let width_Ordered_Deshe =
       width < length ? (2 - width).toFixed(2) : (2 - length).toFixed(2);
     //תמיד עדיך שהצלע הגדולה תהיה הרוחב ע"מ לקבל פחת קטן יותר
     return (
-      res2text([0, 0, 1], width < length ? width : length) + printLoss(loss, !1)
+      res2text([0, 0, 1], width < length ? width : length) +
+      printLoss(width_Ordered_Deshe, !1)
     );
 
     function printLoss(width, length) {
@@ -37,14 +38,14 @@ function findBestResult(width, length) {
             "</p>";
     }
   }
-  let loss = Math.ceil(width),
-    e = Math.ceil(length),
-    r = loss - width,
-    o = e - length,
-    n = r * length,
-    i = o * width,
-    a = dividerList(loss),
-    g = dividerList(e);
+  let width_Ordered_Deshe = Math.ceil(width);
+  let length_Ordered_Deshe = Math.ceil(length);
+  let width_loss = width_Ordered_Deshe - width;
+  let length_loss = length_Ordered_Deshe - length;
+  let overall_loss_optA = width_loss * length;
+  let overall_loss_optB = length_loss * width,
+    a = dividerList(width_Ordered_Deshe),
+    g = dividerList(length_Ordered_Deshe);
   console.log("findBestResult resW=", a),
     console.log("findBestResult resL=", g);
   let c = a.reduce((width, length) => width + length, 0),
@@ -52,123 +53,145 @@ function findBestResult(width, length) {
     p = "",
     f = "";
   return (
-    c < u || (c >= u && n < i)
+    c < u || (c >= u && overall_loss_optA < overall_loss_optB)
       ? ((p =
-          grassDict.firstSolutionTitle + genSolution(a, width, length, loss)),
-        loss % 3 == 0 && (p += printOnly3mRolls(loss, length)),
-        n > i &&
+          grassDict.firstSolutionTitle +
+          genSolution(a, width, length, width_Ordered_Deshe)),
+        width_Ordered_Deshe % 3 == 0 &&
+          (p += printOnly3mRolls(width_Ordered_Deshe, length)),
+        overall_loss_optA > overall_loss_optB &&
           ((f =
-            grassDict.secondSolutionTitle + genSolution(g, length, width, e)),
-          e % 3 == 0 && (f += printOnly3mRolls(e, width))))
-      : ((p = grassDict.firstSolutionTitle + genSolution(g, length, width, e)),
-        e % 3 == 0 && (p += printOnly3mRolls(e, width)),
-        n < i &&
+            grassDict.secondSolutionTitle +
+            genSolution(g, length, width, length_Ordered_Deshe)),
+          length_Ordered_Deshe % 3 == 0 &&
+            (f += printOnly3mRolls(length_Ordered_Deshe, width))))
+      : ((p =
+          grassDict.firstSolutionTitle +
+          genSolution(g, length, width, length_Ordered_Deshe)),
+        length_Ordered_Deshe % 3 == 0 &&
+          (p += printOnly3mRolls(length_Ordered_Deshe, width)),
+        overall_loss_optA < overall_loss_optB &&
           ((f =
-            grassDict.secondSolutionTitle + genSolution(g, length, width, e)),
-          loss % 3 == 0 && (f += printOnly3mRolls(loss, length)))),
+            grassDict.secondSolutionTitle +
+            genSolution(g, length, width, length_Ordered_Deshe)),
+          width_Ordered_Deshe % 3 == 0 &&
+            (f += printOnly3mRolls(width_Ordered_Deshe, length)))),
     p + f
   );
 }
 function printOnly3mRolls(width, length) {
   if (0 === length)
     return console.log("printOnly3mRolls len got zero!. internal error"), "";
-  let loss = Math.floor(width / 3) * length;
-  if (loss <= 25)
+  let width_Ordered_Deshe = Math.floor(width / 3) * length;
+  if (width_Ordered_Deshe <= 25)
     return (
       '<p class="g_answer rollw-3">' +
       grassDict.itsPossible +
       "1 " +
       grassDict.rolls3m +
       grassDict.inLength +
-      loss +
+      width_Ordered_Deshe +
       grassDict.meter +
       "</p>"
     );
-  let e = Math.floor(loss / 25),
-    r = loss % 25;
-  console.log("3m fullR=" + e + "  last roll=" + r);
-  let o =
+  let length_Ordered_Deshe = Math.floor(width_Ordered_Deshe / 25),
+    width_loss = width_Ordered_Deshe % 25;
+  console.log("3m fullR=" + length_Ordered_Deshe + "  last roll=" + width_loss);
+  let length_loss =
     '<p class="g_answer rollw-3">' +
     grassDict.itsPossible +
-    e +
+    length_Ordered_Deshe +
     grassDict.rolls3m +
     grassDict.inLength +
     " 25 " +
     grassDict.meter +
     "</p>";
   return (
-    r > 0 &&
-      (o +=
+    width_loss > 0 &&
+      (length_loss +=
         '<p class="g_answer rollw-3">' +
         grassDict.lastRoll +
         grassDict.inLength +
-        r +
+        width_loss +
         grassDict.meter +
         "</p>"),
-    o
+    length_loss
   );
 }
-function genSolution(width, length, loss, e) {
-  if (only2m(width)) return doSingle2m(length, loss);
-  let r = e > 4 && e % 4 == 1;
-  if (5 === e) {
+function genSolution(width, length, width_Ordered_Deshe, length_Ordered_Deshe) {
+  if (only2m(width)) return doSingle2m(length, width_Ordered_Deshe);
+  let width_loss = length_Ordered_Deshe > 4 && length_Ordered_Deshe % 4 == 1;
+  if (5 === length_Ordered_Deshe) {
     let width = (
-      (sumRollLength([Math.round((e - 5) / 4), 1, 1]) - length) *
-      loss
+      (sumRollLength([Math.round((length_Ordered_Deshe - 5) / 4), 1, 1]) -
+        length) *
+      width_Ordered_Deshe
     ).toFixed(2);
     return (
-      res2text([Math.round((e - 5) / 4), 1, 1], loss) + printLoss(width, !1)
+      res2text(
+        [Math.round((length_Ordered_Deshe - 5) / 4), 1, 1],
+        width_Ordered_Deshe
+      ) + printLoss(width, !1)
     );
   }
-  let o = ((sumRollLength(width) - length) * loss).toFixed(2),
-    n = res2text(width, loss) + printLoss(o, r);
+  let length_loss = (
+      (sumRollLength(width) - length) *
+      width_Ordered_Deshe
+    ).toFixed(2),
+    overall_loss_optA =
+      res2text(width, width_Ordered_Deshe) + printLoss(length_loss, width_loss);
   return (
-    r &&
-      ((o = (
-        (sumRollLength([Math.round((e - 5) / 4), 1, 1]) - length) *
-        loss
+    width_loss &&
+      ((length_loss = (
+        (sumRollLength([Math.round((length_Ordered_Deshe - 5) / 4), 1, 1]) -
+          length) *
+        width_Ordered_Deshe
       ).toFixed(2)),
-      (n +=
+      (overall_loss_optA +=
         '<p  class="g_answer">-----------------------------------------</p>'),
-      (n += '<p  class="g_answer">' + grassDict.lessLossMoreCut + "</p>"),
-      (n +=
-        res2text([Math.round((e - 5) / 4), 1, 1], loss) + printLoss(o, !1))),
-    n
+      (overall_loss_optA +=
+        '<p  class="g_answer">' + grassDict.lessLossMoreCut + "</p>"),
+      (overall_loss_optA +=
+        res2text(
+          [Math.round((length_Ordered_Deshe - 5) / 4), 1, 1],
+          width_Ordered_Deshe
+        ) + printLoss(length_loss, !1))),
+    overall_loss_optA
   );
 }
 function only2m(width) {
   return 0 === width[0] && 0 === width[1] && width[2] > 0;
 }
 function doSingle2m(width, length) {
-  let loss = Math.floor(2 / width),
-    e = (length / loss).toFixed(2),
-    r = Math.floor(e / 25),
-    o = e % 25,
-    n = "";
+  let width_Ordered_Deshe = Math.floor(2 / width),
+    length_Ordered_Deshe = (length / width_Ordered_Deshe).toFixed(2),
+    width_loss = Math.floor(length_Ordered_Deshe / 25),
+    length_loss = length_Ordered_Deshe % 25,
+    overall_loss_optA = "";
   return (
-    r > 0 &&
-      (n +=
-        1 === loss
+    width_loss > 0 &&
+      (overall_loss_optA +=
+        1 === width_Ordered_Deshe
           ? '<p  class="g_answer rollw-2">' +
-            r +
+            width_loss +
             " גליל(ים) ברוחב: 2 מטר, באורך: 25 מטר</p>"
           : '<p  class="g_answer rollw-2">' +
-            r +
+            width_loss +
             " גליל(ים) ברוחב: 2 מטר, באורך: 25 מטר מחולקים ל- " +
-            loss +
+            width_Ordered_Deshe +
             " פרוסות לרוחב.</p>"),
-    o > 0 &&
-      (n +=
-        1 === loss
+    length_loss > 0 &&
+      (overall_loss_optA +=
+        1 === width_Ordered_Deshe
           ? '<p  class="g_answer rollw-2">1 גליל ברוחב: 2 מטר, באורך: ' +
-            o +
+            length_loss +
             " מטר </p>"
           : '<p  class="g_answer rollw-2">1 גליל ברוחב: 2 מטר, באורך: ' +
-            o +
+            length_loss +
             " מטר מחולק ל- " +
-            loss +
+            width_Ordered_Deshe +
             " פרוסות לרוחב.</p>"),
-    n
+    overall_loss_optA
   );
 }
 function printLoss(width, length) {
@@ -186,93 +209,118 @@ function printLoss(width, length) {
 }
 function sumRollLength(width) {
   let length = 0,
-    loss = [4, 3, 2];
-  for (let e = 0; e < width.length; e++) length += width[e] * loss[e];
+    width_Ordered_Deshe = [4, 3, 2];
+  for (
+    let length_Ordered_Deshe = 0;
+    length_Ordered_Deshe < width.length;
+    length_Ordered_Deshe++
+  )
+    length +=
+      width[length_Ordered_Deshe] * width_Ordered_Deshe[length_Ordered_Deshe];
   return length;
 }
+
 function res2text(width, length) {
-  let loss = "",
-    e = [4, 3, 2];
+  let width_Ordered_Deshe = "",
+    length_Ordered_Deshe = [4, 3, 2];
   if (length <= 25) {
-    for (let i = 0; i < width.length; i++)
-      width[i] > 0 &&
-        (loss +=
+    for (
+      let overall_loss_optB = 0;
+      overall_loss_optB < width.length;
+      overall_loss_optB++
+    )
+      width[overall_loss_optB] > 0 &&
+        (width_Ordered_Deshe +=
           '<p  class="g_answer rollw-' +
-          e[i] +
+          length_Ordered_Deshe[overall_loss_optB] +
           '">' +
-          width[i] +
+          width[overall_loss_optB] +
           " גליל(ים) ברוחב: " +
-          e[i] +
+          length_Ordered_Deshe[overall_loss_optB] +
           " מטר, באורך: " +
           length +
           " מטר</p>");
 
-    return loss;
+    return width_Ordered_Deshe;
   }
-  <p class={`g_answer rollw${e[r]}`}>
-    {`גלילים ברוחב ${e[r]} : ${width[r]}`},{`באורך : ${length} מטר`}
+  <p class={`g_answer rollw${length_Ordered_Deshe[width_loss]}`}>
+    {
+      (`גלילים ברוחב ${length_Ordered_Deshe[width_loss]} : ${width[width_loss]}`,
+      `באורך : ${length} מטר`)
+    }
   </p>;
 
-  let r = Math.floor(length / 25);
+  let width_loss = Math.floor(length / 25);
   for (let length = 0; length < width.length; length++)
     width[length] > 0 &&
-      (loss +=
+      (width_Ordered_Deshe +=
         '<p  class="g_answer  rollw-' +
-        e[length] +
+        length_Ordered_Deshe[length] +
         '">' +
-        r * width[length] +
+        width_loss * width[length] +
         " גליל(ים) ברוחב: " +
-        e[length] +
+        length_Ordered_Deshe[length] +
         " באורך 25 מטר</p>");
-  let o = length % 25;
-  if (0 === o) return loss;
-  loss += '<p  class="g_answer">למקטע מעבר ל- ' + 25 * r + " מטר, נוסיף: </p>";
-  let n = Math.floor(25 / o);
+  let length_loss = length % 25;
+  if (0 === length_loss) return width_Ordered_Deshe;
+  width_Ordered_Deshe +=
+    '<p  class="g_answer">למקטע מעבר ל- ' +
+    25 * width_loss +
+    " מטר, נוסיף: </p>";
+  let overall_loss_optA = Math.floor(25 / length_loss);
   for (let length = 0; length < width.length; length++)
     if (width[length] > 0) {
-      let r = Math.floor(width[length] / n),
-        i = width[length] % n;
-      r > 0 &&
-        (loss +=
+      let width_loss = Math.floor(width[length] / overall_loss_optA),
+        overall_loss_optB = width[length] % overall_loss_optA;
+      width_loss > 0 &&
+        (width_Ordered_Deshe +=
           '<p  class="g_answer  rollw-' +
-          e[length] +
+          length_Ordered_Deshe[length] +
           '">' +
-          r +
+          width_loss +
           " גליל(ים) ברוחב: " +
-          e[length] +
+          length_Ordered_Deshe[length] +
           " מטר, בגליל " +
-          n +
+          overall_loss_optA +
           " פרוסות באורך " +
-          o.toFixed(2) +
+          length_loss.toFixed(2) +
           " מטר, כל אחת </p>"),
-        i > 0 &&
-          (loss +=
+        overall_loss_optB > 0 &&
+          (width_Ordered_Deshe +=
             '<p  class="g_answer  rollw-' +
-            e[length] +
+            length_Ordered_Deshe[length] +
             '">1 גליל(ים) ברוחב: ' +
-            e[length] +
+            length_Ordered_Deshe[length] +
             " מטר, בגליל " +
-            i +
+            overall_loss_optB +
             " פרוסות באורך " +
-            o.toFixed(2) +
+            length_loss.toFixed(2) +
             " מטר, כל אחת </p>");
     }
-  return loss;
+  return width_Ordered_Deshe;
 }
+
+//מחשב לנו כמה חתיכות מגודל מסויים יש להזמין
 function dividerList(width) {
-  let length = [4, 3, 2],
-    loss = [0, 0, 0],
-    e = width;
+  let widthOptions = [4, 3, 2],
+    width_Ordered_Deshe = [0, 0, 0],
+    width_left = width;
   return (
-    e >= parseInt(4) && ((loss[0] = Math.floor(e / 4)), (e %= length[0])),
-    e >= parseInt(3) && ((loss[1] = Math.floor(e / 3)), (e %= length[1])),
-    e >= parseInt(2) && ((loss[2] = Math.floor(e / 2)), (e %= length[2])),
-    e > 0 && (loss[2] += 1),
-    loss
+    width_left >= parseInt(4) &&
+      ((width_Ordered_Deshe[0] = Math.floor(width_left / 4)),
+      (width_left %= widthOptions[0])),
+    width_left >= parseInt(3) &&
+      ((width_Ordered_Deshe[1] = Math.floor(width_left / 3)),
+      (width_left %= widthOptions[1])),
+    width_left >= parseInt(2) &&
+      ((width_Ordered_Deshe[2] = Math.floor(width_left / 2)),
+      (width_left %= widthOptions[2])),
+    width_left > 0 && (width_Ordered_Deshe[2] += 1),
+    width_Ordered_Deshe
   );
 }
 function validInput(width, length) {
-  let loss = [
+  let width_Ordered_Deshe = [
     "חסרים נתונים",
     "parameters must be > 0",
     "width <= length",
@@ -280,32 +328,44 @@ function validInput(width, length) {
     "length must be <= 500 meters",
   ];
   return void 0 === width || void 0 === length
-    ? loss[0]
+    ? width_Ordered_Deshe[0]
     : isNaN(width) || isNaN(length)
-    ? loss[0]
+    ? width_Ordered_Deshe[0]
     : 0 === width || 0 === length
-    ? loss[1]
+    ? width_Ordered_Deshe[1]
     : width > 500 && length > 500
-    ? loss[4]
+    ? width_Ordered_Deshe[4]
     : "";
 }
-jQuery("#gcalc").click(function (width) {
-  width.preventDefault(), console.log("button click");
-  let length = jQuery("#garea").val(),
-    loss = parseFloat(jQuery("#gwidth").val()),
-    e = parseFloat(jQuery("#glength").val());
-  console.log("gcalc areatype=" + length + "  w=" + loss + "  len= " + e),
-    jQuery(".g_answer").remove();
-  let r = validInput(loss, e);
-  if ("" !== r)
-    return jQuery(".grassData").append("<p class='g_answer'>" + r + "</p>"), 0;
-  console.log(grassDict.rollList);
-  let o = findBestResult(loss, e),
-    n =
-      "<div class='g_answer'><h2  class='g_answer' >" +
-      grassDict.rollList +
-      "</h2><p class='g_answer' >" +
-      o +
-      "</p></div>";
-  return jQuery(".grassData").append(n), 0;
-});
+// jQuery("#gcalc").click(function (width) {
+//   width.preventDefault(), console.log("button click");
+//   let length = jQuery("#garea").val(),
+//     width_Ordered_Deshe = parseFloat(jQuery("#gwidth").val()),
+//     length_Ordered_Deshe = parseFloat(jQuery("#glength").val());
+//   console.log(
+//     "gcalc areatype=" +
+//       length +
+//       "  w=" +
+//       width_Ordered_Deshe +
+//       "  len= " +
+//       length_Ordered_Deshe
+//   ),
+//     jQuery(".g_answer").remove();
+//   let width_loss = validInput(width_Ordered_Deshe, length_Ordered_Deshe);
+//   if ("" !== width_loss)
+//     return (
+//       jQuery(".grassData").append("<p class='g_answer'>" + width_loss + "</p>"),
+//       0
+//     );
+//   console.log(grassDict.rollList);
+//   let length_loss = findBestResult(width_Ordered_Deshe, length_Ordered_Deshe),
+//     overall_loss_optA =
+//       "<div class='g_answer'><h2  class='g_answer' >" +
+//       grassDict.rollList +
+//       "</h2><p class='g_answer' >" +
+//       length_loss +
+//       "</p></div>";
+//   return jQuery(".grassData").append(overall_loss_optA), 0;
+// });
+
+console.log(findBestResult(4, 2));
