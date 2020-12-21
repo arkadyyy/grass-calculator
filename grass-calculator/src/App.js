@@ -2,66 +2,45 @@ import logo from "./logo.svg";
 import "./App.css";
 import Konva from "./components/Konva";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
-import { useState } from "react";
+import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import calculateBestOption from "./calculator";
 
 function App() {
   const [squares, setsquares] = useState([]);
+  const [resultForClient, setresultForClient] = useState([]);
+  const [width, setwidth] = useState(0);
+  const [length, setlength] = useState(0);
 
-  // function calculateBestOption(widthInput, lengthInput) {
-  //   let opt4 = 0;
-  //   let opt3 = 0;
-  //   let opt2 = 0;
+  //modal state
 
-  //   let width = widthInput;
-  //   let length = lengthInput;
+  const [show, setShow] = useState(false);
 
-  //   let pchatLength = length;
-  //   let pchatWidth = null;
-  //   let pchat = 0;
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-  //   while (width !== 0) {
-  //     if (Math.ceil(width) / 4 >= 1) {
-  //       opt4 = Math.floor(Math.ceil(width) / 4);
+  useEffect(() => {
+    bestResult();
+  }, [squares]);
 
-  //       if (width - opt4 * 4 <= 0) {
-  //         (pchatWidth = opt4 * 4 - width), (width = 0);
-  //       } else {
-  //         width = width - opt4 * 4;
-  //       }
+  function bestResult() {
+    squares.forEach((square) => {
+      let result1 = calculateBestOption(square[0] / 100, square[1] / 100);
+      let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
 
-  //       continue;
-  //     } else if (Math.ceil(width) / 3 >= 1) {
-  //       opt3 = Math.floor(Math.ceil(width) / 3);
+      if (result1.pchat === result2.pchat) {
+        setresultForClient([...resultForClient, result1]);
+      } else if (result1.pchat < result2.pchat) {
+        setresultForClient([...resultForClient, result1]);
+      } else {
+        setresultForClient([...resultForClient, result2]);
+      }
 
-  //       if (width - opt3 * 3 <= 0) {
-  //         (pchatWidth = opt3 * 3 - width), (width = 0);
-  //       } else {
-  //         width = width - opt3 * 3;
-  //       }
-  //       continue;
-  //     } else {
-  //       opt2 = 1;
-
-  //       if (width - opt2 * 2 < 0) {
-  //         (pchatWidth = 2 - width), (width = 0);
-  //       } else {
-  //         (pchatWidth = 0), (width = 0);
-  //       }
-
-  //       continue;
-  //     }
-  //   }
-  //   console.log(pchatLength);
-  //   console.log(pchatWidth);
-
-  //   pchat = pchatLength * pchatWidth;
-
-  //   return { opt4, opt3, opt2, pchat };
-  // }
-
-  // console.log(calculateBestOption(9.1, 4.6));
-  // console.log(calculateBestOption(4.6, 9.1));
+      console.log(result1);
+      console.log(result2);
+      console.log(resultForClient);
+    });
+  }
 
   return (
     <div className='App'>
@@ -77,6 +56,9 @@ function App() {
           aria-label='Default'
           aria-describedby='inputGroup-sizing-default'
           id='width'
+          onChange={(e) => {
+            setwidth(e.target.value);
+          }}
         />
         <p>רוחב</p>
         <FormControl
@@ -84,19 +66,19 @@ function App() {
           aria-label='Default'
           aria-describedby='inputGroup-sizing-default'
           id='length'
+          onChange={(e) => {
+            setlength(e.target.value);
+          }}
         />
         <p>אורך</p>
         <Button
           onClick={() => {
-            setsquares([
-              ...squares,
-              [
-                +document.getElementById("width").value,
-                +document.getElementById("length").value,
-              ],
-            ]);
-            console.log(document.getElementById("width").value);
-            console.log(document.getElementById("length").value);
+            setsquares([...squares, [+width, +length]]);
+
+            console.log(width);
+            console.log(length);
+            setwidth(0);
+            setlength(0);
           }}
           className='m-3'
           variant='success'
@@ -106,16 +88,57 @@ function App() {
         <Button
           onClick={() => {
             console.log(squares);
+
+            handleShow();
           }}
           className='m-3'
           variant='success'
         >
           חשב
         </Button>
-        <Button className='m-3' variant='success'>
+        <Button
+          onClick={() => {
+            setsquares([]);
+            setresultForClient([]);
+            setwidth(0);
+            setlength(0);
+          }}
+          className='m-3'
+          variant='success'
+        >
           נקה
         </Button>
       </InputGroup>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>תוצאת חישוב</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>מצאנו לך את ההזמנה המומלצת</p>
+          {resultForClient.map((result, index) => (
+            <>
+              <hr></hr>
+              <p>
+                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
+              </p>
+
+              <p>{`משטח 4מ ${result.opt4}`}</p>
+              <p>{`משטח 3מ ${result.opt3}`}</p>
+              <p>{`משטח 2מ ${result.opt2}`}</p>
+              <p>{`פחת ${result.pchat}`}</p>
+            </>
+          ))}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={handleClose}>
+            חזור ללוח השרטוטים
+          </Button>
+          <Button variant='primary' onClick={handleClose}>
+            הזמן
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }

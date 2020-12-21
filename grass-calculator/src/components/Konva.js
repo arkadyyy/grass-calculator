@@ -8,6 +8,7 @@ import {
   Line,
   Label,
   Tag,
+  Group,
 } from "react-konva";
 
 const Konva = ({ squares }) => {
@@ -24,40 +25,29 @@ const Konva = ({ squares }) => {
           <Layer>
             {squares.map((square) => (
               <>
-                <Text text={`אורך : ${square[1]}`} fontSize={15} />
-                <Rect
-                  x={100}
-                  y={50}
-                  width={square[0] / 2.7}
-                  height={square[1] / 2.7}
-                  fill='green'
-                  stroke='black'
-                  strokeWidth='2'
-                  draggable
-                />
-                <Label x={120} y={60}>
-                  <Tag
-                    fill={"black"}
-                    fontFamily={"Calibri"}
-                    fontSize={18}
-                    padding={5}
-                    pointerDirection={"down"}
-                    pointerWidth={10}
-                    pointerHeight={10}
-                    lineJoin={"round"}
-                    shadowColor={"black"}
-                    shadowBlur={10}
-                    shadowOffset={10}
-                    shadowOpacity={0.5}
+                <Group draggable>
+                  <Text
+                    x={110}
+                    y={30}
+                    text={`רוחב ${square[0]}`}
+                    fontSize={15}
                   />
                   <Text
-                    text={"label test"}
-                    fontFamily={"Calibri"}
-                    fontSize={18}
-                    padding={5}
-                    fill={"white"}
+                    x={110}
+                    y={5}
+                    text={` אורך ${square[1]}`}
+                    fontSize={15}
                   />
-                </Label>
+                  <Rect
+                    x={100}
+                    y={50}
+                    width={square[0] / 2.7}
+                    height={square[1] / 2.7}
+                    fill='green'
+                    stroke='black'
+                    strokeWidth='2'
+                  />
+                </Group>
               </>
             ))}
           </Layer>
