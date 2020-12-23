@@ -15,34 +15,28 @@ const Konva = ({ squares }) => {
   return (
     <>
       <div style={{ width: "65%" }}>
-        <h1>konva !~@#</h1>
-
         <Stage
           style={{ border: "3px solid green", margin: "3rem" }}
-          width={window.innerWidth}
-          height={window.innerHeight}
+          width={window.innerWidth / 3}
+          height={window.innerHeight / 3}
         >
           <Layer>
             {squares.map((square) => (
               <>
                 <Group draggable>
+                  <Text x={110} y={30} text={` ${square[0]} ר`} fontSize={15} />
                   <Text
-                    x={110}
-                    y={30}
-                    text={`רוחב ${square[0]}`}
+                    x={75}
+                    y={100}
+                    text={` ${square[1]} א`}
                     fontSize={15}
-                  />
-                  <Text
-                    x={110}
-                    y={5}
-                    text={` אורך ${square[1]}`}
-                    fontSize={15}
+                    rotationDeg={270}
                   />
                   <Rect
                     x={100}
                     y={50}
-                    width={square[0] / 2.7}
-                    height={square[1] / 2.7}
+                    width={square[0] / 5}
+                    height={square[1] / 5}
                     fill='green'
                     stroke='black'
                     strokeWidth='2'

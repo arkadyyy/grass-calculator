@@ -2,13 +2,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import Konva from "./components/Konva";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, InputGroup, FormControl, Modal } from "react-bootstrap";
+import { Button, InputGroup, FormControl, Modal, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import calculateBestOption from "./calculator";
 
 function App() {
   const [squares, setsquares] = useState([]);
   const [resultForClient, setresultForClient] = useState([]);
+
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
 
@@ -44,15 +45,23 @@ function App() {
 
   return (
     <div className='App'>
-      <Konva squares={squares} />
+      <Konva squares={squares} setsquares={setsquares} />
 
       <InputGroup
-        style={{ display: "flex", flexDirection: "column" }}
-        className='mb-3'
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-end",
+        }}
+        className='mb-3 p-5'
       >
         <h1>חישוב דשא</h1>
+        <Form.Label>
+          <strong style={{ textAlign: "right" }}>רוחב</strong>
+        </Form.Label>
         <FormControl
-          style={{ width: "50%" }}
+          placeholder='הכנס רוחב'
+          style={{ width: "35%", direction: "rtl" }}
           aria-label='Default'
           aria-describedby='inputGroup-sizing-default'
           id='width'
@@ -60,9 +69,12 @@ function App() {
             setwidth(e.target.value);
           }}
         />
-        <p>רוחב</p>
+        <Form.Label>
+          <strong>אורך</strong>
+        </Form.Label>
         <FormControl
-          style={{ width: "50%" }}
+          placeholder='הכנס אורך'
+          style={{ width: "35%", direction: "rtl" }}
           aria-label='Default'
           aria-describedby='inputGroup-sizing-default'
           id='length'
@@ -70,44 +82,45 @@ function App() {
             setlength(e.target.value);
           }}
         />
-        <p>אורך</p>
-        <Button
-          onClick={() => {
-            setsquares([...squares, [+width, +length]]);
+        <div className='buttons'>
+          <Button
+            onClick={() => {
+              setsquares([...squares, [+width, +length]]);
 
-            console.log(width);
-            console.log(length);
-            setwidth(0);
-            setlength(0);
-          }}
-          className='m-3'
-          variant='success'
-        >
-          הוסף מלבן
-        </Button>
-        <Button
-          onClick={() => {
-            console.log(squares);
+              console.log(width);
+              console.log(length);
+              setwidth(0);
+              setlength(0);
+            }}
+            className='m-3'
+            variant='success'
+          >
+            הוסף מלבן
+          </Button>
+          <Button
+            onClick={() => {
+              console.log(squares);
 
-            handleShow();
-          }}
-          className='m-3'
-          variant='success'
-        >
-          חשב
-        </Button>
-        <Button
-          onClick={() => {
-            setsquares([]);
-            setresultForClient([]);
-            setwidth(0);
-            setlength(0);
-          }}
-          className='m-3'
-          variant='success'
-        >
-          נקה
-        </Button>
+              handleShow();
+            }}
+            className='m-3'
+            variant='success'
+          >
+            חשב
+          </Button>
+          <Button
+            onClick={() => {
+              setsquares([]);
+              setresultForClient([]);
+              setwidth(0);
+              setlength(0);
+            }}
+            className='m-3'
+            variant='success'
+          >
+            נקה
+          </Button>
+        </div>
       </InputGroup>
 
       <Modal show={show} onHide={handleClose}>
@@ -123,12 +136,49 @@ function App() {
                 <strong> {`תוצאה למלבן ${index + 1}`}</strong>
               </p>
 
-              <p>{`משטח 4מ ${result.opt4}`}</p>
-              <p>{`משטח 3מ ${result.opt3}`}</p>
-              <p>{`משטח 2מ ${result.opt2}`}</p>
+              {result.opt4.amount >= 1 ? (
+                <>
+                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt3.amount >= 1 ? (
+                <>
+                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt2.amount >= 1 ? (
+                <>
+                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+                </>
+              ) : null}
+
               <p>{`פחת ${result.pchat}`}</p>
             </>
           ))}
+
+          {/* {sumResultForClient.opt2.width >= 1 ? (
+            <>
+              <p> משטח ברוחב 2 מטר</p>
+              <p> {sumResultForClient.opt2.length} : באורך </p>
+            </>
+          ) : null}
+          {sumResultForClient.opt3.width >= 1 ? (
+            <>
+              <p> משטח ברוחב 3 מטר</p>
+              <p> {sumResultForClient.opt3.length} : באורך </p>
+            </>
+          ) : null}
+          {sumResultForClient.opt4.width >= 1 ? (
+            <>
+              <p> משטח ברוחב 4 מטר </p>
+              <p> {sumResultForClient.opt4.length} : באורך </p>
+            </>
+          ) : null} */}
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={handleClose}>
