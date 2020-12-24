@@ -93,7 +93,6 @@ function App() {
           <Button
             onClick={() => {
               setsquares([...squares, [+width, +length]]);
-              bestResult();
               console.log(width);
               console.log(length);
               setwidth(0);
