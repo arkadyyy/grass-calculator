@@ -9,6 +9,8 @@ import calculateBestOption from "./calculator";
 function App() {
   const [squares, setsquares] = useState([]);
   const [resultForClient, setresultForClient] = useState([]);
+  const [x_directionResultForClient, setX_DirectionResultForClient] = useState([]);
+  const [y_directionResultForClient, setY_DirectionResultForClient] = useState([]);
 
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
@@ -37,9 +39,14 @@ function App() {
         setresultForClient([...resultForClient, result2]);
       }
 
-      console.log(result1);
-      console.log(result2);
-      console.log(resultForClient);
+      setX_DirectionResultForClient([...x_directionResultForClient,result1])
+      setY_DirectionResultForClient([...y_directionResultForClient,result2])
+
+      console.log("result1:",result1);
+      console.log("result2:",result2);
+      console.log("resultForClient:", resultForClient);
+      console.log("x result:",x_directionResultForClient);
+      console.log("y result:",y_directionResultForClient);
     });
   }
 
@@ -86,7 +93,7 @@ function App() {
           <Button
             onClick={() => {
               setsquares([...squares, [+width, +length]]);
-
+              bestResult();
               console.log(width);
               console.log(length);
               setwidth(0);
@@ -99,7 +106,7 @@ function App() {
           </Button>
           <Button
             onClick={() => {
-              console.log(squares);
+              // console.log(squares);
 
               handleShow();
             }}
@@ -129,7 +136,72 @@ function App() {
         </Modal.Header>
         <Modal.Body>
           <p>מצאנו לך את ההזמנה המומלצת</p>
+          <p>פחת מינימלי</p>
           {resultForClient.map((result, index) => (
+            <>
+              <hr></hr>
+              <p>
+                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
+              </p>
+
+              {result.opt4.amount >= 1 ? (
+                <>
+                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt3.amount >= 1 ? (
+                <>
+                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt2.amount >= 1 ? (
+                <>
+                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              <p>{`פחת ${result.pchat}`}</p>
+            </>
+          ))}
+          <p>חישוב לפי כיוון פריסה אחיד אפשרות 1  </p>
+          {x_directionResultForClient.map((result, index) => (
+            <>
+              <hr></hr>
+              <p>
+                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
+              </p>
+
+              {result.opt4.amount >= 1 ? (
+                <>
+                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt3.amount >= 1 ? (
+                <>
+                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt2.amount >= 1 ? (
+                <>
+                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              <p>{`פחת ${result.pchat}`}</p>
+            </>
+          ))}
+          <p>חישוב לפי כיוון פריסה אחיד אפשרות 2  </p>
+          {x_directionResultForClient.map((result, index) => (
             <>
               <hr></hr>
               <p>
