@@ -9,8 +9,12 @@ import calculateBestOption from "./calculator";
 function App() {
   const [squares, setsquares] = useState([]);
   const [resultForClient, setresultForClient] = useState([]);
-  const [x_directionResultForClient, setX_DirectionResultForClient] = useState([]);
-  const [y_directionResultForClient, setY_DirectionResultForClient] = useState([]);
+  const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
+    []
+  );
+  const [y_directionResultForClient, setY_DirectionResultForClient] = useState(
+    []
+  );
 
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
@@ -39,14 +43,14 @@ function App() {
         setresultForClient([...resultForClient, result2]);
       }
 
-      setX_DirectionResultForClient([...x_directionResultForClient,result1])
-      setY_DirectionResultForClient([...y_directionResultForClient,result2])
+      setX_DirectionResultForClient([...x_directionResultForClient, result1]);
+      setY_DirectionResultForClient([...y_directionResultForClient, result2]);
 
-      console.log("result1:",result1);
-      console.log("result2:",result2);
+      console.log("result1:", result1);
+      console.log("result2:", result2);
       console.log("resultForClient:", resultForClient);
-      console.log("x result:",x_directionResultForClient);
-      console.log("y result:",y_directionResultForClient);
+      console.log("x result:", x_directionResultForClient);
+      console.log("y result:", y_directionResultForClient);
     });
   }
 
@@ -93,7 +97,7 @@ function App() {
           <Button
             onClick={() => {
               setsquares([...squares, [+width, +length]]);
-              bestResult();
+
               console.log(width);
               console.log(length);
               setwidth(0);
@@ -168,10 +172,10 @@ function App() {
               <p>{`פחת ${result.pchat}`}</p>
             </>
           ))}
-          <p>חישוב לפי כיוון פריסה אחיד אפשרות 1  </p>
+          <hr></hr>
+          <p>חישוב לפי כיוון פריסה אחיד אפשרות 1 </p>
           {x_directionResultForClient.map((result, index) => (
             <>
-              <hr></hr>
               <p>
                 <strong> {`תוצאה למלבן ${index + 1}`}</strong>
               </p>
@@ -200,10 +204,10 @@ function App() {
               <p>{`פחת ${result.pchat}`}</p>
             </>
           ))}
-          <p>חישוב לפי כיוון פריסה אחיד אפשרות 2  </p>
-          {x_directionResultForClient.map((result, index) => (
+          <hr></hr>
+          <p>חישוב לפי כיוון פריסה אחיד אפשרות 2 </p>
+          {y_directionResultForClient.map((result, index) => (
             <>
-              <hr></hr>
               <p>
                 <strong> {`תוצאה למלבן ${index + 1}`}</strong>
               </p>
