@@ -34,7 +34,7 @@ function App() {
     squares.forEach((square) => {
       let result1 = calculateBestOption(square[0] / 100, square[1] / 100);
       let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
-
+      //פחת מינימלי
       if (result1.pchat === result2.pchat) {
         setresultForClient([...resultForClient, result1]);
       } else if (result1.pchat < result2.pchat) {
@@ -42,9 +42,11 @@ function App() {
       } else {
         setresultForClient([...resultForClient, result2]);
       }
-
+      //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
+
+      //חיבור מינימלי
 
       console.log("result1:", result1);
       console.log("result2:", result2);
