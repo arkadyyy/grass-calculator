@@ -47,8 +47,7 @@ const calculateBestOption = (widthInput, lengthInput) => {
       continue;
     }
   }
-  //   console.log(pchatLength);
-  //   console.log(pchatWidth);
+  
 
   pchat = pchatLength * pchatWidth;
 
