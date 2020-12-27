@@ -4,18 +4,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, InputGroup, FormControl, Modal, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import calculateBestOption from "../calculator";
+import PchatWithDirection from "../PchatWithDirection";
+import MinChiburNoDirection from "../minChiburNoDirection";
 
 function Home({ history }) {
   const [squares, setsquares] = useState([]);
-<<<<<<< HEAD
-  const [resultForClient, setresultForClient] = useState([]);
-  const [x_directionResultForClient, setX_DirectionResultForClient] = useState([]);
-  const [y_directionResultForClient, setY_DirectionResultForClient] = useState([]);
-
-  const [width, setwidth] = useState(0);
-  const [length, setlength] = useState(0);
-  const [color, setColor] = useState(getRandomColour());
-=======
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
@@ -33,8 +26,7 @@ function Home({ history }) {
   });
 
   //squares color
-  const [color, setColor] = useState("green");
->>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
+  const [color, setColor] = useState(getRandomColour());
 
   //modal state
 
@@ -49,9 +41,9 @@ function Home({ history }) {
 
   function bestResult() {
     squares.forEach((square) => {
+            //פחת מינימלי
       let result1 = calculateBestOption(square[0] / 100, square[1] / 100);
       let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
-      //פחת מינימלי
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
@@ -59,29 +51,12 @@ function Home({ history }) {
       } else {
         setresultForClientPchat([...resultForClientPchat, result2]);
       }
+
       //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
-
-<<<<<<< HEAD
-      // console.log("result1:", result1);
-      // console.log("result2:", result2);
-      // console.log("resultForClient:", resultForClient);
-      // console.log("x result:", x_directionResultForClient);
-      // console.log("y result:", y_directionResultForClient);
-    });
-  }
-
-
-  function getRandomColour(){
-    var red = Math.floor(Math.random()* 255);
-    var green = Math.floor(Math.random() * 255);
-    var blue = Math.floor(Math.random() * 255);
-  
-    return "rgb("+red+","+green+"," +blue+" )";  
-  }
-
-=======
+      let result3 = PchatWithDirection(x_directionResultForClient, y_directionResultForClient);
+console.log("result3:",result3);
       //חיבור מינימלי
 
       console.log("result1:", result1);
@@ -99,7 +74,6 @@ function Home({ history }) {
 
     return "rgb(" + red + "," + green + "," + blue + " )";
   }
->>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
   return (
     <div className='App'>
       <Konva squares={squares} setsquares={setsquares} />
@@ -162,13 +136,7 @@ function Home({ history }) {
           <Button
             onClick={() => {
               setColor(getRandomColour());
-<<<<<<< HEAD
-              // setsquares([...squares, [+width, +length]]);
-              setsquares([...squares, [+width, +length,color]]);
-
-=======
               setsquares([...squares, [+width, +length, color]]);
->>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
               console.log(width);
               console.log(length);
               setwidth(0);
@@ -207,10 +175,11 @@ function Home({ history }) {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>תוצאת חישוב</Modal.Title>
+          <Modal.Title> תוצאת חישוב
+                      <p>מצאנו לך את ההזמנה המומלצת</p>
+</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>מצאנו לך את ההזמנה המומלצת</p>
           <p>פחת מינימלי</p>
           {resultForClientPchat.map((result, index) => (
             <>

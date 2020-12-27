@@ -1,22 +1,19 @@
-function pchatWithDirection(arrX, arrY) {
-  resultX = arrX.reduce((acc, curVal) => {
+function PchatWithDirection(arrX, arrY) {
+  let resultX = arrX.reduce((acc, curVal) => {
     acc += curVal.pchat;
   }, 0);
-  resultY = arrX.reduce((acc, curVal) => {
+  let resultY = arrY.reduce((acc, curVal) => {
     acc += curVal.pchat;
   }, 0);
 
   if (resultX === resultY) {
-    resultXConnections = arrX.reduce((acc, curVal) => {
-      acc += curVal.forEach((element) => {
-        return element.opt2 + element.opt3 + element.opt4;
-      });
+    let resultXConnections = arrX.reduce((acc, curVal) => {
+      acc += curVal.opt2 + curVal.opt3 + curVal.opt4;
+      
     }, 0);
 
-    resultYConnections = arrY.reduce((acc, curVal) => {
-      acc += curVal.forEach((element) => {
-        return element.opt2 + element.opt3 + element.opt4;
-      });
+   let resultYConnections = arrY.reduce((acc, curVal) => {
+    acc += curVal.opt2 + curVal.opt3 + curVal.opt4;
     }, 0);
 
     if (resultXConnections >= resultYConnections) {
@@ -31,4 +28,4 @@ function pchatWithDirection(arrX, arrY) {
   }
 }
 
-export default pchatWithDirection;
+export default PchatWithDirection;
