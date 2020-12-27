@@ -284,9 +284,43 @@ function Home({ history }) {
               <p>{`פחת ${result.pchat}`}</p>
             </>
           ))}
+
           <hr></hr>
           <p>חישוב לפי כיוון פריסה אחיד אפשרות 2 </p>
           {y_directionResultForClient.map((result, index) => (
+            <>
+              <p>
+                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
+              </p>
+
+              {result.opt4.amount >= 1 ? (
+                <>
+                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt3.amount >= 1 ? (
+                <>
+                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt2.amount >= 1 ? (
+                <>
+                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              <p>{`פחת ${result.pchat}`}</p>
+            </>
+          ))}
+
+          <hr></hr>
+          <p>חישוב לפי מינימום חיבורים </p>
+          {resultMinChiburNoDirection.map((result, index) => (
             <>
               <p>
                 <strong> {`תוצאה למלבן ${index + 1}`}</strong>
