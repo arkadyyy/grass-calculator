@@ -4,12 +4,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, InputGroup, FormControl, Modal, Form } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import calculateBestOption from "../calculator";
+import ChiburCalc from "../chiburCalc";
 import PchatWithDirection from "../PchatWithDirection";
 import MinChiburNoDirection from "../minChiburNoDirection";
 
 function Home({ history }) {
   const [squares, setsquares] = useState([]);
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
+  const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
+  const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
+    []
+  );
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
   );
@@ -39,11 +44,38 @@ function Home({ history }) {
     bestResult();
   }, [squares]);
 
+  useEffect(() => {
+    bestResultPchatWithDirection();
+  }, [x_directionResultForClient]);
+
+  useEffect(() => {
+    bestMinChiburNoDirection();
+  }, [x_directionResultForClient]);
+
+  function bestMinChiburNoDirection() {
+    let result4 = MinChiburNoDirection(
+      x_directionResultForClient,
+      y_directionResultForClient
+    );
+    console.log("result 4 : ", result4);
+    setresultMinChiburNoDirection(result4);
+  }
+
+  function bestResultPchatWithDirection() {
+    let result3 = PchatWithDirection(
+      x_directionResultForClient,
+      y_directionResultForClient
+    );
+
+    // console.log("result3:", result3);
+    setresultPchatWithDirection(result3);
+  }
+
   function bestResult() {
     squares.forEach((square) => {
-            //פחת מינימלי
-      let result1 = calculateBestOption(square[0] / 100, square[1] / 100);
-      let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
+      //פחת מינימלי
+      let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
+      let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
@@ -55,8 +87,7 @@ function Home({ history }) {
       //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
-      let result3 = PchatWithDirection(x_directionResultForClient, y_directionResultForClient);
-console.log("result3:",result3);
+
       //חיבור מינימלי
 
       console.log("result1:", result1);
@@ -150,7 +181,14 @@ console.log("result3:",result3);
           <Button
             onClick={() => {
               // console.log(squares);
-
+              console.log(
+                "resultPchatWithDirection : ",
+                resultPchatWithDirection
+              );
+              console.log(
+                "resultMinChiburNoDirection : ",
+                resultMinChiburNoDirection
+              );
               handleShow();
             }}
             className='m-3'
@@ -175,9 +213,11 @@ console.log("result3:",result3);
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title> תוצאת חישוב
-                      <p>מצאנו לך את ההזמנה המומלצת</p>
-</Modal.Title>
+          <Modal.Title>
+            {" "}
+            תוצאת חישוב
+            <p>מצאנו לך את ההזמנה המומלצת</p>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p>פחת מינימלי</p>
