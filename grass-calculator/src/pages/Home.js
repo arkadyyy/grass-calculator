@@ -13,7 +13,7 @@ function Home({ history }) {
 
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
-  const [color, setColor] = useState(null);
+  const [color, setColor] = useState(getRandomColour());
 
   //modal state
 
