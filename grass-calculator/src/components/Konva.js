@@ -21,7 +21,7 @@ const Konva = ({ squares }) => {
           height={window.innerHeight / 3}
         >
           <Layer>
-            {squares.map((square) => (
+            {squares.map((square, index) => (
               <>
                 <Group draggable>
                   <Text x={110} y={30} text={` ${square[0]} ר`} fontSize={15} />
@@ -37,9 +37,16 @@ const Konva = ({ squares }) => {
                     y={50}
                     width={square[0] / 5}
                     height={square[1] / 5}
-                    fill='green'
+                    fill={square[2]}
                     stroke='black'
                     strokeWidth='2'
+                  />
+                  <Text
+                    x={120}
+                    y={80}
+                    text={`${index + 1}`}
+                    fontSize={15}
+                    fill={"black"}
                   />
                 </Group>
               </>

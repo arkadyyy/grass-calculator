@@ -7,16 +7,24 @@ import calculateBestOption from "../calculator";
 
 function Home({ history }) {
   const [squares, setsquares] = useState([]);
-  const [resultForClient, setresultForClient] = useState([]);
+  const [resultForClientPchat, setresultForClientPchat] = useState([]);
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
   );
   const [y_directionResultForClient, setY_DirectionResultForClient] = useState(
     []
   );
-
+  //input values
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
+  const [searchBy, setsearchBy] = useState({
+    Pchat: false,
+    Direction: false,
+    MinCuts: false,
+  });
+
+  //squares color
+  const [color, setColor] = useState("green");
 
   //modal state
 
@@ -35,11 +43,11 @@ function Home({ history }) {
       let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
       //פחת מינימלי
       if (result1.pchat === result2.pchat) {
-        setresultForClient([...resultForClient, result1]);
+        setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
-        setresultForClient([...resultForClient, result1]);
+        setresultForClientPchat([...resultForClientPchat, result1]);
       } else {
-        setresultForClient([...resultForClient, result2]);
+        setresultForClientPchat([...resultForClientPchat, result2]);
       }
       //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
@@ -49,12 +57,19 @@ function Home({ history }) {
 
       console.log("result1:", result1);
       console.log("result2:", result2);
-      console.log("resultForClient:", resultForClient);
-      console.log("x result:", x_directionResultForClient);
-      console.log("y result:", y_directionResultForClient);
+      console.log("resultForClient:", resultForClientPchat);
+      console.log("x axis results:", x_directionResultForClient);
+      console.log("y axis results:", y_directionResultForClient);
     });
   }
 
+  function getRandomColour() {
+    var red = Math.floor(Math.random() * 255);
+    var green = Math.floor(Math.random() * 255);
+    var blue = Math.floor(Math.random() * 255);
+
+    return "rgb(" + red + "," + green + "," + blue + " )";
+  }
   return (
     <div className='App'>
       <Konva squares={squares} setsquares={setsquares} />
@@ -94,11 +109,30 @@ function Home({ history }) {
             setlength(e.target.value);
           }}
         />
+        <Form style={{ display: "flex" }}>
+          {["פחת", "חיתוכים", "כיוון"].map((type) => (
+            <div
+              style={{
+                direction: "rtl",
+                display: "flex",
+                justifyContent: "space-between",
+                margin: " 1rem 0.3rem",
+              }}
+              key={`checkbox`}
+              className='mb-3'
+            >
+              <Form.Label>
+                <strong>{type}</strong>
+              </Form.Label>
+              <Form.Check type='checkbox' id={`default-${type}`} />
+            </div>
+          ))}
+        </Form>
         <div className='buttons'>
           <Button
             onClick={() => {
-              setsquares([...squares, [+width, +length]]);
-
+              setColor(getRandomColour());
+              setsquares([...squares, [+width, +length, color]]);
               console.log(width);
               console.log(length);
               setwidth(0);
@@ -123,7 +157,7 @@ function Home({ history }) {
           <Button
             onClick={() => {
               setsquares([]);
-              setresultForClient([]);
+              setresultForClientPchat([]);
               setwidth(0);
               setlength(0);
             }}
@@ -142,7 +176,7 @@ function Home({ history }) {
         <Modal.Body>
           <p>מצאנו לך את ההזמנה המומלצת</p>
           <p>פחת מינימלי</p>
-          {resultForClient.map((result, index) => (
+          {resultForClientPchat.map((result, index) => (
             <>
               <hr></hr>
               <p>
