@@ -7,6 +7,7 @@ import calculateBestOption from "../calculator";
 
 function Home({ history }) {
   const [squares, setsquares] = useState([]);
+<<<<<<< HEAD
   const [resultForClient, setresultForClient] = useState([]);
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState([]);
   const [y_directionResultForClient, setY_DirectionResultForClient] = useState([]);
@@ -14,6 +15,26 @@ function Home({ history }) {
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
   const [color, setColor] = useState(getRandomColour());
+=======
+  const [resultForClientPchat, setresultForClientPchat] = useState([]);
+  const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
+    []
+  );
+  const [y_directionResultForClient, setY_DirectionResultForClient] = useState(
+    []
+  );
+  //input values
+  const [width, setwidth] = useState(0);
+  const [length, setlength] = useState(0);
+  const [searchBy, setsearchBy] = useState({
+    Pchat: false,
+    Direction: false,
+    MinCuts: false,
+  });
+
+  //squares color
+  const [color, setColor] = useState("green");
+>>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
 
   //modal state
 
@@ -32,16 +53,17 @@ function Home({ history }) {
       let result2 = calculateBestOption(square[1] / 100, square[0] / 100);
       //פחת מינימלי
       if (result1.pchat === result2.pchat) {
-        setresultForClient([...resultForClient, result1]);
+        setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
-        setresultForClient([...resultForClient, result1]);
+        setresultForClientPchat([...resultForClientPchat, result1]);
       } else {
-        setresultForClient([...resultForClient, result2]);
+        setresultForClientPchat([...resultForClientPchat, result2]);
       }
       //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
 
+<<<<<<< HEAD
       // console.log("result1:", result1);
       // console.log("result2:", result2);
       // console.log("resultForClient:", resultForClient);
@@ -59,6 +81,25 @@ function Home({ history }) {
     return "rgb("+red+","+green+"," +blue+" )";  
   }
 
+=======
+      //חיבור מינימלי
+
+      console.log("result1:", result1);
+      console.log("result2:", result2);
+      console.log("resultForClient:", resultForClientPchat);
+      console.log("x axis results:", x_directionResultForClient);
+      console.log("y axis results:", y_directionResultForClient);
+    });
+  }
+
+  function getRandomColour() {
+    var red = Math.floor(Math.random() * 255);
+    var green = Math.floor(Math.random() * 255);
+    var blue = Math.floor(Math.random() * 255);
+
+    return "rgb(" + red + "," + green + "," + blue + " )";
+  }
+>>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
   return (
     <div className='App'>
       <Konva squares={squares} setsquares={setsquares} />
@@ -98,13 +139,36 @@ function Home({ history }) {
             setlength(e.target.value);
           }}
         />
+        <Form style={{ display: "flex" }}>
+          {["פחת", "חיתוכים", "כיוון"].map((type) => (
+            <div
+              style={{
+                direction: "rtl",
+                display: "flex",
+                justifyContent: "space-between",
+                margin: " 1rem 0.3rem",
+              }}
+              key={`checkbox`}
+              className='mb-3'
+            >
+              <Form.Label>
+                <strong>{type}</strong>
+              </Form.Label>
+              <Form.Check type='checkbox' id={`default-${type}`} />
+            </div>
+          ))}
+        </Form>
         <div className='buttons'>
           <Button
             onClick={() => {
               setColor(getRandomColour());
+<<<<<<< HEAD
               // setsquares([...squares, [+width, +length]]);
               setsquares([...squares, [+width, +length,color]]);
 
+=======
+              setsquares([...squares, [+width, +length, color]]);
+>>>>>>> 6a5c85fe95de6b8a69901d43c9123d3dc5327573
               console.log(width);
               console.log(length);
               setwidth(0);
@@ -129,7 +193,7 @@ function Home({ history }) {
           <Button
             onClick={() => {
               setsquares([]);
-              setresultForClient([]);
+              setresultForClientPchat([]);
               setwidth(0);
               setlength(0);
             }}
@@ -148,7 +212,7 @@ function Home({ history }) {
         <Modal.Body>
           <p>מצאנו לך את ההזמנה המומלצת</p>
           <p>פחת מינימלי</p>
-          {resultForClient.map((result, index) => (
+          {resultForClientPchat.map((result, index) => (
             <>
               <hr></hr>
               <p>
