@@ -17,3 +17,7 @@ label {
   margin-bottom: 0.5rem;
   text-align: right;
 }
+.summary {
+  direction: rtl !important;
+  padding: 2rem;
+}
