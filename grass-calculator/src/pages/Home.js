@@ -83,6 +83,8 @@ function Home({ history }) {
     return "rgb(" + red + "," + green + "," + blue + " )";
   }
 
+  const [openSummary, setopenSummary] = useState(false);
+
   useEffect(() => {
     console.log("summary changed !");
   }, [summary]);
@@ -272,7 +274,15 @@ function Home({ history }) {
             >
               הוסף מלבן
             </Button>
-            <Button className='m-3' variant='success'>
+            <Button
+              className='m-3'
+              variant='success'
+              onClick={() => {
+                setopenSummary(true);
+
+                summaryAllOptions();
+              }}
+            >
               חשב
             </Button>
             <Button
@@ -292,20 +302,45 @@ function Home({ history }) {
         </InputGroup>
       </div>
       <hr></hr>
-      <div className='summary'>
-        <h3>אלו התוצאות שמצאנו עבורך </h3>
-        <Container>
-          <Row>
-            <Col>
-              <Card border='secondary' style={{ width: "18rem" }}>
-                <Card.Header>חישוב ע"פ מינימום פחת</Card.Header>
-                {resultForClientPchat.map((square, index) => {
-                  return (
+      {openSummary && (
+        <div className='summary'>
+          <h3>אלו התוצאות שמצאנו עבורך </h3>
+          <Container>
+            <Row>
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>חישוב ע"פ מינימום פחת</Card.Header>
+                  {resultForClientPchat.map((square, index) => {
+                    return (
+                      <>
+                        <Card.Body>
+                          <Card.Title>מרובע {index + 1}</Card.Title>
+                          <Card.Text>
+                            <hr></hr>
+                            משטח 4מ {square.opt4.amount}
+                            באורך {square.opt4.length}
+                            <br></br>
+                            משטח 3מ {square.opt3.amount}
+                            באורך {square.opt3.length}
+                            <br></br>
+                            משטח 2מ {square.opt2.amount}
+                            באורך {square.opt2.length}
+                            <br></br>
+                          </Card.Text>
+                        </Card.Body>
+                      </>
+                    );
+                  })}
+                </Card>
+              </Col>
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>חישוב ע"פ מינימום חיבורים</Card.Header>
+                  {resultMinChiburNoDirection.map((square, index) => (
                     <>
                       <Card.Body>
                         <Card.Title>מרובע {index + 1}</Card.Title>
                         <Card.Text>
-                          <hr></hr>
                           משטח 4מ {square.opt4.amount}
                           באורך {square.opt4.length}
                           <br></br>
@@ -318,64 +353,42 @@ function Home({ history }) {
                         </Card.Text>
                       </Card.Body>
                     </>
-                  );
-                })}
-              </Card>
-            </Col>
-            <Col>
-              <Card border='secondary' style={{ width: "18rem" }}>
-                <Card.Header>חישוב ע"פ מינימום חיבורים</Card.Header>
-                {resultMinChiburNoDirection.map((square, index) => (
-                  <>
-                    <Card.Body>
-                      <Card.Title>מרובע {index + 1}</Card.Title>
-                      <Card.Text>
-                        משטח 4מ {square.opt4.amount}
-                        באורך {square.opt4.length}
-                        <br></br>
-                        משטח 3מ {square.opt3.amount}
-                        באורך {square.opt3.length}
-                        <br></br>
-                        משטח 2מ {square.opt2.amount}
-                        באורך {square.opt2.length}
-                        <br></br>
-                      </Card.Text>
-                    </Card.Body>
-                  </>
-                ))}
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Card
-                className='my-5'
-                border='secondary'
-                style={{ width: "100%" }}
-              >
-                {Object.entries(summary).map(([key, value], i) => (
-                  <>
-                    <Card.Header>enteries {i}</Card.Header>
+                  ))}
+                </Card>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Card
+                  className='my-5'
+                  border='secondary'
+                  style={{ width: "100%" }}
+                >
+                  {Object.entries(summary).map(([key, value], i) => (
+                    <>
+                      <Card.Header>enteries {i}</Card.Header>
 
-                    <Card.Body>
-                      <Card.Title>{key}</Card.Title>
-                      <Card.Text>
-                        opt2 : {value.opt2}
-                        <br></br>
-                        opt3 : {value.opt3}
-                        <br></br>
-                        opt4 : {value.opt4}
-                        <br></br>
-                        pchat : {value.pchat}
-                      </Card.Text>
-                    </Card.Body>
-                  </>
-                ))}
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+                      <Card.Body>
+                        <Card.Title>{key}</Card.Title>
+                        <Card.Text>
+                          opt2 : {value.opt2}
+                          <br></br>
+                          opt3 : {value.opt3}
+                          <br></br>
+                          opt4 : {value.opt4}
+                          <br></br>
+                          pchat : {value.pchat}
+                          <br></br>
+                        </Card.Text>
+                      </Card.Body>
+                    </>
+                  ))}
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      )}
     </>
   );
 }
