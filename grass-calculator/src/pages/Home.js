@@ -11,6 +11,7 @@ import {
   Container,
   Row,
   Col,
+  Spinner,
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import calculateBestOption from "../calculator";
@@ -302,8 +303,10 @@ function Home({ history }) {
         </InputGroup>
       </div>
       <hr></hr>
+
       {openSummary && (
         <div className='summary'>
+          <Spinner animation='border' variant='success' size='xl' />
           <h3>אלו התוצאות שמצאנו עבורך </h3>
           <Container>
             <Row>
