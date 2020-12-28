@@ -11,16 +11,33 @@ import MinChiburNoDirection from "../minChiburNoDirection";
 function Home({ history }) {
   const [squares, setsquares] = useState([]);
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
+  
+  // const sumResultForClientPchat = resultForClientPchat.reduce(
+  //   ({ previousRes }, { opt2: currentRes }, index) => {opt2: previousRes.opt2 + currentRes.opt2.amount } ,
+  // );
+  
+  //   console.log("sumResultForClientPchat:",sumResultForClientPchat);
+  
+    let sumOpt2 = resultForClientPchat.reduce((acc, curVal) => {
+      acc += curVal.opt2.amount;
+    }, 0);
+    let sumOpt3 = resultForClientPchat.reduce((acc, curVal) => {
+      acc += curVal.opt3.amount;
+    }, 0);
+    let sumOpt4 = resultForClientPchat.reduce((acc, curVal) => {
+      acc += curVal.opt4.amount;
+    }, 0);
+    let sumPchat = resultForClientPchat.reduce((acc, curVal) => {
+      acc += curVal.pchat;
+    }, 0);
+    
+console.log("sumOpt2:",sumOpt2,"sumOpt3:" ,sumOpt3,"sumOpt4:",sumOpt4,"pchat:",sumPchat);
+  // const [sumResultForClientPchat, setSumResultForClientPchat] = useState([]);
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
-  const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
-    []
-  );
-  const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
-    []
-  );
-  const [y_directionResultForClient, setY_DirectionResultForClient] = useState(
-    []
-  );
+  const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState([]);
+  const [x_directionResultForClient, setX_DirectionResultForClient] = useState([]);
+  const [y_directionResultForClient, setY_DirectionResultForClient] = useState([]);
+
   //input values
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
@@ -78,10 +95,14 @@ function Home({ history }) {
       let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
+        // setSumResultForClientPchat([...sumResultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
+        // setSumResultForClientPchat([...sumResultForClientPchat, result1]);
+
       } else {
         setresultForClientPchat([...resultForClientPchat, result2]);
+        // setSumResultForClientPchat([...sumResultForClientPchat, result2]);
       }
 
       //כיוון פריסה
@@ -180,15 +201,7 @@ function Home({ history }) {
           </Button>
           <Button
             onClick={() => {
-              // console.log(squares);
-              console.log(
-                "resultPchatWithDirection : ",
-                resultPchatWithDirection
-              );
-              console.log(
-                "resultMinChiburNoDirection : ",
-                resultMinChiburNoDirection
-              );
+             
               handleShow();
             }}
             className='m-3'
@@ -200,6 +213,8 @@ function Home({ history }) {
             onClick={() => {
               setsquares([]);
               setresultForClientPchat([]);
+        // setSumResultForClientPchat([]);
+
               setwidth(0);
               setlength(0);
             }}
@@ -253,6 +268,41 @@ function Home({ history }) {
             </>
           ))}
           <hr></hr>
+          <p>לפי פחת וכיוון סיבים אחיד </p>
+          {resultPchatWithDirection.map((result, index) => (
+            <>
+<p>
+<strong> {`תוצאה למלבן ${index + 1}`}</strong>
+</p>
+
+{result.opt4.amount >= 1 ? (
+<>
+  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+</>
+) : null}
+
+{result.opt3.amount >= 1 ? (
+<>
+  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+</>
+) : null}
+
+{result.opt2.amount >= 1 ? (
+<>
+  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+</>
+) : null}
+
+<p>{`פחת ${result.pchat}`}</p>
+</>
+))}
+
+<hr></hr>
+          
+
           <p>חישוב לפי כיוון פריסה אחיד אפשרות 1 </p>
           {x_directionResultForClient.map((result, index) => (
             <>
@@ -350,23 +400,56 @@ function Home({ history }) {
               <p>{`פחת ${result.pchat}`}</p>
             </>
           ))}
+          <p>   חישוב לפי מינימום חיבורים  כולל כיוון סיב אחיד</p>
+          {resultMinChiburNoDirection.map((result, index) => (
+            <>
+              <p>
+                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
+              </p>
 
-          {/* {sumResultForClient.opt2.width >= 1 ? (
+              {result.opt4.amount >= 1 ? (
+                <>
+                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt3.amount >= 1 ? (
+                <>
+                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              {result.opt2.amount >= 1 ? (
+                <>
+                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
+                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
+                </>
+              ) : null}
+
+              <p>{`פחת ${result.pchat}`}</p>
+            </>
+          ))}
+          <hr></hr>
+          <p>  חישוב כולל עבור מינימום פחת</p>
+
+          {/* {sumResultForClientPchat.opt2.width >= 1 ? (
             <>
               <p> משטח ברוחב 2 מטר</p>
-              <p> {sumResultForClient.opt2.length} : באורך </p>
+              <p> {sumResultForClientPchat.opt2.length} : באורך </p>
             </>
           ) : null}
-          {sumResultForClient.opt3.width >= 1 ? (
+          {sumResultForClientPchat.opt3.width >= 1 ? (
             <>
               <p> משטח ברוחב 3 מטר</p>
-              <p> {sumResultForClient.opt3.length} : באורך </p>
+              <p> {sumResultForClientPchat.opt3.length} : באורך </p>
             </>
           ) : null}
-          {sumResultForClient.opt4.width >= 1 ? (
+          {sumResultForClientPchat.opt4.width >= 1 ? (
             <>
               <p> משטח ברוחב 4 מטר </p>
-              <p> {sumResultForClient.opt4.length} : באורך </p>
+              <p> {sumResultForClientPchat.opt4.length} : באורך </p>
             </>
           ) : null} */}
         </Modal.Body>
