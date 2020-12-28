@@ -27,8 +27,6 @@ function Home({ history }) {
   //best result for client considering pchat only
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
 
-  const [sumResultForClientPchat, setsumResultForClientPchat] = useState(null);
-
   //best result for client considering pchat and direction
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
 
@@ -86,8 +84,11 @@ function Home({ history }) {
   }
 
   useEffect(() => {
+    console.log("summary changed !");
+  }, [summary]);
+
+  useEffect(() => {
     bestResult();
-    summaryAllOptions();
     console.log("summary : ", summary);
   }, [squares]);
 
@@ -148,28 +149,8 @@ function Home({ history }) {
       pchatC += square.pchat;
     });
 
-    // const [summary, setSummary] = useState({
-    //   minPchatSummary: {
-    //     opt2: 0,
-    //     opt3: 0,
-    //     opt4: 0,
-    //     pchat: 0,
-    //   },
-    //   minChiburNoDirection: {
-    //     opt2: 0,
-    //     opt3: 0,
-    //     opt4: 0,
-    //     pchat: 0,
-    //   },
-    //   minChiburWithDirection: {
-    //     opt2: 0,
-    //     opt3: 0,
-    //     opt4: 0,
-    //     pchat: 0,
-    //   },
-    // });
-
     setSummary({
+      ...summary,
       minPchatSummary: {
         opt2: opt2AmountP,
         opt3: opt3AmountP,
@@ -212,6 +193,8 @@ function Home({ history }) {
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
     });
+
+    summaryAllOptions();
   }
 
   return (
@@ -282,6 +265,7 @@ function Home({ history }) {
                 console.log(length);
                 setwidth(0);
                 setlength(0);
+                summaryAllOptions();
               }}
               className='m-3'
               variant='success'
@@ -364,49 +348,29 @@ function Home({ history }) {
           </Row>
           <Row>
             <Col>
-              <Card border='secondary' style={{ width: "18rem" }}>
-                <Card.Header>wwwwwwwwwwww</Card.Header>
+              <Card
+                className='my-5'
+                border='secondary'
+                style={{ width: "100%" }}
+              >
+                {Object.entries(summary).map(([key, value], i) => (
+                  <>
+                    <Card.Header>enteries {i}</Card.Header>
 
-                <Card.Body>
-                  <Card.Title>wwwwwwwwww</Card.Title>
-                  <Card.Text>
-                    <div>
-                      minPchatSummary
-                      <br></br>
-                      opt2 : {summary.minPchatSummary.opt2}
-                      <br></br>
-                      opt3 : {summary.minPchatSummary.opt3}
-                      <br></br>
-                      opt4 : {summary.minPchatSummary.opt4}
-                      <br></br>
-                      pchat : {summary.minPchatSummary.pchat}
-                    </div>
-                    <br></br>
-                    <div>
-                      minChiburNoDirection
-                      <br></br>
-                      opt2 : {summary.minChiburNoDirection.opt2}
-                      <br></br>
-                      opt3 : {summary.minChiburNoDirection.opt3}
-                      <br></br>
-                      opt4 : {summary.minChiburNoDirection.opt4}
-                      <br></br>
-                      pchat : {summary.minChiburNoDirection.pchat}
-                    </div>
-                    <br></br>
-                    <div>
-                      minChiburWithDirection
-                      <br></br>
-                      opt2 : {summary.minChiburWithDirection.opt2}
-                      <br></br>
-                      opt3 : {summary.minChiburWithDirection.opt3}
-                      <br></br>
-                      opt4 : {summary.minChiburWithDirection.opt4}
-                      <br></br>
-                      pchat : {summary.minChiburWithDirection.pchat}
-                    </div>
-                  </Card.Text>
-                </Card.Body>
+                    <Card.Body>
+                      <Card.Title>{key}</Card.Title>
+                      <Card.Text>
+                        opt2 : {value.opt2}
+                        <br></br>
+                        opt3 : {value.opt3}
+                        <br></br>
+                        opt4 : {value.opt4}
+                        <br></br>
+                        pchat : {value.pchat}
+                      </Card.Text>
+                    </Card.Body>
+                  </>
+                ))}
               </Card>
             </Col>
           </Row>
