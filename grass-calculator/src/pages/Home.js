@@ -18,56 +18,81 @@ import ChiburCalc from "../chiburCalc";
 import PchatWithDirection from "../PchatWithDirection";
 import MinChiburNoDirection from "../minChiburNoDirection";
 
+////////////////////////////////////////////////////////////////////////
+
 function Home({ history }) {
+  //all squares entered
   const [squares, setsquares] = useState([]);
+
+  //best result for client considering pchat only
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
 
   const [sumResultForClientPchat, setsumResultForClientPchat] = useState(null);
 
-  // const [sumResultForClientPchat, setSumResultForClientPchat] = useState([]);
+  //best result for client considering pchat and direction
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
+
+  //best result for client considering connections only
   const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
     []
   );
+
+  //all x axis results
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
   );
+
+  //all y axis results
   const [y_directionResultForClient, setY_DirectionResultForClient] = useState(
     []
   );
 
+  //summary state
+
+  const [summary, setSummary] = useState({
+    minPchatSummary: {
+      opt2: 0,
+      opt3: 0,
+      opt4: 0,
+      pchat: 0,
+    },
+    minChiburNoDirection: {
+      opt2: 0,
+      opt3: 0,
+      opt4: 0,
+      pchat: 0,
+    },
+    minChiburWithDirection: {
+      opt2: 0,
+      opt3: 0,
+      opt4: 0,
+      pchat: 0,
+    },
+  });
+
   //input values
   const [width, setwidth] = useState(0);
   const [length, setlength] = useState(0);
-  const [searchBy, setsearchBy] = useState({
-    Pchat: false,
-    Direction: false,
-    MinCuts: false,
-  });
 
   //squares color
   const [color, setColor] = useState(getRandomColour());
 
-  //modal state
+  function getRandomColour() {
+    var red = Math.floor(Math.random() * 255);
+    var green = Math.floor(Math.random() * 255);
+    var blue = Math.floor(Math.random() * 255);
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+    return "rgb(" + red + "," + green + "," + blue + " )";
+  }
 
   useEffect(() => {
     bestResult();
-
-    // console.log("minPchatSummaryResult : ", minPchatSummaryResult);
-    // console.log("sumResultForClientPchat : ", sumResultForClientPchat);
-    // setsumResultForClientPchat(minPchatSummaryResult);
+    summaryAllOptions();
+    console.log("summary : ", summary);
   }, [squares]);
 
   useEffect(() => {
     bestResultPchatWithDirection();
-  }, [x_directionResultForClient]);
-
-  useEffect(() => {
     bestMinChiburNoDirection();
   }, [x_directionResultForClient]);
 
@@ -76,7 +101,7 @@ function Home({ history }) {
       x_directionResultForClient,
       y_directionResultForClient
     );
-    console.log("result 4 : ", result4);
+
     setresultMinChiburNoDirection(result4);
   }
 
@@ -86,8 +111,88 @@ function Home({ history }) {
       y_directionResultForClient
     );
 
-    // console.log("result3:", result3);
     setresultPchatWithDirection(result3);
+  }
+
+  function summaryAllOptions() {
+    let opt2AmountP = 0;
+    let opt3AmountP = 0;
+    let opt4AmountP = 0;
+    let pchatP = 0;
+    resultForClientPchat.forEach((square) => {
+      opt2AmountP += square.opt2.amount;
+      opt3AmountP += square.opt3.amount;
+      opt4AmountP += square.opt4.amount;
+      pchatP += square.pchat;
+    });
+
+    let opt2AmountPD = 0;
+    let opt3AmountPD = 0;
+    let opt4AmountPD = 0;
+    let pchatPD = 0;
+    resultPchatWithDirection.forEach((square) => {
+      opt2AmountPD += square.opt2.amount;
+      opt3AmountPD += square.opt3.amount;
+      opt4AmountPD += square.opt4.amount;
+      pchatPD += square.pchat;
+    });
+
+    let opt2AmountC = 0;
+    let opt3AmountC = 0;
+    let opt4AmountC = 0;
+    let pchatC = 0;
+    resultMinChiburNoDirection.forEach((square) => {
+      opt2AmountC += square.opt2.amount;
+      opt3AmountC += square.opt3.amount;
+      opt4AmountC += square.opt4.amount;
+      pchatC += square.pchat;
+    });
+
+    // const [summary, setSummary] = useState({
+    //   minPchatSummary: {
+    //     opt2: 0,
+    //     opt3: 0,
+    //     opt4: 0,
+    //     pchat: 0,
+    //   },
+    //   minChiburNoDirection: {
+    //     opt2: 0,
+    //     opt3: 0,
+    //     opt4: 0,
+    //     pchat: 0,
+    //   },
+    //   minChiburWithDirection: {
+    //     opt2: 0,
+    //     opt3: 0,
+    //     opt4: 0,
+    //     pchat: 0,
+    //   },
+    // });
+
+    setSummary({
+      minPchatSummary: {
+        opt2: opt2AmountP,
+        opt3: opt3AmountP,
+        opt4: opt4AmountP,
+        pchat: pchatP,
+      },
+      minChiburNoDirection: {
+        opt2: opt2AmountC,
+        opt3: opt3AmountC,
+        opt4: opt4AmountC,
+        pchat: pchatC,
+      },
+      minChiburWithDirection: {
+        opt2: opt2AmountPD,
+        opt3: opt3AmountPD,
+        opt4: opt4AmountPD,
+        pchat: pchatPD,
+      },
+    });
+
+    console.log("resultForClientPchat : ", resultForClientPchat);
+    console.log("resultPchatWithDirection : ", resultPchatWithDirection);
+    console.log("resultMinChiburNoDirection : ", resultMinChiburNoDirection);
   }
 
   function bestResult() {
@@ -97,36 +202,18 @@ function Home({ history }) {
       let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
-        // setSumResultForClientPchat([...sumResultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
-        // setSumResultForClientPchat([...sumResultForClientPchat, result1]);
       } else {
         setresultForClientPchat([...resultForClientPchat, result2]);
-        // setSumResultForClientPchat([...sumResultForClientPchat, result2]);
       }
 
       //כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
-
-      //חיבור מינימלי
-
-      console.log("result1:", result1);
-      console.log("result2:", result2);
-      console.log("resultForClient:", resultForClientPchat);
-      console.log("x axis results:", x_directionResultForClient);
-      console.log("y axis results:", y_directionResultForClient);
     });
   }
 
-  function getRandomColour() {
-    var red = Math.floor(Math.random() * 255);
-    var green = Math.floor(Math.random() * 255);
-    var blue = Math.floor(Math.random() * 255);
-
-    return "rgb(" + red + "," + green + "," + blue + " )";
-  }
   return (
     <>
       <div className='App'>
@@ -201,20 +288,13 @@ function Home({ history }) {
             >
               הוסף מלבן
             </Button>
-            <Button
-              onClick={() => {
-                handleShow();
-              }}
-              className='m-3'
-              variant='success'
-            >
+            <Button className='m-3' variant='success'>
               חשב
             </Button>
             <Button
               onClick={() => {
                 setsquares([]);
                 setresultForClientPchat([]);
-                // setSumResultForClientPchat([]);
 
                 setwidth(0);
                 setlength(0);
@@ -236,25 +316,8 @@ function Home({ history }) {
               <Card border='secondary' style={{ width: "18rem" }}>
                 <Card.Header>חישוב ע"פ מינימום פחת</Card.Header>
                 {resultForClientPchat.map((square, index) => {
-                  let minPchatSummaryResult = resultForClientPchat.reduce(
-                    (acc, curVal) => {
-                      // acc.opt2.amount += +curVal.opt2.amount;
-                      // acc.opt2.length += +curVal.opt2.length;
-
-                      // acc.opt3.amount += +curVal.opt3.amount;
-                      // acc.opt3.length += +curVal.opt3.length;
-
-                      // acc.opt4.amount += +curVal.opt4.amount;
-                      // acc.opt4.length += +curVal.opt4.length;
-
-                      acc += +curVal.pchat;
-                    },
-                    0
-                  );
-
                   return (
                     <>
-                      {<p> xxxxx : {minPchatSummaryResult}</p>}
                       <Card.Body>
                         <Card.Title>מרובע {index + 1}</Card.Title>
                         <Card.Text>
@@ -280,8 +343,6 @@ function Home({ history }) {
                 <Card.Header>חישוב ע"פ מינימום חיבורים</Card.Header>
                 {resultMinChiburNoDirection.map((square, index) => (
                   <>
-                    {/* <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p> */}
                     <Card.Body>
                       <Card.Title>מרובע {index + 1}</Card.Title>
                       <Card.Text>
@@ -300,277 +361,80 @@ function Home({ history }) {
                 ))}
               </Card>
             </Col>
-            {/* <Col>
+          </Row>
+          <Row>
+            <Col>
               <Card border='secondary' style={{ width: "18rem" }}>
-                <Card.Header>Header</Card.Header>
+                <Card.Header>wwwwwwwwwwww</Card.Header>
+
                 <Card.Body>
-                  <Card.Title>Secondary Card Title</Card.Title>
+                  <Card.Title>wwwwwwwwww</Card.Title>
                   <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
+                    <div>
+                      minPchatSummary
+                      <br></br>
+                      opt2 : {summary.minPchatSummary.opt2}
+                      <br></br>
+                      opt3 : {summary.minPchatSummary.opt3}
+                      <br></br>
+                      opt4 : {summary.minPchatSummary.opt4}
+                      <br></br>
+                      pchat : {summary.minPchatSummary.pchat}
+                    </div>
+                    <br></br>
+                    <div>
+                      minChiburNoDirection
+                      <br></br>
+                      opt2 : {summary.minChiburNoDirection.opt2}
+                      <br></br>
+                      opt3 : {summary.minChiburNoDirection.opt3}
+                      <br></br>
+                      opt4 : {summary.minChiburNoDirection.opt4}
+                      <br></br>
+                      pchat : {summary.minChiburNoDirection.pchat}
+                    </div>
+                    <br></br>
+                    <div>
+                      minChiburWithDirection
+                      <br></br>
+                      opt2 : {summary.minChiburWithDirection.opt2}
+                      <br></br>
+                      opt3 : {summary.minChiburWithDirection.opt3}
+                      <br></br>
+                      opt4 : {summary.minChiburWithDirection.opt4}
+                      <br></br>
+                      pchat : {summary.minChiburWithDirection.pchat}
+                    </div>
                   </Card.Text>
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
-              <Card border='secondary' style={{ width: "18rem" }}>
-                <Card.Header>Header</Card.Header>
-                <Card.Body>
-                  <Card.Title>Secondary Card Title</Card.Title>
-                  <Card.Text>
-                    Some quick example text to build on the card title and make
-                    up the bulk of the card's content.
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col> */}
           </Row>
         </Container>
       </div>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {" "}
-            תוצאת חישוב
-            <p>מצאנו לך את ההזמנה המומלצת</p>
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>פחת מינימלי</p>
-          {resultForClientPchat.map((result, index) => (
-            <>
-              <hr></hr>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-          <hr></hr>
-          <p>לפי פחת וכיוון סיבים אחיד </p>
-          {resultPchatWithDirection.map((result, index) => (
-            <>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-
-          <hr></hr>
-
-          <p>חישוב לפי כיוון פריסה אחיד אפשרות 1 </p>
-          {x_directionResultForClient.map((result, index) => (
-            <>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-
-          <hr></hr>
-          <p>חישוב לפי כיוון פריסה אחיד אפשרות 2 </p>
-          {y_directionResultForClient.map((result, index) => (
-            <>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-
-          <hr></hr>
-          <p>חישוב לפי מינימום חיבורים </p>
-          {resultMinChiburNoDirection.map((result, index) => (
-            <>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-          <p> חישוב לפי מינימום חיבורים כולל כיוון סיב אחיד</p>
-          {resultMinChiburNoDirection.map((result, index) => (
-            <>
-              <p>
-                <strong> {`תוצאה למלבן ${index + 1}`}</strong>
-              </p>
-
-              {result.opt4.amount >= 1 ? (
-                <>
-                  <p>{`משטח 4מ ${result.opt4.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt4.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt3.amount >= 1 ? (
-                <>
-                  <p>{`משטח 3מ ${result.opt3.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt3.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              {result.opt2.amount >= 1 ? (
-                <>
-                  <p>{`משטח 2מ ${result.opt2.amount}`}</p>
-                  <p>{<p>{`באורך ${result.opt2.length}`}</p>}</p>
-                </>
-              ) : null}
-
-              <p>{`פחת ${result.pchat}`}</p>
-            </>
-          ))}
-          <hr></hr>
-          <p> חישוב כולל עבור מינימום פחת</p>
-
-          {/* {sumResultForClientPchat.opt2.width >= 1 ? (
-            <>
-              <p> משטח ברוחב 2 מטר</p>
-              <p> {sumResultForClientPchat.opt2.length} : באורך </p>
-            </>
-          ) : null}
-          {sumResultForClientPchat.opt3.width >= 1 ? (
-            <>
-              <p> משטח ברוחב 3 מטר</p>
-              <p> {sumResultForClientPchat.opt3.length} : באורך </p>
-            </>
-          ) : null}
-          {sumResultForClientPchat.opt4.width >= 1 ? (
-            <>
-              <p> משטח ברוחב 4 מטר </p>
-              <p> {sumResultForClientPchat.opt4.length} : באורך </p>
-            </>
-          ) : null} */}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant='secondary' onClick={handleClose}>
-            חזור ללוח השרטוטים
-          </Button>
-          <Button
-            onClick={() => {
-              history.push("/summary");
-              handleClose();
-            }}
-            variant='primary'
-          >
-            הזמן
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </>
   );
 }
+
+// const [summary, setSummary] = useState({
+//   minPchatSummary: {
+//     opt2: 0,
+//     opt3: 0,
+//     opt4: 0,
+//     pchat: 0,
+//   },
+//   minChiburNoDirection: {
+//     opt2: 0,
+//     opt3: 0,
+//     opt4: 0,
+//     pchat: 0,
+//   },
+//   minChiburWithDirection: {
+//     opt2: 0,
+//     opt3: 0,
+//     opt4: 0,
+//     pchat: 0,
+//   },
+// });
 
 export default Home;
