@@ -25,18 +25,20 @@ function Home({ history }) {
   //all squares entered
   const [squares, setsquares] = useState([]);
 
-  //best result for client considering pchat only
+  //best result for client considering pchat only ("pchat" = loss)
   const [resultForClientPchat, setresultForClientPchat] = useState([]);
 
-  //best result for client considering pchat and direction
+  //best result for client considering pchat and direction ("direction"= means - the direction the grass would streatch out )
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
 
-  //best result for client considering connections only
+  //best result for client considering connections only ("connections" means- the numbar of piece we use, sometimes the customer prefare to have los but not to have more pieces)
+  //resultMinChiburNoDirection- "Chibur"= connection."no direction"- not consider the grass direction)
   const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
     []
   );
 
-  //all x axis results
+  // considering the grass direction - giving solutions for each direction
+  //all x axis 
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
   );
@@ -46,10 +48,17 @@ function Home({ history }) {
     []
   );
 
+
   //summary state
 
   const [summary, setSummary] = useState({
     minPchatSummary: {
+      opt2: 0,
+      opt3: 0,
+      opt4: 0,
+      pchat: 0,
+    },
+    minPchatWithDirection: {
       opt2: 0,
       opt3: 0,
       opt4: 0,
