@@ -18,6 +18,7 @@ import calculateBestOption from "../calculator";
 import ChiburCalc from "../chiburCalc";
 import PchatWithDirection from "../PchatWithDirection";
 import MinChiburNoDirection from "../minChiburNoDirection";
+import minChiburWithDirection from "../minChiburWithDirection";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -33,7 +34,11 @@ function Home({ history }) {
 
  
   //resultMinChiburNoDirection- "Chibur"= connection."no direction"- not consider the grass direction)
-  const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
+  const [resultMinChiburNoDirection, setResultMinChiburNoDirection] = useState(
+    []
+  );
+  //resultMinChiburWithDirection- "Chibur"= connection."no direction"- not consider the grass direction)
+  const [resultMinChiburWithDirection, setResultMinChiburWithDirection] = useState(
     []
   );
 
@@ -73,18 +78,13 @@ function Home({ history }) {
       pchat: 0,
     },
     // בבדיקה
-    minChiburWithDirectionX: {
+    minChiburWithDirection: {
       opt2: 0,
       opt3: 0,
       opt4: 0,
       pchat: 0,
-    },
-    minChiburWithDirectionY: {
-      opt2: 0,
-      opt3: 0,
-      opt4: 0,
-      pchat: 0,
-    },
+    }
+  
   });
 
   //input values
@@ -110,6 +110,8 @@ function Home({ history }) {
 
   useEffect(() => {
     bestResult();
+    bestMinChiburWithDirection();
+
     console.log("summary : ", summary);
   }, [squares]);
 
@@ -124,7 +126,16 @@ function Home({ history }) {
       y_directionResultForClient
     );
 
-    setresultMinChiburNoDirection(result4);
+    setResultMinChiburNoDirection(result4);
+  }
+
+  function bestMinChiburWithDirection() {
+    let result5 = minChiburWithDirection(
+      x_directionResultForClient,
+      y_directionResultForClient
+    );
+console.log("result5:",result5);
+    setResultMinChiburWithDirection(result5);
   }
 
   function bestResultPchatWithDirection() {
@@ -135,6 +146,8 @@ function Home({ history }) {
 
     setresultPchatWithDirection(result3);
   }
+
+ 
 
   function summaryAllOptions() {
     // "P"=Pchat. not considering the direction
@@ -173,26 +186,15 @@ function Home({ history }) {
 
     // בשלבי הרצה ובדיקות!!!!!!!!!!!
     // result  of Min "Chiburim" (connections) + consider Direction
-    let opt2AmountCDX = 0;
-    let opt3AmountCDX = 0;
-    let opt4AmountCDX = 0;
-    let pchatCDX = 0;
-    x_directionResultForClient.forEach((square) => {
-      opt2AmountCDX += square.opt2.amount;
-      opt3AmountCDX += square.opt3.amount;
-      opt4AmountCDX += square.opt4.amount;
-      pchatCDX += square.pchat;
-    });
-
-    let opt2AmountCDY = 0;
-    let opt3AmountCDY = 0;
-    let opt4AmountCDY = 0;
-    let pchatCDY = 0;
-    x_directionResultForClient.forEach((square) => {
-      opt2AmountCDY += square.opt2.amount;
-      opt3AmountCDY += square.opt3.amount;
-      opt4AmountCDY += square.opt4.amount;
-      pchatCDY += square.pchat;
+    let opt2AmountCD = 0;
+    let opt3AmountCD = 0;
+    let opt4AmountCD = 0;
+    let pchatCD = 0;
+    resultMinChiburWithDirection.forEach((square) => {
+      opt2AmountCD += square.opt2.amount;
+      opt3AmountCD += square.opt3.amount;
+      opt4AmountCD += square.opt4.amount;
+      pchatCD += square.pchat;
     });
 
     setSummary({
@@ -215,18 +217,13 @@ function Home({ history }) {
         opt4: opt4AmountC,
         pchat: pchatC,
       },
-      minChiburWithDirectionX: {
-        opt2: opt2AmountCDX,
-        opt3: opt3AmountCDX,
-        opt4: opt4AmountCDX,
-        pchat: pchatCDX,
-      },
-      minChiburWithDirectionY: {
-        opt2: opt2AmountCDY,
-        opt3: opt3AmountCDY,
-        opt4: opt4AmountCDY,
-        pchat: pchatCDY,
-      },
+      minChiburWithDirection: {
+        opt2: opt2AmountCD,
+        opt3: opt3AmountCD,
+        opt4: opt4AmountCD,
+        pchat: pchatCD,
+      }
+      
     });
 
     console.log("resultForClientPchat : ", resultForClientPchat);
@@ -296,25 +293,7 @@ function Home({ history }) {
               setlength(e.target.value);
             }}
           />
-          {/* <Form style={{ display: "flex" }}>
-            {["פחת", "חיתוכים", "כיוון"].map((type) => (
-              <div
-                style={{
-                  direction: "rtl",
-                  display: "flex",
-                  justifyContent: "space-between",
-                  margin: " 1rem 0.3rem",
-                }}
-                key={`checkbox`}
-                className='mb-3'
-              >
-                <Form.Label>
-                  <strong>{type}</strong>
-                </Form.Label>
-                <Form.Check type='checkbox' id={`default-${type}`} />
-              </div>
-            ))}
-          </Form> */}
+       
           <div className='buttons'>
             <Button
               onClick={() => {
@@ -446,8 +425,8 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד אפשרות 1</Card.Header>
-                  {x_directionResultForClient.map((square, index) => (
+                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד</Card.Header>
+                  {resultMinChiburWithDirection.map((square, index) => (
                     <>
                       <Card.Body>
                         <Card.Title>מרובע {index + 1}</Card.Title>
@@ -468,30 +447,7 @@ function Home({ history }) {
                   ))}
                 </Card>
               </Col>
-              <Col>
-                <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד אפשרות2</Card.Header>
-                  {y_directionResultForClient.map((square, index) => (
-                    <>
-                      <Card.Body>
-                        <Card.Title>מרובע {index + 1}</Card.Title>
-                        <Card.Text>
-                          משטח 4מ {square.opt4.amount}
-                          באורך {square.opt4.length}
-                          <br></br>
-                          משטח 3מ {square.opt3.amount}
-                          באורך {square.opt3.length}
-                          <br></br>
-                          משטח 2מ {square.opt2.amount}
-                          באורך {square.opt2.length}
-                          <br></br>
-                          פחת{square.pchat} מ"ר
-                        </Card.Text>
-                      </Card.Body>
-                    </>
-                  ))}
-                </Card>
-              </Col>
+              
             </Row>
             <Row>
               <Col>
