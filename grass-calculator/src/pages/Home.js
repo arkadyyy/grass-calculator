@@ -31,12 +31,14 @@ function Home({ history }) {
   //best result for client considering pchat and direction ("direction"= means - the direction the grass would streatch out )
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
 
-  //best result for client considering connections only ("connections" means- the numbar of piece we use, sometimes the customer prefare to have los but not to have more pieces)
+ 
   //resultMinChiburNoDirection- "Chibur"= connection."no direction"- not consider the grass direction)
   const [resultMinChiburNoDirection, setresultMinChiburNoDirection] = useState(
     []
   );
 
+
+    //best result for client considering connections only ("connections" means- the numbar of piece we use, sometimes the customer prefare to have los but not to have more pieces)
   // considering the grass direction - giving solutions for each direction
   //all x axis 
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
@@ -58,7 +60,7 @@ function Home({ history }) {
       opt4: 0,
       pchat: 0,
     },
-    minPchatWithDirection: {
+    minPchatWithDirectionSummary: {
       opt2: 0,
       opt3: 0,
       opt4: 0,
@@ -70,7 +72,14 @@ function Home({ history }) {
       opt4: 0,
       pchat: 0,
     },
-    minChiburWithDirection: {
+    // בבדיקה
+    minChiburWithDirectionX: {
+      opt2: 0,
+      opt3: 0,
+      opt4: 0,
+      pchat: 0,
+    },
+    minChiburWithDirectionY: {
       opt2: 0,
       opt3: 0,
       opt4: 0,
@@ -128,6 +137,7 @@ function Home({ history }) {
   }
 
   function summaryAllOptions() {
+    // "P"=Pchat. not considering the direction
     let opt2AmountP = 0;
     let opt3AmountP = 0;
     let opt4AmountP = 0;
@@ -138,7 +148,7 @@ function Home({ history }) {
       opt4AmountP += square.opt4.amount;
       pchatP += square.pchat;
     });
-
+    // "PD"=Pchat+ considering the Direction
     let opt2AmountPD = 0;
     let opt3AmountPD = 0;
     let opt4AmountPD = 0;
@@ -149,7 +159,7 @@ function Home({ history }) {
       opt4AmountPD += square.opt4.amount;
       pchatPD += square.pchat;
     });
-
+    // result  of Min "Chiburim" (connections) Not consider Direction
     let opt2AmountC = 0;
     let opt3AmountC = 0;
     let opt4AmountC = 0;
@@ -161,6 +171,30 @@ function Home({ history }) {
       pchatC += square.pchat;
     });
 
+    // בשלבי הרצה ובדיקות!!!!!!!!!!!
+    // result  of Min "Chiburim" (connections) + consider Direction
+    let opt2AmountCDX = 0;
+    let opt3AmountCDX = 0;
+    let opt4AmountCDX = 0;
+    let pchatCDX = 0;
+    x_directionResultForClient.forEach((square) => {
+      opt2AmountCDX += square.opt2.amount;
+      opt3AmountCDX += square.opt3.amount;
+      opt4AmountCDX += square.opt4.amount;
+      pchatCDX += square.pchat;
+    });
+
+    let opt2AmountCDY = 0;
+    let opt3AmountCDY = 0;
+    let opt4AmountCDY = 0;
+    let pchatCDY = 0;
+    x_directionResultForClient.forEach((square) => {
+      opt2AmountCDY += square.opt2.amount;
+      opt3AmountCDY += square.opt3.amount;
+      opt4AmountCDY += square.opt4.amount;
+      pchatCDY += square.pchat;
+    });
+
     setSummary({
       ...summary,
       minPchatSummary: {
@@ -169,17 +203,29 @@ function Home({ history }) {
         opt4: opt4AmountP,
         pchat: pchatP,
       },
+      minPchatWithDirectionSummary: {
+        opt2: opt2AmountPD,
+        opt3: opt3AmountPD,
+        opt4: opt4AmountPD,
+        pchat: pchatPD,
+      },
       minChiburNoDirection: {
         opt2: opt2AmountC,
         opt3: opt3AmountC,
         opt4: opt4AmountC,
         pchat: pchatC,
       },
-      minChiburWithDirection: {
-        opt2: opt2AmountPD,
-        opt3: opt3AmountPD,
-        opt4: opt4AmountPD,
-        pchat: pchatPD,
+      minChiburWithDirectionX: {
+        opt2: opt2AmountCDX,
+        opt3: opt3AmountCDX,
+        opt4: opt4AmountCDX,
+        pchat: pchatCDX,
+      },
+      minChiburWithDirectionY: {
+        opt2: opt2AmountCDY,
+        opt3: opt3AmountCDY,
+        opt4: opt4AmountCDY,
+        pchat: pchatCDY,
       },
     });
 
@@ -190,7 +236,8 @@ function Home({ history }) {
 
   function bestResult() {
     squares.forEach((square) => {
-      //פחת מינימלי
+      //  פחת מינימלי בלי כיוון פריסה
+      // min pchat no direction consider
       let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
       let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
       if (result1.pchat === result2.pchat) {
@@ -201,7 +248,7 @@ function Home({ history }) {
         setresultForClientPchat([...resultForClientPchat, result2]);
       }
 
-      //כיוון פריסה
+      // כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
     });
@@ -249,7 +296,7 @@ function Home({ history }) {
               setlength(e.target.value);
             }}
           />
-          <Form style={{ display: "flex" }}>
+          {/* <Form style={{ display: "flex" }}>
             {["פחת", "חיתוכים", "כיוון"].map((type) => (
               <div
                 style={{
@@ -267,7 +314,7 @@ function Home({ history }) {
                 <Form.Check type='checkbox' id={`default-${type}`} />
               </div>
             ))}
-          </Form>
+          </Form> */}
           <div className='buttons'>
             <Button
               onClick={() => {
@@ -338,6 +385,34 @@ function Home({ history }) {
                             משטח 2מ {square.opt2.amount}
                             באורך {square.opt2.length}
                             <br></br>
+                            פחת{square.pchat} מ"ר
+                          </Card.Text>
+                        </Card.Body>
+                      </>
+                    );
+                  })}
+                </Card>
+              </Col>
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>  חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים</Card.Header>
+                  {resultPchatWithDirection.map((square, index) => {
+                    return (
+                      <>
+                        <Card.Body>
+                          <Card.Title>מרובע {index + 1}</Card.Title>
+                          <Card.Text>
+                            <hr></hr>
+                            משטח 4מ {square.opt4.amount}
+                            באורך {square.opt4.length}
+                            <br></br>
+                            משטח 3מ {square.opt3.amount}
+                            באורך {square.opt3.length}
+                            <br></br>
+                            משטח 2מ {square.opt2.amount}
+                            באורך {square.opt2.length}
+                            <br></br>
+                            פחת{square.pchat} מ"ר
                           </Card.Text>
                         </Card.Body>
                       </>
@@ -362,6 +437,55 @@ function Home({ history }) {
                           משטח 2מ {square.opt2.amount}
                           באורך {square.opt2.length}
                           <br></br>
+                          פחת{square.pchat} מ"ר
+                        </Card.Text>
+                      </Card.Body>
+                    </>
+                  ))}
+                </Card>
+              </Col>
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד אפשרות 1</Card.Header>
+                  {x_directionResultForClient.map((square, index) => (
+                    <>
+                      <Card.Body>
+                        <Card.Title>מרובע {index + 1}</Card.Title>
+                        <Card.Text>
+                          משטח 4מ {square.opt4.amount}
+                          באורך {square.opt4.length}
+                          <br></br>
+                          משטח 3מ {square.opt3.amount}
+                          באורך {square.opt3.length}
+                          <br></br>
+                          משטח 2מ {square.opt2.amount}
+                          באורך {square.opt2.length}
+                          <br></br>
+                          פחת{square.pchat} מ"ר
+                        </Card.Text>
+                      </Card.Body>
+                    </>
+                  ))}
+                </Card>
+              </Col>
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד אפשרות2</Card.Header>
+                  {y_directionResultForClient.map((square, index) => (
+                    <>
+                      <Card.Body>
+                        <Card.Title>מרובע {index + 1}</Card.Title>
+                        <Card.Text>
+                          משטח 4מ {square.opt4.amount}
+                          באורך {square.opt4.length}
+                          <br></br>
+                          משטח 3מ {square.opt3.amount}
+                          באורך {square.opt3.length}
+                          <br></br>
+                          משטח 2מ {square.opt2.amount}
+                          באורך {square.opt2.length}
+                          <br></br>
+                          פחת{square.pchat} מ"ר
                         </Card.Text>
                       </Card.Body>
                     </>
@@ -383,15 +507,18 @@ function Home({ history }) {
                       <Card.Body>
                         <Card.Title>{key}</Card.Title>
                         <Card.Text>
-                          opt2 : {value.opt2}
+                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${ value.opt2 }` : null}
                           <br></br>
-                          opt3 : {value.opt3}
+                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
+                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${ value.opt3 }` : null}
                           <br></br>
-                          opt4 : {value.opt4}
+                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
+                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${ value.opt4 }` : null}
                           <br></br>
-                          pchat : {value.pchat}
+                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
+                          {value.pchat ? ` סה"כ פחת : ${ value.pchat }` : `לא יהיה פחת אם תבחר באפשרות זו`}
                           <br></br>
-                        </Card.Text>
+                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}                        </Card.Text>
                       </Card.Body>
                     </>
                   ))}
