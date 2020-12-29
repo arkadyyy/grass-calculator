@@ -1,4 +1,5 @@
-function minChiburWithDirection(arrX, arrY) {
+    function minChiburWithDirection(arrX, arrY) {
+
     console.log("arrX,arrY:",arrX,arrY);
     let optX;
     let optY;
