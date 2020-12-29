@@ -307,13 +307,13 @@ function Home({ history }) {
           }}
           className='mb-3 p-5'
         >
-          <h1>חישוב דשא</h1>
+          <h1 style={{float:"center"}}>חישוב דשא</h1>
           <Form.Label>
-            <strong style={{ textAlign: "right" }}>רוחב</strong>
+            <strong style={{ textAlign: "right" }}> רוחב בסנטימטרים</strong>
           </Form.Label>
           <FormControl
             placeholder='הכנס רוחב'
-            style={{ width: "35%", direction: "rtl" }}
+            style={{ width: "35%",height:"2rem", direction: "rtl" }}
             aria-label='Default'
             aria-describedby='inputGroup-sizing-default'
             id='width'
@@ -322,7 +322,7 @@ function Home({ history }) {
             }}
           />
           <Form.Label>
-            <strong>אורך</strong>
+            <strong>אורך בסנטימטרים</strong>
           </Form.Label>
           <FormControl
             placeholder='הכנס אורך'
@@ -404,7 +404,7 @@ function Home({ history }) {
                           {value.opt3 ? <br></br>: null}
                           {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${value.opt4}, באורך ${value.opt4length} מטר`: null}
                           {value.opt4 ? <br></br> : null}
-                          {value.pchat ? ` סה"כ פחת : ${value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`}
+                          {value.pchat ? ` סה"כ פחת במ"ר: ${value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`}
                           <br></br>                          
                         </Card.Text>
                       </Card.Body>
@@ -413,10 +413,10 @@ function Home({ history }) {
                 </Card>
               </Col>
             </Row>
-            <Row>
+            <Row style={{ width: "90rem" }}>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>פירוט חישוב ע"פ מינימום פחת</Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ מינימום פחת</strong></Card.Header>
                   {resultForClientPchat.map((square, index) => {
                     return (
                       <>
@@ -424,16 +424,14 @@ function Home({ history }) {
                           <Card.Title>מרובע {index + 1}</Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            משטח 4מ {square.opt4.amount}
-                            באורך {square.opt4.length}
-                            <br></br>
-                            משטח 3מ {square.opt3.amount}
-                            באורך {square.opt3.length}
-                            <br></br>
-                            משטח 2מ {square.opt2.amount}
-                            באורך {square.opt2.length}
-                            <br></br>
-                            פחת{square.pchat} מ"ר
+                            {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                          {square.opt4.amount ? <br></br> : null}
+                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? <br></br> : null}
+                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? <br></br> : null}
+                          פחת{square.pchat} מ"ר
+                          <hr></hr>
                           </Card.Text>
                         </Card.Body>
                       </>
@@ -443,10 +441,9 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>
-                    {" "}
-                    חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים
-                  </Card.Header>
+                  <Card.Header><strong>
+                    פירוט חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין המשטחים
+                    </strong></Card.Header>
                   {resultPchatWithDirection.map((square, index) => {
                     return (
                       <>
@@ -454,16 +451,15 @@ function Home({ history }) {
                           <Card.Title>מרובע {index + 1}</Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            משטח 4מ {square.opt4.amount}
-                            באורך {square.opt4.length}
-                            <br></br>
-                            משטח 3מ {square.opt3.amount}
-                            באורך {square.opt3.length}
-                            <br></br>
-                            משטח 2מ {square.opt2.amount}
-                            באורך {square.opt2.length}
-                            <br></br>
+                            {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                          {square.opt4.amount ? <br></br> : null}
+                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? <br></br> : null}
+                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? <br></br> : null}
+                           
                             פחת{square.pchat} מ"ר
+                            <hr></hr>
                           </Card.Text>
                         </Card.Body>
                       </>
@@ -473,22 +469,21 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>חישוב ע"פ מינימום חיבורים</Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים בלי להתחשב בכיוון הסיבים אם יש יותר ממשטח אחד
+</strong></Card.Header>
                   {resultMinChiburNoDirection.map((square, index) => (
                     <>
                       <Card.Body>
                         <Card.Title>מרובע {index + 1}</Card.Title>
                         <Card.Text>
-                          משטח 4מ {square.opt4.amount}
-                          באורך {square.opt4.length}
-                          <br></br>
-                          משטח 3מ {square.opt3.amount}
-                          באורך {square.opt3.length}
-                          <br></br>
-                          משטח 2מ {square.opt2.amount}
-                          באורך {square.opt2.length}
-                          <br></br>
+                        {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                          {square.opt4.amount ? <br></br> : null}
+                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? <br></br> : null}
+                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? <br></br> : null}
                           פחת{square.pchat} מ"ר
+                          <hr></hr>
                         </Card.Text>
                       </Card.Body>
                     </>
@@ -497,22 +492,20 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>פירוט חישוב ע"פ חיבורים כולל כיוון סיב אחיד בין המשטחים</Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ חיבורים כולל כיוון סיב אחיד בין המשטחים</strong></Card.Header>
                   {resultMinChiburWithDirection.map((square, index) => (
                     <>
                       <Card.Body>
                         <Card.Title>מרובע {index + 1}</Card.Title>
                         <Card.Text>
-                          משטח 4מ {square.opt4.amount}
-                          באורך {square.opt4.length}
-                          <br></br>
-                          משטח 3מ {square.opt3.amount}
-                          באורך {square.opt3.length}
-                          <br></br>
-                          משטח 2מ {square.opt2.amount}
-                          באורך {square.opt2.length}
-                          <br></br>
+                        {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                          {square.opt4.amount ? <br></br> : null}
+                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? <br></br> : null}
+                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? <br></br> : null}
                           פחת{square.pchat} מ"ר
+                          <hr></hr>
                         </Card.Text>
                       </Card.Body>
                     </>

@@ -1,25 +1,17 @@
 import React from "react";
 import {Stage,Layer,Rect,Text,Group,} from "react-konva";
 
-
-// function getRandomColour(){
-//   var red = Math.floor(Math.random()* 255);
-//   var green = Math.floor(Math.random() * 255);
-//   var blue = Math.floor(Math.random() * 255);
-
-//   return "rgb("+red+","+green+"," +blue+" )";  
-// }
 const Konva = ({ squares }) => {
 
  
 
   return (
     <>
-      <div style={{ width: "65%" }}>
+      <div>
         <Stage
           style={{ border: "3px solid green", margin: "3rem" }}
-          width={window.innerWidth / 3}
-          height={window.innerHeight / 3}
+          width={window.innerWidth / 2}
+          height={window.innerHeight / 2}
         >
           <Layer>
             {squares.map((square, index) => (
