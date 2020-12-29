@@ -18,7 +18,7 @@ import { useEffect, useState } from "react";
 import ChiburCalc from "../chiburCalc";
 import PchatWithDirection from "../PchatWithDirection";
 import MinChiburNoDirection from "../minChiburNoDirection";
-import minChiburWithDirection from "../minChiburWithDirection";
+import MinChiburWithDirection from "../minChiburWithDirection";
 
 ////////////////////////////////////////////////////////////////////////
 
@@ -32,20 +32,19 @@ function Home({ history }) {
   //best result for client considering pchat and direction ("direction"= means - the direction the grass would streatch out )
   const [resultPchatWithDirection, setresultPchatWithDirection] = useState([]);
 
- 
   //resultMinChiburNoDirection- "Chibur"= connection."no direction"- not consider the grass direction)
   const [resultMinChiburNoDirection, setResultMinChiburNoDirection] = useState(
     []
   );
   //resultMinChiburWithDirection- "Chibur"= connection."no direction"- not consider the grass direction)
-  const [resultMinChiburWithDirection, setResultMinChiburWithDirection] = useState(
-    []
-  );
+  const [
+    resultMinChiburWithDirection,
+    setResultMinChiburWithDirection,
+  ] = useState([]);
 
-
-    //best result for client considering connections only ("connections" means- the numbar of piece we use, sometimes the customer prefare to have los but not to have more pieces)
+  //best result for client considering connections only ("connections" means- the numbar of piece we use, sometimes the customer prefare to have los but not to have more pieces)
   // considering the grass direction - giving solutions for each direction
-  //all x axis 
+  //all x axis
   const [x_directionResultForClient, setX_DirectionResultForClient] = useState(
     []
   );
@@ -55,40 +54,46 @@ function Home({ history }) {
     []
   );
 
-
   //summary state
 
   const [summary, setSummary] = useState({
     minPchatSummary: {
-      title: `סיכום על פי מינימום פחת`,
       opt2: 0,
+      opt2length: 0,
       opt3: 0,
+      opt3length: 0,
       opt4: 0,
+      opt4length: 0,
       pchat: 0,
     },
     minPchatWithDirectionSummary: {
-      title: `סיכום  על פי מינימום פחת עם התחשבות בכיוון הסיב`,
       opt2: 0,
+      opt2length: 0,
       opt3: 0,
+      opt3length: 0,
       opt4: 0,
+      opt4length: 0,
       pchat: 0,
     },
     minChiburNoDirection: {
-      title: `סיכום  על פי מינימום חיבורים בלי התחשבות בכיוון הסיב בין המלבנים השונים`,
       opt2: 0,
+      opt2length: 0,
       opt3: 0,
+      opt3length: 0,
       opt4: 0,
+      opt4length: 0,
       pchat: 0,
     },
-    // בבדיקה
+    
     minChiburWithDirection: {
-      title: `סיכום  על פי מינימום פחת`,
       opt2: 0,
+      opt2length: 0,
       opt3: 0,
+      opt3length: 0,
       opt4: 0,
+      opt4length: 0,
       pchat: 0,
-    }
-  
+    },
   });
 
   //input values
@@ -109,12 +114,7 @@ function Home({ history }) {
   const [openSummary, setopenSummary] = useState(false);
 
   useEffect(() => {
-    console.log("summary changed !");
-  }, [summary]);
-
-  useEffect(() => {
     bestResult();
-    bestMinChiburWithDirection();
 
     console.log("summary : ", summary);
   }, [squares]);
@@ -122,7 +122,17 @@ function Home({ history }) {
   useEffect(() => {
     bestResultPchatWithDirection();
     bestMinChiburNoDirection();
+    bestMinChiburWithDirection();
   }, [x_directionResultForClient]);
+
+  function bestMinChiburWithDirection() {
+    let result5 = MinChiburWithDirection(
+      x_directionResultForClient,
+      y_directionResultForClient
+    );
+    console.log("result5:", result5);
+    setResultMinChiburWithDirection(result5);
+  }
 
   function bestMinChiburNoDirection() {
     let result4 = MinChiburNoDirection(
@@ -131,15 +141,6 @@ function Home({ history }) {
     );
 
     setResultMinChiburNoDirection(result4);
-  }
-
-  function bestMinChiburWithDirection() {
-    let result5 = minChiburWithDirection(
-      x_directionResultForClient,
-      y_directionResultForClient
-    );
-console.log("result5:",result5);
-    setResultMinChiburWithDirection(result5);
   }
 
   function bestResultPchatWithDirection() {
@@ -151,89 +152,124 @@ console.log("result5:",result5);
     setresultPchatWithDirection(result3);
   }
 
- 
-
   function summaryAllOptions() {
     // "P"=Pchat. not considering the direction
     let opt2AmountP = 0;
+    let opt2lengthP = 0;
     let opt3AmountP = 0;
+    let opt3lengthP = 0;
     let opt4AmountP = 0;
+    let opt4lengthP = 0;
     let pchatP = 0;
     resultForClientPchat.forEach((square) => {
       opt2AmountP += square.opt2.amount;
+      opt2lengthP += square.opt2.length;
       opt3AmountP += square.opt3.amount;
+      opt3lengthP += square.opt3.length;
       opt4AmountP += square.opt4.amount;
-      pchatP += square.pchat;
+      opt4lengthP += square.opt4.length;
+      pchatP += (square.pchat).toFixed(2);
     });
     // "PD"=Pchat+ considering the Direction
     let opt2AmountPD = 0;
+    let opt2lengthPD = 0;
     let opt3AmountPD = 0;
+    let opt3lengthPD = 0;
     let opt4AmountPD = 0;
+    let opt4lengthPD = 0;
     let pchatPD = 0;
+
     resultPchatWithDirection.forEach((square) => {
       opt2AmountPD += square.opt2.amount;
+      opt2lengthPD += square.opt2.length;
       opt3AmountPD += square.opt3.amount;
+      opt3lengthPD += square.opt3.length;
       opt4AmountPD += square.opt4.amount;
+      opt4lengthPD += square.opt4.length;
       pchatPD += square.pchat;
     });
     // result  of Min "Chiburim" (connections) Not consider Direction
     let opt2AmountC = 0;
+    let opt2lengthC = 0;
     let opt3AmountC = 0;
+    let opt3lengthC = 0;
     let opt4AmountC = 0;
+    let opt4lengthC = 0;
     let pchatC = 0;
+
     resultMinChiburNoDirection.forEach((square) => {
       opt2AmountC += square.opt2.amount;
+      opt2lengthC += square.opt2.length;
       opt3AmountC += square.opt3.amount;
+      opt3lengthC += square.opt3.length;
       opt4AmountC += square.opt4.amount;
+      opt4lengthC += square.opt4.length;
       pchatC += square.pchat;
     });
 
-    // בשלבי הרצה ובדיקות!!!!!!!!!!!
     // result  of Min "Chiburim" (connections) + consider Direction
-    // let opt2AmountCD = 0;
-    // let opt3AmountCD = 0;
-    // let opt4AmountCD = 0;
-    // let pchatCD = 0;
-    // resultMinChiburWithDirection.forEach((square) => {
-    //   opt2AmountCD += square.opt2.amount;
-    //   opt3AmountCD += square.opt3.amount;
-    //   opt4AmountCD += square.opt4.amount;
-    //   pchatCD += square.pchat;
-    // });
+    let opt2AmountCD = 0;
+    let opt2lengthCD = 0;
+    let opt3AmountCD = 0;
+    let opt3lengthCD = 0;
+    let opt4AmountCD = 0;
+    let opt4lengthCD = 0;
+    let pchatCD = 0;
 
+    resultMinChiburWithDirection.forEach((square) => {
+      opt2AmountCD += square.opt2.amount;
+      opt2lengthCD += square.opt2.length;
+      opt3AmountCD += square.opt3.amount;
+      opt3lengthCD += square.opt3.length;
+      opt4AmountCD += square.opt4.amount;
+      opt4lengthCD += square.opt4.length;
+      pchatCD += square.pchat;
+    });
+    
     setSummary({
       ...summary,
       minPchatSummary: {
+        title:`סיכום חישוב ע"פ מינימום פחת`,
         opt2: opt2AmountP,
+        opt2length: opt2lengthP,
         opt3: opt3AmountP,
+        opt3length: opt3lengthP,
         opt4: opt4AmountP,
+        opt4length: opt4lengthP,
         pchat: pchatP,
       },
       minPchatWithDirectionSummary: {
+        title:`סיכום חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין המשטחים`,
         opt2: opt2AmountPD,
+        opt2length: opt2lengthPD,
         opt3: opt3AmountPD,
+        opt3length: opt3lengthPD,
         opt4: opt4AmountPD,
+        opt4length: opt4lengthPD,
         pchat: pchatPD,
       },
       minChiburNoDirection: {
+        title:'סיכום חישוב ע"פ מינימום חיבורים בלי להתחשב בכיוון הסיבים אם יש יותר ממשטח אחד',
         opt2: opt2AmountC,
+        opt2length: opt2lengthC,
         opt3: opt3AmountC,
+        opt3length: opt3lengthC,
         opt4: opt4AmountC,
+        opt4length: opt4lengthC,
         pchat: pchatC,
-      }
-      // ,
-      // minChiburWithDirection: {
-      //   opt2: opt2AmountCD,
-      //   opt3: opt3AmountCD,
-      //   opt4: opt4AmountCD,
-      //   pchat: pchatCD,
-      // }
-      
+      },
+      minChiburWithDirection: {
+        title:`סיכום חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים`,
+        opt2: opt2AmountCD,
+        opt2length: opt2lengthCD,
+        opt3: opt3AmountCD,
+        opt3length: opt3lengthCD,
+        opt4: opt4AmountCD,
+        opt4length: opt4lengthCD,
+        pchat: pchatCD,
+      },
     });
 
-    console.log("resultForClientPchat : ", resultForClientPchat);
-    console.log("resultPchatWithDirection : ", resultPchatWithDirection);
-    console.log("resultMinChiburNoDirection : ", resultMinChiburNoDirection);
   }
 
   function bestResult() {
@@ -259,7 +295,7 @@ console.log("result5:",result5);
   }
 
   return (
-    <>
+    < >
       <div className='App'>
         <Konva squares={squares} setsquares={setsquares} />
 
@@ -298,7 +334,7 @@ console.log("result5:",result5);
               setlength(e.target.value);
             }}
           />
-       
+
           <div className='buttons'>
             <Button
               onClick={() => {
@@ -345,14 +381,42 @@ console.log("result5:",result5);
       <hr></hr>
 
       {openSummary && (
-        <div className='summary'>
-          <Spinner animation='border' variant='success' size='xl' />
-          <h3>אלו התוצאות שמצאנו עבורך </h3>
-          <Container>
+        <div className='summary'  >
+          {/* <Spinner animation='border' variant='success' size='xl' /> */}
+          <h3 style={{ textAlign: "center" }}>אלו התוצאות שמצאנו עבורך </h3>
+          <Container style={{ textAlign: "right" }}>
+          <Row>
+              <Col>
+                <Card
+                  className='my-5'
+                  border='secondary'
+                  style={{ width: "100%" }}
+                >
+                  {Object.entries(summary).map(([key, value], i) => (
+                    <>
+                      <Card.Header style={{ fontWeight: "bold" }}>{value.title}</Card.Header>
+                      <Card.Body>
+                        {/* <Card.Title>{key}{value.title}</Card.Title> */}
+                        <Card.Text>
+                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${value.opt2}, באורך ${value.opt2length} מטר `: null}
+                          {value.opt2 ? <br></br> : null}
+                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${value.opt3}, באורך ${value.opt3length} מטר`: null}
+                          {value.opt3 ? <br></br>: null}
+                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${value.opt4}, באורך ${value.opt4length} מטר`: null}
+                          {value.opt4 ? <br></br> : null}
+                          {value.pchat ? ` סה"כ פחת : ${value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`}
+                          <br></br>                          
+                        </Card.Text>
+                      </Card.Body>
+                    </>
+                  ))}
+                </Card>
+              </Col>
+            </Row>
             <Row>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>חישוב ע"פ מינימום פחת</Card.Header>
+                  <Card.Header>פירוט חישוב ע"פ מינימום פחת</Card.Header>
                   {resultForClientPchat.map((square, index) => {
                     return (
                       <>
@@ -379,7 +443,10 @@ console.log("result5:",result5);
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>  חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים</Card.Header>
+                  <Card.Header>
+                    {" "}
+                    חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים
+                  </Card.Header>
                   {resultPchatWithDirection.map((square, index) => {
                     return (
                       <>
@@ -428,9 +495,9 @@ console.log("result5:",result5);
                   ))}
                 </Card>
               </Col>
-              {/* <Col>
+              <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header>חישוב ע"פ חיבורים לכיוון אחיד</Card.Header>
+                  <Card.Header>פירוט חישוב ע"פ חיבורים כולל כיוון סיב אחיד בין המשטחים</Card.Header>
                   {resultMinChiburWithDirection.map((square, index) => (
                     <>
                       <Card.Body>
@@ -451,41 +518,10 @@ console.log("result5:",result5);
                     </>
                   ))}
                 </Card>
-              </Col> */}
+              </Col>
               
             </Row>
-            <Row>
-              <Col>
-                <Card
-                  className='my-5'
-                  border='secondary'
-                  style={{ width: "100%" }}
-                >
-                  {Object.entries(summary).map(([key, value], i) => (
-                    <>
-                      <Card.Header>enteries {i}</Card.Header>
-
-                      <Card.Body>
-                        <Card.Title>{key}{value.title}</Card.Title>
-                        <Card.Text>
-                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${ value.opt2 }` : null}
-                          <br></br>
-                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
-                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${ value.opt3 }` : null}
-                          <br></br>
-                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
-                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${ value.opt4 }` : null}
-                          <br></br>
-                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}
-                          {value.pchat ? ` סה"כ פחת : ${ value.pchat }` : `לא יהיה פחת אם תבחר באפשרות זו`}
-                          <br></br>
-                          {/* צריך להוסיף את ה <br> לביטוי הטרנטי */}                        </Card.Text>
-                      </Card.Body>
-                    </>
-                  ))}
-                </Card>
-              </Col>
-            </Row>
+            
           </Container>
         </div>
       )}
@@ -493,25 +529,5 @@ console.log("result5:",result5);
   );
 }
 
-// const [summary, setSummary] = useState({
-//   minPchatSummary: {
-//     opt2: 0,
-//     opt3: 0,
-//     opt4: 0,
-//     pchat: 0,
-//   },
-//   minChiburNoDirection: {
-//     opt2: 0,
-//     opt3: 0,
-//     opt4: 0,
-//     pchat: 0,
-//   },
-//   minChiburWithDirection: {
-//     opt2: 0,
-//     opt3: 0,
-//     opt4: 0,
-//     pchat: 0,
-//   },
-// });
 
 export default Home;
