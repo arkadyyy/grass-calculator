@@ -168,7 +168,7 @@ function Home({ history }) {
       opt3lengthP += square.opt3.length;
       opt4AmountP += square.opt4.amount;
       opt4lengthP += square.opt4.length;
-      pchatP += (square.pchat).toFixed(2);
+      pchatP += square.pchat;
     });
     // "PD"=Pchat+ considering the Direction
     let opt2AmountPD = 0;
@@ -229,7 +229,8 @@ function Home({ history }) {
     setSummary({
       ...summary,
       minPchatSummary: {
-        title:`סיכום חישוב ע"פ מינימום פחת`,
+        title: `מינימום פחת- ניצול מירבי של משטחי הדשא שהזומנו`,
+        description:``,
         opt2: opt2AmountP,
         opt2length: opt2lengthP,
         opt3: opt3AmountP,
@@ -239,7 +240,7 @@ function Home({ history }) {
         pchat: pchatP,
       },
       minPchatWithDirectionSummary: {
-        title:`סיכום חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין המשטחים`,
+        title:`מינימום פחת + כיוון סיב אחיד בין המשטחים - ניצול מירבי של משטחי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של המשטחים`,
         opt2: opt2AmountPD,
         opt2length: opt2lengthPD,
         opt3: opt3AmountPD,
@@ -249,7 +250,7 @@ function Home({ history }) {
         pchat: pchatPD,
       },
       minChiburNoDirection: {
-        title:'סיכום חישוב ע"פ מינימום חיבורים בלי להתחשב בכיוון הסיבים אם יש יותר ממשטח אחד',
+        title:'מינימום חיבורים- האפשרות לכסות את השטח שלכם עם מספר מינימלי של משטחי דשא סינטטי ',
         opt2: opt2AmountC,
         opt2length: opt2lengthC,
         opt3: opt3AmountC,
@@ -259,7 +260,7 @@ function Home({ history }) {
         pchat: pchatC,
       },
       minChiburWithDirection: {
-        title:`סיכום חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הכל המשטחים`,
+        title:`מינימום חיבורים + כיוון סיב אחיד בין המשטחים`,
         opt2: opt2AmountCD,
         opt2length: opt2lengthCD,
         opt3: opt3AmountCD,
@@ -293,10 +294,37 @@ function Home({ history }) {
 
     summaryAllOptions();
   }
-
+  const titleList = [
+    {description: '  יש להזין את רוחב ואורך המשטח המיועד לכיסוי בדשא הסינטטי.', key: 0},
+    {description: '  שימו לב! יש להזין את המשטח כאילו הוא מורכב ממלבנים.', key: 1},
+    {description: '  יש להזין את הרוחב והאורך בסנטימטרים.', key: 2},
+    {description: '  לאחר מכן - לחיצה על "הוסף מלבן" בכפתור הירוק.', key: 3},
+    {description: '  אם ישנו מלבן נוסף - יש לחזור על הפעולה, ולהזין מחדש גם אורך וגם רוחב.', key: 4},
+    { description: '  עם סיום הזנת המלבנים , יש ללחוץ על "חשב" בכפתור הירוק.', key: 5 },
+  ];
+  
   return (
     < >
-      <div className='App'>
+     
+      <h1 style={{ textAlign: "center" }}>  מחשבון דשא סינטטי</h1>
+      <h4 style={{ textAlign: "right" }}>  הוראות שימוש</h4>
+
+      <ol style={{margin: "2rem", direction:"rtl", float:"right" }}>
+        {titleList.map(line => {
+          return (
+            <li key={line.key} style={{ display: "flex" }}>{line.key+1}.{line.description} </li>
+          );
+        })}
+        <div style={{textAlign:"start"}}>
+         <h5 >בתחתית המסך יופיעו התוצאות האפשריות להזמנה.</h5>
+        <h4> בתחילה תופיע רשימה של {<strong>סיכום</strong>}.</h4>
+        <h4>לאחר מכן יופיע {<strong>פירוט</strong>}. </h4>
+        </div>
+      </ol>
+       
+
+        <div className='App'>
+
         <Konva squares={squares} setsquares={setsquares} />
 
         <InputGroup
@@ -304,10 +332,11 @@ function Home({ history }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
+            position: "absolute",
+            top: "344px"
           }}
           className='mb-3 p-5'
         >
-          <h1 style={{float:"center"}}>חישוב דשא</h1>
           <Form.Label>
             <strong style={{ textAlign: "right" }}> רוחב בסנטימטרים</strong>
           </Form.Label>
@@ -383,7 +412,7 @@ function Home({ history }) {
       {openSummary && (
         <div className='summary'  >
           {/* <Spinner animation='border' variant='success' size='xl' /> */}
-          <h3 style={{ textAlign: "center" }}>אלו התוצאות שמצאנו עבורך </h3>
+          <h3 style={{ textAlign: "center" }}>אלו התוצאות האפשריות עבורכם </h3>
           <Container style={{ textAlign: "right" }}>
           <Row>
               <Col>
@@ -396,7 +425,7 @@ function Home({ history }) {
                     <>
                       <Card.Header style={{ fontWeight: "bold" }}>{value.title}</Card.Header>
                       <Card.Body>
-                        {/* <Card.Title>{key}{value.title}</Card.Title> */}
+                        <Card.Title>{value.description}</Card.Title>
                         <Card.Text>
                           {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${value.opt2}, באורך ${value.opt2length} מטר `: null}
                           {value.opt2 ? <br></br> : null}
@@ -413,15 +442,15 @@ function Home({ history }) {
                 </Card>
               </Col>
             </Row>
-            <Row style={{ width: "90rem" }}>
+            <Row style={{ width: "90rem", direction:"rtl" }}>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>פירוט חישוב ע"פ מינימום פחת</strong></Card.Header>
+                  <Card.Header><strong>מינימום פחת-פירוט</strong></Card.Header>
                   {resultForClientPchat.map((square, index) => {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מרובע {index + 1}</Card.Title>
+                          <Card.Title>מלבן מספר {index + 1}</Card.Title>
                           <Card.Text>
                             <hr></hr>
                             {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
@@ -448,7 +477,7 @@ function Home({ history }) {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מרובע {index + 1}</Card.Title>
+                          <Card.Title>מלבן מספר {index + 1}</Card.Title>
                           <Card.Text>
                             <hr></hr>
                             {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
@@ -469,12 +498,11 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים בלי להתחשב בכיוון הסיבים אם יש יותר ממשטח אחד
-</strong></Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים </strong></Card.Header>
                   {resultMinChiburNoDirection.map((square, index) => (
                     <>
                       <Card.Body>
-                        <Card.Title>מרובע {index + 1}</Card.Title>
+                        <Card.Title>מלבן מספר {index + 1}</Card.Title>
                         <Card.Text>
                         {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
@@ -492,11 +520,11 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>פירוט חישוב ע"פ חיבורים כולל כיוון סיב אחיד בין המשטחים</strong></Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים + כיוון סיב אחיד בין המשטחים</strong></Card.Header>
                   {resultMinChiburWithDirection.map((square, index) => (
                     <>
                       <Card.Body>
-                        <Card.Title>מרובע {index + 1}</Card.Title>
+                        <Card.Title>מלבן מספר {index + 1}</Card.Title>
                         <Card.Text>
                         {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
