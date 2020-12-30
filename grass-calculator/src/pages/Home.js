@@ -11,7 +11,6 @@ import {
   Container,
   Row,
   Col,
-  Spinner,
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
 // import calculateBestOption from "../calculator";
@@ -115,7 +114,6 @@ function Home({ history }) {
 
   useEffect(() => {
     bestResult();
-
     console.log("summary : ", summary);
   }, [squares]);
 
@@ -237,7 +235,7 @@ function Home({ history }) {
         opt3length: opt3lengthP,
         opt4: opt4AmountP,
         opt4length: opt4lengthP,
-        pchat: pchatP,
+        pchat: pchatP.toFixed(2),
       },
       minPchatWithDirectionSummary: {
         title:`מינימום פחת + כיוון סיב אחיד בין המשטחים - ניצול מירבי של משטחי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של המשטחים`,
@@ -433,11 +431,11 @@ function Home({ history }) {
                       <Card.Body>
                         <Card.Title>{value.description}</Card.Title>
                         <Card.Text>
-                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${value.opt2} משטחים , באורך ${+value.opt2length} מטר `: null}
+                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${value.opt2} משטחים , באורך ${value.opt2length} מטר `: null}
                           {value.opt2 ? <br></br> : null}
-                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${value.opt3}משטחים, באורך ${+value.opt3length} מטר`: null}
+                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${value.opt3}משטחים, באורך ${value.opt3length} מטר`: null}
                           {value.opt3 ? <br></br>: null}
-                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${value.opt4}משטחים, באורך ${+value.opt4length} מטר`: null}
+                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${value.opt4}משטחים, באורך ${value.opt4length} מטר`: null}
                           {value.opt4 ? <br></br> : null}
                           {value.pchat ? ` סה"כ פחת במ"ר: ${+value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`}
                           <br></br>                          

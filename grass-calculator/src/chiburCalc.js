@@ -17,7 +17,8 @@ const ChiburCalc = (widthInput, lengthInput) => {
       if (Math.ceil(width) / 4 >= 1) {
         // console.log("it stuck here #########");
         opt4.amount = Math.floor(Math.ceil(width) / 4);
-        opt4.length = length.toFixed(2);
+        opt4.length = +length.toFixed(2);
+        console.log("opt4.length:",);
         if (width - opt4.amount * 4 <= 0) {
           pchatWidth = (opt4.amount * 4 - width).toFixed(2);
           // console.log("it stuck here $$$$$$$$$");
