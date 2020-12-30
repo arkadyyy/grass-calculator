@@ -294,33 +294,32 @@ function Home({ history }) {
 
     summaryAllOptions();
   }
-  const titleList = [
-    {description: '  יש להזין את רוחב ואורך המשטח המיועד לכיסוי בדשא הסינטטי.', key: 0},
-    {description: '  שימו לב! יש להזין את המשטח כאילו הוא מורכב ממלבנים.', key: 1},
-    {description: '  יש להזין את הרוחב והאורך בסנטימטרים.', key: 2},
-    {description: '  לאחר מכן - לחיצה על "הוסף מלבן" בכפתור הירוק.', key: 3},
-    {description: '  אם ישנו מלבן נוסף - יש לחזור על הפעולה, ולהזין מחדש גם אורך וגם רוחב.', key: 4},
-    { description: '  עם סיום הזנת המלבנים , יש ללחוץ על "חשב" בכפתור הירוק.', key: 5 },
-  ];
+  // const titleList = [
+  //   {description: '  יש להזין את רוחב ואורך המשטח המיועד לכיסוי בדשא הסינטטי.', key: 0},
+  //   {description: '  שימו לב! יש להזין את המשטח כאילו הוא מורכב ממלבנים.', key: 1},
+  //   {description: '  יש להזין את הרוחב והאורך בסנטימטרים.', key: 2},
+  //   {description: '  לאחר מכן - לחיצה על "הוסף מלבן" בכפתור הירוק.', key: 3},
+  //   {description: '  אם ישנו מלבן נוסף - יש לחזור על הפעולה, ולהזין מחדש גם אורך וגם רוחב.', key: 4},
+  //   { description: '  עם סיום הזנת המלבנים , יש ללחוץ על "חשב" בכפתור הירוק.', key: 5 },
+  // ];
   
   return (
     < >
      
-      <h1 style={{ textAlign: "center" }}>  מחשבון דשא סינטטי</h1>
-      <h4 style={{ textAlign: "right" }}>  הוראות שימוש</h4>
+      {/* <h4 style={{ textAlign: "right" }}>  הוראות שימוש</h4>
 
-      <ol style={{margin: "2rem", direction:"rtl", float:"right" }}>
-        {titleList.map(line => {
+      <ol style={{margin: "2rem", direction:"rtl", float:"right" }}> */}
+        {/* {titleList.map(line => {
           return (
             <li key={line.key} style={{ display: "flex" }}>{line.key+1}.{line.description} </li>
           );
-        })}
-        <div style={{textAlign:"start"}}>
+        })} */}
+        {/* <div style={{textAlign:"start"}}>
          <h5 >בתחתית המסך יופיעו התוצאות האפשריות להזמנה.</h5>
         <h4> בתחילה תופיע רשימה של {<strong>סיכום</strong>}.</h4>
         <h4>לאחר מכן יופיע {<strong>פירוט</strong>}. </h4>
         </div>
-      </ol>
+      </ol> */}
        
 
         <div className='App'>
@@ -332,17 +331,18 @@ function Home({ history }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
-            position: "absolute",
-            top: "344px"
-          }}
+             }}
           className='mb-3 p-5'
         >
+      <h1 style={{ textAlign: "right", marginBottom:"3rem" }}>  מחשבון דשא סינטטי</h1>
+
           <Form.Label>
             <strong style={{ textAlign: "right" }}> רוחב בסנטימטרים</strong>
           </Form.Label>
           <FormControl
-            placeholder='הכנס רוחב'
-            style={{ width: "35%",height:"2rem", direction: "rtl" }}
+            // placeholder='הכנס רוחב'
+            value={width}
+            style={{ width: "35%",height:"2rem", direction: "rtl", maxHeight: "2rem" }}
             aria-label='Default'
             aria-describedby='inputGroup-sizing-default'
             id='width'
@@ -354,8 +354,9 @@ function Home({ history }) {
             <strong>אורך בסנטימטרים</strong>
           </Form.Label>
           <FormControl
-            placeholder='הכנס אורך'
-            style={{ width: "35%", direction: "rtl" }}
+            // placeholder='הכנס אורך'
+            value={length}    
+            style={{ width: "35%", direction: "rtl", maxHeight: "2rem"}}
             aria-label='Default'
             aria-describedby='inputGroup-sizing-default'
             id='length'
@@ -369,10 +370,8 @@ function Home({ history }) {
               onClick={() => {
                 setColor(getRandomColour());
                 setsquares([...squares, [+width, +length, color]]);
-                console.log(width);
-                console.log(length);
-                setwidth(0);
-                setlength(0);
+                setwidth('');
+                setlength('');
                 summaryAllOptions();
               }}
               className='m-3'
@@ -395,14 +394,21 @@ function Home({ history }) {
               onClick={() => {
                 setsquares([]);
                 setresultForClientPchat([]);
-
+                setSummary([]);
                 setwidth(0);
                 setlength(0);
+                setResultMinChiburNoDirection([]);
+                setResultMinChiburWithDirection([]);
+                setX_DirectionResultForClient([]); 
+                setY_DirectionResultForClient([]);
+                setresultPchatWithDirection([]);
+                setopenSummary(false);
+              
               }}
               className='m-3'
               variant='success'
             >
-              נקה
+נקה
             </Button>
           </div>
         </InputGroup>
@@ -413,7 +419,7 @@ function Home({ history }) {
         <div className='summary'  >
           {/* <Spinner animation='border' variant='success' size='xl' /> */}
           <h3 style={{ textAlign: "center" }}>אלו התוצאות האפשריות עבורכם </h3>
-          <Container style={{ textAlign: "right" }}>
+          <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}>
           <Row>
               <Col>
                 <Card
@@ -442,7 +448,8 @@ function Home({ history }) {
                 </Card>
               </Col>
             </Row>
-            <Row style={{ width: "90rem", direction:"rtl" }}>
+            <Row lg={4} className='d-flex justify-content-around' style={{direction:"rtl",width:"max-content"}}  >
+
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
                   <Card.Header><strong>מינימום פחת-פירוט</strong></Card.Header>
