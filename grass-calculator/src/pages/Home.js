@@ -227,7 +227,7 @@ function Home({ history }) {
     setSummary({
       ...summary,
       minPchatSummary: {
-        title: `מינימום פחת- ניצול מירבי של משטחי הדשא שהזומנו`,
+        title: `מינימום פחת- ניצול מירבי של גלילי הדשא שהזומנו`,
         description:``,
         opt2: opt2AmountP,
         opt2length: opt2lengthP,
@@ -238,7 +238,7 @@ function Home({ history }) {
         pchat: pchatP.toFixed(2),
       },
       minPchatWithDirectionSummary: {
-        title:`מינימום פחת + כיוון סיב אחיד בין המשטחים - ניצול מירבי של משטחי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של המשטחים`,
+        title:`מינימום פחת + כיוון סיב אחיד של כל הגלילים - ניצול מירבי של גלילי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של הגלילים`,
         opt2: opt2AmountPD,
         opt2length: opt2lengthPD,
         opt3: opt3AmountPD,
@@ -248,7 +248,7 @@ function Home({ history }) {
         pchat: pchatPD,
       },
       minChiburNoDirection: {
-        title:'מינימום חיבורים- האפשרות לכסות את השטח שלכם עם מספר מינימלי של משטחי דשא סינטטי ',
+        title:'מינימום חיבורים- האפשרות לכסות את השטח שלכם עם מספר מינימלי של גלילי דשא סינטטי ',
         opt2: opt2AmountC,
         opt2length: opt2lengthC,
         opt3: opt3AmountC,
@@ -258,7 +258,7 @@ function Home({ history }) {
         pchat: pchatC,
       },
       minChiburWithDirection: {
-        title:`מינימום חיבורים + כיוון סיב אחיד בין המשטחים`,
+        title:`מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
         opt2: opt2AmountCD,
         opt2length: opt2lengthCD,
         opt3: opt3AmountCD,
@@ -275,19 +275,31 @@ function Home({ history }) {
     squares.forEach((square) => {
       //  פחת מינימלי בלי כיוון פריסה
       // min pchat no direction consider
-      let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
-      let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
+      // let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
+      // let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
+      let result1 = ChiburCalc(square[0], square[1]);
+      let result2 = ChiburCalc(square[1], square[0]);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else {
+        let inputLength = result2.initialWidth;
+        let inputWidth = result2.initialLength;
+        result2.initialWidth = inputWidth;
+        result2.initialLength = inputLength;
         setresultForClientPchat([...resultForClientPchat, result2]);
+      
       }
 
       // כיוון פריסה
       setX_DirectionResultForClient([...x_directionResultForClient, result1]);
+      let inputLength = result2.initialWidth;
+      let inputWidth = result2.initialLength;
+      result2.initialWidth = inputWidth;
+      result2.initialLength = inputLength;
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
+     
     });
 
     summaryAllOptions();
@@ -300,7 +312,6 @@ function Home({ history }) {
   //   {description: '  אם ישנו מלבן נוסף - יש לחזור על הפעולה, ולהזין מחדש גם אורך וגם רוחב.', key: 4},
   //   { description: '  עם סיום הזנת המלבנים , יש ללחוץ על "חשב" בכפתור הירוק.', key: 5 },
   // ];
-  
   return (
     < >
      
@@ -335,7 +346,7 @@ function Home({ history }) {
       <h1 style={{ textAlign: "right", marginBottom:"3rem" }}>  מחשבון דשא סינטטי</h1>
 
           <Form.Label>
-            <strong style={{ textAlign: "right" }}> רוחב בסנטימטרים</strong>
+            <strong style={{ textAlign: "right" }}> רוחב במטרים</strong>
           </Form.Label>
           <FormControl
             // placeholder='הכנס רוחב'
@@ -349,7 +360,7 @@ function Home({ history }) {
             }}
           />
           <Form.Label>
-            <strong>אורך בסנטימטרים</strong>
+            <strong>אורך מטרים</strong>
           </Form.Label>
           <FormControl
             // placeholder='הכנס אורך'
@@ -431,13 +442,14 @@ function Home({ history }) {
                       <Card.Body>
                         <Card.Title>{value.description}</Card.Title>
                         <Card.Text>
-                          {value.opt2 ? ` סה"כ משטחים ברוחב 2 מטר : ${value.opt2} משטחים , באורך ${value.opt2length} מטר `: null}
+                          {value.opt2 ? ` סה"כ גלילים ברוחב 2 מטר : ${value.opt2} גלילים , באורך ${value.opt2length} מטר `: null}
                           {value.opt2 ? <br></br> : null}
-                          {value.opt3 ? ` סה"כ משטחים ברוחב 3 מטר : ${value.opt3}משטחים, באורך ${value.opt3length} מטר`: null}
+                          {value.opt3 ? ` סה"כ גלילים ברוחב 3 מטר : ${value.opt3}גלילים, באורך ${value.opt3length} מטר`: null}
                           {value.opt3 ? <br></br>: null}
-                          {value.opt4 ? ` סה"כ משטחים ברוחב 4 מטר : ${value.opt4}משטחים, באורך ${value.opt4length} מטר`: null}
+                          {value.opt4 ? ` סה"כ גלילים ברוחב 4 מטר : ${value.opt4}גלילים, באורך ${value.opt4length} מטר`: null}
                           {value.opt4 ? <br></br> : null}
-                          {value.pchat ? ` סה"כ פחת במ"ר: ${+value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`}
+                          {/* {value.pchat ? ` סה"כ פחת במ"ר: ${+value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`} */}
+                          {` סה"כ פחת במ"ר: ${+value.pchat} `}
                           <br></br>                          
                         </Card.Text>
                       </Card.Body>
@@ -455,14 +467,14 @@ function Home({ history }) {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מלבן מספר {index + 1}</Card.Title>
+                          <Card.Title>מלבן מספר {index + 1} אורך { square.initialLength} רוחב{square.initialWidth }</Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                            {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
-                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
                           {square.opt3.amount ? <br></br> : null}
-                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
                           {square.opt2.amount ? <br></br> : null}
                           פחת{square.pchat} מ"ר
                           <hr></hr>
@@ -476,20 +488,20 @@ function Home({ history }) {
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
                   <Card.Header><strong>
-                    פירוט חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין המשטחים
+                    פירוט חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הגלילים
                     </strong></Card.Header>
                   {resultPchatWithDirection.map((square, index) => {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מלבן מספר {index + 1}</Card.Title>
+                          <Card.Title>מלבן מספר {index + 1}  אורך { square.initialLength} רוחב{square.initialWidth }</Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                            {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
-                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
                           {square.opt3.amount ? <br></br> : null}
-                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
                           {square.opt2.amount ? <br></br> : null}
                            
                             פחת{square.pchat} מ"ר
@@ -507,13 +519,13 @@ function Home({ history }) {
                   {resultMinChiburNoDirection.map((square, index) => (
                     <>
                       <Card.Body>
-                        <Card.Title>מלבן מספר {index + 1}</Card.Title>
+                        <Card.Title>מלבן מספר {index + 1}  אורך { square.initialLength} רוחב{square.initialWidth }</Card.Title>
                         <Card.Text>
-                        {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                        {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
-                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
                           {square.opt3.amount ? <br></br> : null}
-                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
                           {square.opt2.amount ? <br></br> : null}
                           פחת{square.pchat} מ"ר
                           <hr></hr>
@@ -525,17 +537,17 @@ function Home({ history }) {
               </Col>
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים + כיוון סיב אחיד בין המשטחים</strong></Card.Header>
+                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים + כיוון סיב אחיד בין הגלילים</strong></Card.Header>
                   {resultMinChiburWithDirection.map((square, index) => (
                     <>
                       <Card.Body>
-                        <Card.Title>מלבן מספר {index + 1}</Card.Title>
+                        <Card.Title>מלבן מספר {index + 1} אורך { square.initialLength} רוחב{square.initialWidth }</Card.Title>
                         <Card.Text>
-                        {square.opt4.amount ? ` סה"כ משטחים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
+                        {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
                           {square.opt4.amount ? <br></br> : null}
-                          {square.opt3.amount ? ` סה"כ משטחים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
+                          {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
                           {square.opt3.amount ? <br></br> : null}
-                          {square.opt2.amount ? ` סה"כ משטחים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
+                          {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
                           {square.opt2.amount ? <br></br> : null}
                           פחת{square.pchat} מ"ר
                           <hr></hr>

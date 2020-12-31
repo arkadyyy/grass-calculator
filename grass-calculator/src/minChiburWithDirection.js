@@ -1,5 +1,5 @@
 function MinChiburWithDirection(arrX, arrY) {
-  console.log("arrX,arrY:", arrX, arrY);
+  
   let optX = 0;
   let optY = 0;
   let optXPchat = 0;
@@ -10,10 +10,7 @@ function MinChiburWithDirection(arrX, arrY) {
     optY += +arrY[i].opt2.amount + +arrY[i].opt3.amount + +arrY[i].opt4.amount;
     optXPchat += +arrX[i].pchat;
     optYPchat += +arrY[i].pchat;
-    console.log("optX:", optX);
-    console.log("optY:", optY);
-    console.log("optXPchat:", optXPchat);
-    console.log("optyPchat:", optYPchat);
+    
   }
   if (optX < optY) {
     return arrX;

@@ -28,8 +28,8 @@ const Konva = ({ squares }) => {
                   <Rect
                     x={100}
                     y={50}
-                    width={square[0] / 5}
-                    height={square[1] / 5}
+                    width={square[0]*20}
+                    height={square[1]*20}
                     fill={square[2]}
                     stroke='black'
                     strokeWidth='2'

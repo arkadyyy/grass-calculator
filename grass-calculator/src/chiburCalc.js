@@ -3,6 +3,8 @@ const ChiburCalc = (widthInput, lengthInput) => {
   let opt3 = { amount: 0, length: 0 };
   let opt2 = { amount: 0, length: 0 };
 
+  let initialWidth = widthInput;
+  let initialLength = lengthInput;
   let width = widthInput;
   let length = lengthInput;
 
@@ -91,7 +93,7 @@ const ChiburCalc = (widthInput, lengthInput) => {
 
   pchat = +(pchatLength * pchatWidth).toFixed(2);
 
-  return { opt4, opt3, opt2, pchat };
+  return { opt4, opt3, opt2, pchat,initialLength,initialWidth };
 };
 
 // console.log(ChiburCalc(5.01, 2.03));
