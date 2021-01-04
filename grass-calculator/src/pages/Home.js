@@ -85,7 +85,7 @@ function Home({ history }) {
       opt4length: 0,
       pchat: 0,
     },
-    
+
     minChiburWithDirection: {
       opt2: 0,
       opt2length: 0,
@@ -225,12 +225,12 @@ function Home({ history }) {
       opt4lengthCD += square.opt4.length;
       pchatCD += square.pchat;
     });
-    
+
     setSummary({
       ...summary,
       minPchatSummary: {
         title: `מינימום פחת`,
-        description:`ניצול מירבי של גלילי הדשא שהזומנו`,
+        description: `ניצול מירבי של גלילי הדשא שהזומנו`,
         opt2: opt2AmountP,
         opt2length: opt2lengthP,
         opt3: opt3AmountP,
@@ -241,7 +241,8 @@ function Home({ history }) {
       },
       minPchatWithDirectionSummary: {
         title: `מינימום פחת + כיוון סיב אחיד בין הגלילים`,
-        description:"  ניצול מירבי של גלילי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של כל הגלילים",
+        description:
+          "  ניצול מירבי של גלילי הדשא שהוזמנו בתנאי של שמירה על כיוון פריסה אחיד של כל הגלילים",
         opt2: opt2AmountPD,
         opt2length: opt2lengthPD,
         opt3: opt3AmountPD,
@@ -251,8 +252,8 @@ function Home({ history }) {
         pchat: pchatPD,
       },
       minChiburNoDirection: {
-        title:'מינימום חיבורים',
-        description:'כיסוי השטח עם מספר מינימלי של גלילי דשא סינטטי ',
+        title: "מינימום חיבורים",
+        description: "כיסוי השטח עם מספר מינימלי של גלילי דשא סינטטי ",
         opt2: opt2AmountC,
         opt2length: opt2lengthC,
         opt3: opt3AmountC,
@@ -262,8 +263,8 @@ function Home({ history }) {
         pchat: pchatC,
       },
       minChiburWithDirection: {
-        title:`מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
-        description:`מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
+        title: `מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
+        description: `מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
         opt2: opt2AmountCD,
         opt2length: opt2lengthCD,
         opt3: opt3AmountCD,
@@ -273,7 +274,6 @@ function Home({ history }) {
         pchat: pchatCD,
       },
     });
-
   }
 
   function bestResult() {
@@ -294,7 +294,6 @@ function Home({ history }) {
         result2.initialWidth = inputWidth;
         result2.initialLength = inputLength;
         setresultForClientPchat([...resultForClientPchat, result2]);
-      
       }
 
       // כיוון פריסה
@@ -304,119 +303,115 @@ function Home({ history }) {
       result2.initialWidth = inputWidth;
       result2.initialLength = inputLength;
       setY_DirectionResultForClient([...y_directionResultForClient, result2]);
-     
     });
 
     summaryAllOptions();
   }
 
   function ControlledTabs() {
-    const [key, setKey] = useState('מינימום חיבורים + כיוון סיב אחיד בין הגלילים');
+    const [key, setKey] = useState(
+      "מינימום חיבורים + כיוון סיב אחיד בין הגלילים"
+    );
     return (
       <>
-      <Tabs id="controlled-tab" activeKey={key} onSelect={(k) => setKey(k)}>
-        {Object.entries(summary).map(([key, value], i) => (
-          // {/* <Tab eventKey="מינימום פחת + כיוון סיב אחיד" title= "מינימום פחת + כיוון סיב אחיד"> */}
-          < Tab eventKey={value.title} title={value.title} >
-          
-            {/* <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}> */}
-            <Row style={{ direction: "rtl", display: "flex", }}>
-              <Col sm={6} >
-                <Card
-                  className='my-5'
-                  border='secondary'
-                  style={{ width: "100%" }}
-                >
-                  {/* {Object.entries(summary).map(([key, value], i) => ( */}
-                  <>
-                    <Card.Header style={{ fontWeight: "bold", direction: "rtl" }} >{value.description} </Card.Header>
-                    <Card.Body style={{ display: "flex" }}>
-                      {/* <Card.Title>{value.description}</Card.Title> */}
-                      <Card.Text style={{ textAlign: "right" }}>
-                        {/* {value.opt2 ? ` סה"כ גלילים ברוחב 2 מטר : ${value.opt2} גלילים , באורך ${value.opt2length} מטר `: null}
-                          {value.opt2 ? <br></br> : null}
-                          {value.opt3 ? ` סה"כ גלילים ברוחב 3 מטר : ${value.opt3}גלילים, באורך ${value.opt3length} מטר`: null}
-                          {value.opt3 ? <br></br>: null}
-                          {value.opt4 ? ` סה"כ גלילים ברוחב 4 מטר : ${value.opt4}גלילים, באורך ${value.opt4length} מטר`: null}
-                          {value.opt4 ? <br></br> : null}
-                          {/* {value.pchat ? ` סה"כ פחת במ"ר: ${+value.pchat} ` : `לא יהיה פחת אם תבחר באפשרות זו`} */}
-                        {/* {` סה"כ פחת במ"ר: ${+value.pchat} `} */}
-                        <Card.Text style={{ textAlign: "right" }}>
-                          {` סה"כ גלילים ברוחב 2 מטר : ${ value.opt2 } גלילים , באורך ${ value.opt2length } מטר `}
-                          <br></br>
-                        </Card.Text>
-                        <Card.Text style={{ textAlign: "right" }}>
+        <Tabs id='controlled-tab' activeKey={key} onSelect={(k) => setKey(k)}>
+          {Object.entries(summary).map(([key, value], i) => (
+            // {/* <Tab eventKey="מינימום פחת + כיוון סיב אחיד" title= "מינימום פחת + כיוון סיב אחיד"> */}
+            <Tab eventKey={value.title} title={value.title}>
+              {/* <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}> */}
+              <Row style={{ direction: "rtl", display: "flex" }}>
+                <Col sm={6}>
+                  <Card
+                    className='my-5'
+                    border='secondary'
+                    style={{ width: "100%" }}
+                  >
+                    {/* {Object.entries(summary).map(([key, value], i) => ( */}
+                    <>
+                      <Card.Body style={{ display: "flex" }}>
+                        <Row md={12}>
+                          <Card.Text style={{ textAlign: "right" }}>
+                            סה"כ גלילים ברוחב 2 מטר :<br></br>
+                            {`  ${value.opt2} גלילים , באורך ${value.opt2length} מטר `}
+                            <br></br>
+                          </Card.Text>
+                          <Card.Text style={{ textAlign: "right" }}>
+                            סה"כ גלילים ברוחב 3 מטר :<br></br>
+                            {` ${value.opt3}גלילים, באורך ${value.opt3length} מטר`}
+                            <br></br>
+                          </Card.Text>
+                        </Row>
+                        <Row md={12}>
+                          <Card.Text style={{ textAlign: "right" }}>
+                            ברוחב 4 מטר :<br></br>
+                            {`  ${value.opt4}גלילים, באורך ${value.opt4length} מטר`}
+                            <br></br>
+                          </Card.Text>
+                          <Card.Text style={{ textAlign: "right" }}>
+                            {`  ${+value.pchat} `}
+                          </Card.Text>
+                        </Row>
+                      </Card.Body>
+                    </>
+                    {/* ))} */}
+                  </Card>
+                </Col>
 
-                          {` סה"כ גלילים ברוחב 3 מטר : ${ value.opt3 }גלילים, באורך ${ value.opt3length } מטר`}
-                          <br></br>
-                        </Card.Text>
-                        <Card.Text style={{ textAlign: "right" }}>
-                        
-                          {`  ברוחב 4 מטר : ${ value.opt4 }גלילים, באורך ${ value.opt4length } מטר`}
-                          <br></br>
-                        </Card.Text>
-                        <Card.Text style={{ textAlign: "right" }}>
-                      
-                          {` סה"כ פחת במ"ר: ${ +value.pchat } `}
-                        </Card.Text>
-                        
-                      </Card.Text>
-                    </Card.Body>
-                  </>
-                  {/* ))} */}
-                </Card>
-              </Col>
-              
-              <Col sm={6}>
-                <Card
-                  className='sirtut'
-                  border='secondary'
-                  style={{ width: "100%" }}
-                >
-                  <>
-                    <Card.Header style={{ fontWeight: "bold", direction: "rtl" }} >{'שרטוט'} </Card.Header>
-                    <Card.Body style={{ display: "flex" }}>
-                      <Card.Text style={{ textAlign: "right" }}>
-
-                        {'שרטוט'}
-                      
-                      </Card.Text>
-                    </Card.Body>
-                  </>
-                </Card>
-              </Col>
-            </Row>
-            {/* </Container> */}
-          </Tab >
-            
-        ))}
-      </Tabs>
+                <Col sm={6}>
+                  <Konva squares={squares} setsquares={setsquares} />
+                </Col>
+              </Row>
+              {/* </Container> */}
+            </Tab>
+          ))}
+        </Tabs>
         {/* בדיקה */}
-       
-      <h3 style={{ textAlign: "center" }}>פירוט האפשרויות השונות </h3>
 
-<Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}>
+        <h3 style={{ textAlign: "center" }}>פירוט האפשרויות השונות </h3>
 
-<Row lg={4} className='d-flex justify-content-around' style={{direction:"rtl",width:"max-content"}}  >
-            {key === 'מינימום פחת' &&
+        <Container
+          style={{
+            textAlign: "right",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Row
+            lg={4}
+            className='d-flex justify-content-around'
+            style={{ direction: "rtl", width: "max-content" }}
+          >
+            {key === "מינימום פחת" && (
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>מינימום פחת-פירוט</strong></Card.Header>
+                  <Card.Header>
+                    <strong>מינימום פחת-פירוט</strong>
+                  </Card.Header>
                   {resultForClientPchat.map((square, index) => {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מלבן מספר {index + 1} אורך {square.initialLength} רוחב{square.initialWidth}</Card.Title>
+                          <Card.Title>
+                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
+                            רוחב{square.initialWidth}
+                          </Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${ square.opt4.amount }, באורך ${ square.opt4.length } מטר ` : null}
+                            {square.opt4.amount
+                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
+                              : null}
                             {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${ square.opt3.amount }, באורך ${ square.opt3.length } מטר ` : null}
+                            {square.opt3.amount
+                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
+                              : null}
                             {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${ square.opt2.amount }, באורך ${ square.opt2.length } מטר ` : null}
+                            {square.opt2.amount
+                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
+                              : null}
                             {square.opt2.amount ? <br></br> : null}
-        פחת{square.pchat} מ"ר
-        <hr></hr>
+                            פחת{square.pchat} מ"ר
+                            <hr></hr>
                           </Card.Text>
                         </Card.Body>
                       </>
@@ -424,114 +419,144 @@ function Home({ history }) {
                   })}
                 </Card>
               </Col>
-            }
-            {key === 'מינימום פחת + כיוון סיב אחיד בין הגלילים' &&
+            )}
+            {key === "מינימום פחת + כיוון סיב אחיד בין הגלילים" && (
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>
-                    פירוט חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הגלילים
-  </strong></Card.Header>
+                  <Card.Header>
+                    <strong>
+                      פירוט חישוב ע"פ מינימום פחת + כיוון סיב אחיד בין הגלילים
+                    </strong>
+                  </Card.Header>
                   {resultPchatWithDirection.map((square, index) => {
                     return (
                       <>
                         <Card.Body>
-                          <Card.Title>מלבן מספר {index + 1}  אורך {square.initialLength} רוחב{square.initialWidth}</Card.Title>
+                          <Card.Title>
+                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
+                            רוחב{square.initialWidth}
+                          </Card.Title>
                           <Card.Text>
                             <hr></hr>
-                            {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${ square.opt4.amount }, באורך ${ square.opt4.length } מטר ` : null}
+                            {square.opt4.amount
+                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
+                              : null}
                             {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${ square.opt3.amount }, באורך ${ square.opt3.length } מטר ` : null}
+                            {square.opt3.amount
+                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
+                              : null}
                             {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${ square.opt2.amount }, באורך ${ square.opt2.length } מטר ` : null}
+                            {square.opt2.amount
+                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
+                              : null}
                             {square.opt2.amount ? <br></br> : null}
-         
-          פחת{square.pchat} מ"ר
-          <hr></hr>
+                            פחת{square.pchat} מ"ר
+                            <hr></hr>
                           </Card.Text>
                         </Card.Body>
                       </>
                     );
                   })}
                 </Card>
-              </Col>}
-            {key === 'מינימום חיבורים' &&
-              
+              </Col>
+            )}
+            {key === "מינימום חיבורים" && (
               <Col>
                 <Card border='secondary' style={{ width: "18rem" }}>
-                  <Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים </strong></Card.Header>
+                  <Card.Header>
+                    <strong>פירוט חישוב ע"פ מינימום חיבורים </strong>
+                  </Card.Header>
                   {resultMinChiburNoDirection.map((square, index) => (
                     <>
                       <Card.Body>
-                        <Card.Title>מלבן מספר {index + 1}  אורך {square.initialLength} רוחב{square.initialWidth}</Card.Title>
+                        <Card.Title>
+                          מלבן מספר {index + 1} אורך {square.initialLength} רוחב
+                          {square.initialWidth}
+                        </Card.Title>
                         <Card.Text>
-                          {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${ square.opt4.amount }, באורך ${ square.opt4.length } מטר ` : null}
+                          {square.opt4.amount
+                            ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
+                            : null}
                           {square.opt4.amount ? <br></br> : null}
-                          {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${ square.opt3.amount }, באורך ${ square.opt3.length } מטר ` : null}
+                          {square.opt3.amount
+                            ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
+                            : null}
                           {square.opt3.amount ? <br></br> : null}
-                          {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${ square.opt2.amount }, באורך ${ square.opt2.length } מטר ` : null}
+                          {square.opt2.amount
+                            ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
+                            : null}
                           {square.opt2.amount ? <br></br> : null}
-        פחת{square.pchat} מ"ר
-        <hr></hr>
+                          פחת{square.pchat} מ"ר
+                          <hr></hr>
                         </Card.Text>
                       </Card.Body>
                     </>
                   ))}
                 </Card>
               </Col>
-            }
-            {key==="מינימום חיבורים + כיוון סיב אחיד בין הגלילים" &&
-              
-<Col>
-<Card border='secondary' style={{ width: "18rem" }}>
-<Card.Header><strong>פירוט חישוב ע"פ מינימום חיבורים + כיוון סיב אחיד בין הגלילים</strong></Card.Header>
-{resultMinChiburWithDirection.map((square, index) => (
-  <>
-    <Card.Body>
-      <Card.Title>מלבן מספר {index + 1} אורך { square.initialLength} רוחב{square.initialWidth }</Card.Title>
-      <Card.Text>
-      {square.opt4.amount ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `: null}
-        {square.opt4.amount ? <br></br> : null}
-        {square.opt3.amount ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `: null}
-        {square.opt3.amount ? <br></br> : null}
-        {square.opt2.amount ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `: null}
-        {square.opt2.amount ? <br></br> : null}
-        פחת{square.pchat} מ"ר
-        <hr></hr>
-      </Card.Text>
-    </Card.Body>
-  </>
-))}
-</Card>
-</Col>
-  }
-</Row>
-
-</Container>
-                  </>
+            )}
+            {key === "מינימום חיבורים + כיוון סיב אחיד בין הגלילים" && (
+              <Col>
+                <Card border='secondary' style={{ width: "18rem" }}>
+                  <Card.Header>
+                    <strong>
+                      פירוט חישוב ע"פ מינימום חיבורים + כיוון סיב אחיד בין
+                      הגלילים
+                    </strong>
+                  </Card.Header>
+                  {resultMinChiburWithDirection.map((square, index) => (
+                    <>
+                      <Card.Body>
+                        <Card.Title>
+                          מלבן מספר {index + 1} אורך {square.initialLength} רוחב
+                          {square.initialWidth}
+                        </Card.Title>
+                        <Card.Text>
+                          {square.opt4.amount
+                            ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
+                            : null}
+                          {square.opt4.amount ? <br></br> : null}
+                          {square.opt3.amount
+                            ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
+                            : null}
+                          {square.opt3.amount ? <br></br> : null}
+                          {square.opt2.amount
+                            ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
+                            : null}
+                          {square.opt2.amount ? <br></br> : null}
+                          פחת{square.pchat} מ"ר
+                          <hr></hr>
+                        </Card.Text>
+                      </Card.Body>
+                    </>
+                  ))}
+                </Card>
+              </Col>
+            )}
+          </Row>
+        </Container>
+      </>
     );
-  };
+  }
 
   return (
-    < >
-     
+    <>
       {/* <h4 style={{ textAlign: "right" }}>  הוראות שימוש</h4>
 
       <ol style={{margin: "2rem", direction:"rtl", float:"right" }}> */}
-        {/* {titleList.map(line => {
+      {/* {titleList.map(line => {
           return (
             <li key={line.key} style={{ display: "flex" }}>{line.key+1}.{line.description} </li>
           );
         })} */}
-        {/* <div style={{textAlign:"start"}}>
+      {/* <div style={{textAlign:"start"}}>
          <h5 >בתחתית המסך יופיעו התוצאות האפשריות להזמנה.</h5>
         <h4> בתחילה תופיע רשימה של {<strong>סיכום</strong>}.</h4>
         <h4>לאחר מכן יופיע {<strong>פירוט</strong>}. </h4>
         </div>
       </ol> */}
-       
 
-        <div className='App'>
-
+      <div className='App'>
         <Konva squares={squares} setsquares={setsquares} />
 
         <InputGroup
@@ -539,10 +564,13 @@ function Home({ history }) {
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-end",
-             }}
+          }}
           className='mb-3 p-5'
         >
-      <h1 style={{ textAlign: "right", marginBottom:"3rem" }}>  מחשבון דשא סינטטי</h1>
+          <h1 style={{ textAlign: "right", marginBottom: "3rem" }}>
+            {" "}
+            מחשבון דשא סינטטי
+          </h1>
 
           <Form.Label>
             <strong style={{ textAlign: "right" }}> רוחב במטרים</strong>
@@ -550,7 +578,12 @@ function Home({ history }) {
           <FormControl
             // placeholder='הכנס רוחב'
             value={width}
-            style={{ width: "35%",height:"2rem", direction: "rtl", maxHeight: "2rem" }}
+            style={{
+              width: "35%",
+              height: "2rem",
+              direction: "rtl",
+              maxHeight: "2rem",
+            }}
             aria-label='Default'
             aria-describedby='inputGroup-sizing-default'
             id='width'
@@ -563,8 +596,8 @@ function Home({ history }) {
           </Form.Label>
           <FormControl
             // placeholder='הכנס אורך'
-            value={length}    
-            style={{ width: "35%", direction: "rtl", maxHeight: "2rem"}}
+            value={length}
+            style={{ width: "35%", direction: "rtl", maxHeight: "2rem" }}
             aria-label='Default'
             aria-describedby='inputGroup-sizing-default'
             id='length'
@@ -578,8 +611,8 @@ function Home({ history }) {
               onClick={() => {
                 setColor(getRandomColour());
                 setsquares([...squares, [+width, +length, color]]);
-                setwidth('');
-                setlength('');
+                setwidth("");
+                setlength("");
                 summaryAllOptions();
               }}
               className='m-3'
@@ -607,16 +640,15 @@ function Home({ history }) {
                 setlength(0);
                 setResultMinChiburNoDirection([]);
                 setResultMinChiburWithDirection([]);
-                setX_DirectionResultForClient([]); 
+                setX_DirectionResultForClient([]);
                 setY_DirectionResultForClient([]);
                 setresultPchatWithDirection([]);
                 setopenSummary(false);
-              
               }}
               className='m-3'
               variant='success'
             >
-נקה
+              נקה
             </Button>
           </div>
         </InputGroup>
@@ -624,10 +656,10 @@ function Home({ history }) {
       <hr></hr>
 
       {openSummary && (
-        <div className='summary'  >
-        <h3 style={{ textAlign: "center" }}>אלו התוצאות האפשריות עבורכם </h3>
-      <ControlledTabs />
-{/* 
+        <div className='summary'>
+          <h3 style={{ textAlign: "center" }}>אלו התוצאות האפשריות עבורכם </h3>
+          <ControlledTabs />
+          {/* 
       <h3 style={{ textAlign: "center" }}>פירוט האפשרויות השונות </h3>
 
       <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}>
@@ -735,12 +767,10 @@ function Home({ history }) {
 </Row>
 
 </Container> */}
-
         </div>
       )}
     </>
   );
 }
-
 
 export default Home;
