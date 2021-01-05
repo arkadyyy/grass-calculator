@@ -105,7 +105,7 @@ function Home({ history }) {
 
   //squares color
   const [color, setColor] = useState(getRandomColour());
-  const [columnCount,setColumnCount]=useState(2);
+  const [titleColor,setTitleColor]=useState(getRandomColour());
 
   function getRandomColour() {
     var red = Math.floor(Math.random() * 255);
@@ -285,8 +285,8 @@ function Home({ history }) {
       // min pchat no direction consider
       // let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
       // let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
-      let result1 = ChiburCalc(square[0], square[1]);
-      let result2 = ChiburCalc(square[1], square[0]);
+      let result1 = ChiburCalc(square[0], square[1],square[2]);
+      let result2 = ChiburCalc(square[1], square[0],square[2]);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
@@ -342,7 +342,7 @@ function Home({ history }) {
                         // }}
                       >
                         <Row md={12}>
-                          <Col>
+                        <Col md={3} style={{padding:'1rem', margin:"1rem"}}>
                           <Card.Text style={{ textAlign: "right" }}>
                            <strong> סה"כ גלילים ברוחב 2 מטר </strong><hr></hr>
                             <span>כמות: {value.opt2}</span><br></br>
@@ -388,6 +388,8 @@ function Home({ history }) {
 
         <h3 style={{ textAlign: "center" }}>פירוט האפשרויות השונות </h3>
 
+
+        
         {key === "מינימום פחת" && (       
              <>
               <strong>מינימום פחת-פירוט</strong><br></br>
@@ -395,34 +397,45 @@ function Home({ history }) {
               <Row>
 
 
-            {resultForClientPchat.map((square, index) => {
+            {resultForClientPchat.map((square, index,) => {
                  
               return (
 
                 <>
-<Col md={3}>
-                 
-                          <Card.Title>
+                 <Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+                    
+                        <Card border="dark"
+                        //  bg={'secondary'}
+                        // bg={variant.toLowerCase()}
+                          // key={idx}
+                          // text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
+                          text={'black'}
+                          style={{ width: '18rem' }}
+                          className="mb-2">
+                      
+                      <Card.Title style={{ background: `${square.color}` }}>
                             מלבן מספר {index + 1} אורך {square.initialLength}{" "}
                             רוחב{square.initialWidth}
                           </Card.Title>
                           <Card.Text>
                             <hr></hr>
                             {square.opt4.amount
-                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
+                              ? ` סה"כ גלילים ברוחב 4 מטר : ${ square.opt4.amount }, באורך ${ square.opt4.length } מטר `
                               : null}
                             {square.opt4.amount ? <br></br> : null}
                             {square.opt3.amount
-                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
+                              ? ` סה"כ גלילים ברוחב 3 מטר : ${ square.opt3.amount }, באורך ${ square.opt3.length } מטר `
                               : null}
                             {square.opt3.amount ? <br></br> : null}
                             {square.opt2.amount
-                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
+                              ? ` סה"כ גלילים ברוחב 2 מטר : ${ square.opt2.amount }, באורך ${ square.opt2.length } מטר `
                               : null}
                             {square.opt2.amount ? <br></br> : null}
                             פחת{square.pchat} מ"ר
                             <hr></hr>
                           </Card.Text>
+                        </Card>
+                      
                           </Col>               
                       </> 
                     );
@@ -444,9 +457,9 @@ function Home({ history }) {
               return (
 
                 <>
-<Col md={3}>
-                 
-                          <Card.Title>
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Title style={{ background: `${square.color}` }}>
                             מלבן מספר {index + 1} אורך {square.initialLength}{" "}
                             רוחב{square.initialWidth}
                           </Card.Title>
@@ -466,7 +479,8 @@ function Home({ history }) {
                             {square.opt2.amount ? <br></br> : null}
                             פחת{square.pchat} מ"ר
                             <hr></hr>
-                          </Card.Text>
+                      </Card.Text>
+                      </Card>
                           </Col>               
                       </> 
                     );
@@ -488,9 +502,9 @@ function Home({ history }) {
               return (
 
                 <>
-<Col md={3}>
-                 
-                          <Card.Title>
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Title style={{ background: `${square.color}` }}>
                             מלבן מספר {index + 1} אורך {square.initialLength}{" "}
                             רוחב{square.initialWidth}
                           </Card.Title>
@@ -510,7 +524,8 @@ function Home({ history }) {
                             {square.opt2.amount ? <br></br> : null}
                             פחת{square.pchat} מ"ר
                             <hr></hr>
-                          </Card.Text>
+                      </Card.Text>
+                      </Card>
                           </Col>               
                       </> 
                     );
@@ -531,9 +546,10 @@ function Home({ history }) {
               return (
 
                 <>
-<Col md={3}>
-                 
-                          <Card.Title>
+                  
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Title style={{ background: `${square.color}` }}>
                             מלבן מספר {index + 1} אורך {square.initialLength}{" "}
                             רוחב{square.initialWidth}
                           </Card.Title>
@@ -553,7 +569,9 @@ function Home({ history }) {
                             {square.opt2.amount ? <br></br> : null}
                             פחת{square.pchat} מ"ר
                             <hr></hr>
-                          </Card.Text>
+                      </Card.Text>
+                      </Card>
+
                           </Col>               
                       </> 
                     );
@@ -638,6 +656,7 @@ function Home({ history }) {
             <Button
               onClick={() => {
                 setColor(getRandomColour());
+                setTitleColor(getRandomColour());
                 setsquares([...squares, [+width, +length, color]]);
                 setwidth("");
                 setlength("");

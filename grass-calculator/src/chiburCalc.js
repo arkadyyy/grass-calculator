@@ -1,4 +1,4 @@
-const ChiburCalc = (widthInput, lengthInput) => {
+const ChiburCalc = (widthInput, lengthInput,color) => {
   let opt4 = { amount: 0, length: 0 };
   let opt3 = { amount: 0, length: 0 };
   let opt2 = { amount: 0, length: 0 };
@@ -93,7 +93,7 @@ const ChiburCalc = (widthInput, lengthInput) => {
 
   pchat = +(pchatLength * pchatWidth).toFixed(2);
 
-  return { opt4, opt3, opt2, pchat,initialLength,initialWidth };
+  return { opt4, opt3, opt2, pchat,initialLength,initialWidth,color };
 };
 
 // console.log(ChiburCalc(5.01, 2.03));
