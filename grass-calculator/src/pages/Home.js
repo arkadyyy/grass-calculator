@@ -13,7 +13,8 @@ import {
   Col,
   Tabs,
   Tab,
-  CardColumns,
+  CardColumns
+
 } from "react-bootstrap";
 import { useEffect, useState } from "react";
 // import calculateBestOption from "../calculator";
@@ -104,7 +105,7 @@ function Home({ history }) {
 
   //squares color
   const [color, setColor] = useState(getRandomColour());
-  const [titleColor, setTitleColor] = useState(getRandomColour());
+  const [titleColor,setTitleColor]=useState(getRandomColour());
 
   function getRandomColour() {
     var red = Math.floor(Math.random() * 255);
@@ -282,9 +283,10 @@ function Home({ history }) {
     squares.forEach((square) => {
       //  פחת מינימלי בלי כיוון פריסה
       // min pchat no direction consider
-
-      let result1 = ChiburCalc(square[0], square[1], square[2]);
-      let result2 = ChiburCalc(square[1], square[0], square[2]);
+      // let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
+      // let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
+      let result1 = ChiburCalc(square[0], square[1],square[2]);
+      let result2 = ChiburCalc(square[1], square[0],square[2]);
       if (result1.pchat === result2.pchat) {
         setresultForClientPchat([...resultForClientPchat, result1]);
       } else if (result1.pchat < result2.pchat) {
@@ -316,7 +318,7 @@ function Home({ history }) {
     return (
       <>
         <Tabs id='controlled-tab' activeKey={key} onSelect={(k) => setKey(k)}>
-          {Object.entries(summary).map(([objKey, value], i) => (
+          {Object.entries(summary).map(([key, value], i) => (
             // {/* <Tab eventKey="מינימום פחת + כיוון סיב אחיד" title= "מינימום פחת + כיוון סיב אחיד"> */}
             <Tab eventKey={value.title} title={value.title}>
               {/* <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}> */}
@@ -325,255 +327,265 @@ function Home({ history }) {
                   <Card
                     className='my-5'
                     border='secondary'
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", 
+                  
+                    
+          }}
                   >
+                   
                     <>
                       <Card.Body
-                      // style={{
-                      //   display: "grid",
-                      //   gridAutoColumns: "auto auto",
-                      //   gridTemplateRows:'150px'
-                      // }}
-                      >
+  >
                         <Row md={12}>
-                          <Col
-                            md={3}
-                            style={{ padding: "1rem", margin: "1rem" }}
-                          >
-                            <Card.Text style={{ textAlign: "right" }}>
-                              <strong> סה"כ גלילים ברוחב 2 מטר </strong>
-                              <hr></hr>
-                              <span>כמות: {value.opt2}</span>
-                              <br></br>
-                              <span> באורך: {value.opt2length}</span>
-                              <br></br>
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: "right" }}>
-                              <strong> סה"כ גלילים ברוחב 3 מטר </strong>
-                              <hr></hr>
-                              <span>כמות: {value.opt3}</span>
-                              <br></br>
-                              <span> באורך: {value.opt3length}</span>
-                              <br></br>
-                            </Card.Text>
+                         <Col md={6} >
+                          <Card.Text style={{ textAlign: "right" }}>
+                           <strong> סה"כ גלילים ברוחב 2 מטר </strong><hr></hr>
+                            <span>כמות: {value.opt2}</span><br></br>
+                             <span> באורך: {value.opt2length}</span> 
+                            <br></br>
+                          </Card.Text>
+                          <Card.Text style={{ textAlign: "right" }}>
+                           <strong> סה"כ גלילים ברוחב 3 מטר </strong><hr></hr>
+                            <span>כמות: {value.opt3}</span><br></br>
+                             <span> באורך: {value.opt3length}</span> 
+                            <br></br>
+                          </Card.Text>
                           </Col>
-                          <Col>
-                            <Card.Text style={{ textAlign: "right" }}>
-                              <strong> סה"כ גלילים ברוחב 4 מטר </strong>
-                              <hr></hr>
-                              <span>כמות: {value.opt4}</span>
-                              <br></br>
-                              <span> באורך: {value.opt4length}</span>
-                              <br></br>
-                            </Card.Text>
-                            <Card.Text style={{ textAlign: "right" }}>
-                              <strong> סה"כ פחת </strong>
-                              <hr></hr>
-                              <span>מ"ר{value.pchat}</span>
-                              <br></br>
-                            </Card.Text>
+                          <Col md={6} >
+                          <Card.Text style={{ textAlign: "right" }}>
+                           <strong> סה"כ גלילים ברוחב 4 מטר </strong><hr></hr>
+                            <span>כמות: {value.opt4}</span><br></br>
+                             <span> באורך: {value.opt4length}</span> 
+                            <br></br>
+                          </Card.Text>
+                          <Card.Text style={{ textAlign: "right" }}>
+                           <strong> סה"כ פחת </strong><hr></hr>
+                              <span>מ"ר{value.pchat}</span><br></br>
+                             
+                          </Card.Text>
                           </Col>
                         </Row>
                       </Card.Body>
                     </>
+                   
                   </Card>
                 </Col>
 
                 <Col sm={6}>
-                  <Konva
-                    resultForClientPchat={resultForClientPchat}
-                    xDirectionSquare={x_directionResultForClient}
-                    yDirectionSquare={y_directionResultForClient}
-                    summary={summary}
-                    tabKey={key}
-                    type='bottom'
-                    squares={squares}
-                    setsquares={setsquares}
-                  />
+                  <Konva squares={squares} setsquares={setsquares} />
                 </Col>
               </Row>
               {/* </Container> */}
             </Tab>
           ))}
         </Tabs>
+      
 
-        <h3 style={{ textAlign: "center" }}>פירוט האפשרויות השונות </h3>
+        <h1 style={{ textAlign: "right" }}>פירוט </h1>
 
-        {key === "מינימום פחת" && (
-          <>
-            <strong>מינימום פחת-פירוט</strong>
-            <br></br>
-            <Container>
+
+        
+        {key === "מינימום פחת" && (       
+             <>
+              {/* <strong>מינימום פחת-פירוט</strong><br></br> */}
+          <Container>
               <Row>
-                {resultForClientPchat.map((square, index) => {
-                  return (
-                    <>
-                      <Col md={3} style={{ padding: "1rem", margin: "1rem" }}>
-                        <Card
-                          border='dark'
-                          //  bg={'secondary'}
-                          // bg={variant.toLowerCase()}
+
+
+            {resultForClientPchat.map((square, index,) => {
+                 
+              return (
+
+                <>
+                 <Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+                    
+                        <Card border="dark"
+                        //  bg={'secondary'}
+                        // bg={variant.toLowerCase()}
                           // key={idx}
                           // text={variant.toLowerCase() === 'light' ? 'dark' : 'white'}
-                          text={"black"}
-                          style={{ width: "18rem" }}
-                          className='mb-2'
-                        >
-                          <Card.Title style={{ background: `${square.color}` }}>
-                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
-                            רוחב{square.initialWidth}
-                          </Card.Title>
-                          <Card.Text>
-                            <hr></hr>
-                            {square.opt4.amount
-                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
-                              : null}
-                            {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount
-                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
-                              : null}
-                            {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount
-                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
-                              : null}
-                            {square.opt2.amount ? <br></br> : null}
-                            פחת{square.pchat} מ"ר
-                            <hr></hr>
-                          </Card.Text>
-                        </Card>
-                      </Col>
-                    </>
-                  );
-                })}
-              </Row>
-            </Container>
-          </>
-        )}
+                          text={'black'}
+                          style={{ width: '18rem' }}
+                          className="mb-2">
+                      
+                      <Card.Header style={{ background: `${square.color}` }}>
+                        <h1> מלבן מספר {index + 1} </h1>
+                           אורך: {square.initialLength}מטר
+                            רוחב:{square.initialWidth}מטר
+                          </Card.Header>
+                          <Card.Text className="perutCardText">
+                         
+                            {square.opt4.amount?
+                              <><strong> גלילים ברוחב 4 מטר</strong> <hr></hr><p>כמות:{ square.opt4.amount }</p><p> באורך: { square.opt4.length } מטר </p>
+                         </> : null}
+                          {square.opt4.amount ? <br></br> : null}
 
-        {key === "מינימום פחת + כיוון סיב אחיד בין הגלילים" && (
-          <>
-            <strong>מינימום פחת + כיוון סיב אחיד בין הגלילים-פירוט</strong>
-            <br></br>
-            <Container>
-              <Row>
-                {resultPchatWithDirection.map((square, index) => {
-                  return (
-                    <>
-                      <Col md={3} style={{ padding: "1rem", margin: "1rem" }}>
-                        <Card border='dark' style={{ width: "18rem" }}>
-                          <Card.Title style={{ background: `${square.color}` }}>
-                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
-                            רוחב{square.initialWidth}
-                          </Card.Title>
-                          <Card.Text>
-                            <hr></hr>
-                            {square.opt4.amount
-                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
-                              : null}
-                            {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount
-                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
-                              : null}
+                            {square.opt3.amount ?
+                              <><strong> גלילים ברוחב 3 מטר</strong><hr></hr><p>כמות:{ square.opt3.amount }</p><p> באורך: { square.opt3.length } מטר </p>
+                             </> : null}
                             {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount
-                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
-                              : null}
+                            
+                        {square.opt2.amount ?
+                              <><strong> גלילים ברוחב 2 מטר</strong><hr></hr><p>כמות:{ square.opt2.amount }</p><p> באורך: { square.opt2.length } מטר </p>
+                             </> : null}
                             {square.opt2.amount ? <br></br> : null}
-                            פחת{square.pchat} מ"ר
-                            <hr></hr>
+                            
+                           <strong> סה"כ פחת<hr></hr></strong>
+                            {square.pchat} מ"ר
+                            
                           </Card.Text>
                         </Card>
-                      </Col>
-                    </>
-                  );
-                })}
-              </Row>
-            </Container>
-          </>
+                      
+                          </Col>               
+                      </> 
+                    );
+                  })}                        
+                     </Row>
+                     </Container>
+                 </>
         )}
+        
+        {key === "מינימום פחת + כיוון סיב אחיד בין הגלילים" && (       
+             <>
+          <Container>
+              <Row>
 
-        {key === "מינימום חיבורים" && (
-          <>
-            <strong>מינימום חיבורים - פירוט</strong>
-            <br></br>
-            <Container>
-              <Row>
-                {resultMinChiburNoDirection.map((square, index) => {
-                  return (
-                    <>
-                      <Col md={3} style={{ padding: "1rem", margin: "1rem" }}>
-                        <Card border='dark' style={{ width: "18rem" }}>
-                          <Card.Title style={{ background: `${square.color}` }}>
-                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
-                            רוחב{square.initialWidth}
-                          </Card.Title>
-                          <Card.Text>
-                            <hr></hr>
-                            {square.opt4.amount
-                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
-                              : null}
-                            {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount
-                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
-                              : null}
+
+            {resultPchatWithDirection.map((square, index) => {
+                 
+              return (
+
+                <>
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Header style={{ background: `${square.color}` }}>
+                        <h1> מלבן מספר {index + 1} </h1>
+                           אורך: {square.initialLength}מטר
+                            רוחב:{square.initialWidth}מטר
+                          </Card.Header>
+                          <Card.Text className="perutCardText">
+                          {square.opt4.amount?
+                              <><strong> גלילים ברוחב 4 מטר</strong> <hr></hr><p>כמות:{ square.opt4.amount }</p><p> באורך: { square.opt4.length } מטר </p>
+                         </> : null}
+                          {square.opt4.amount ? <br></br> : null}
+
+                            {square.opt3.amount ?
+                              <><strong> גלילים ברוחב 3 מטר</strong><hr></hr><p>כמות:{ square.opt3.amount }</p><p> באורך: { square.opt3.length } מטר </p>
+                             </> : null}
                             {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount
-                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
-                              : null}
+                            
+                        {square.opt2.amount ?
+                              <><strong> גלילים ברוחב 2 מטר</strong><hr></hr><p>כמות:{ square.opt2.amount }</p><p> באורך: { square.opt2.length } מטר </p>
+                             </> : null}
                             {square.opt2.amount ? <br></br> : null}
-                            פחת{square.pchat} מ"ר
-                            <hr></hr>
-                          </Card.Text>
-                        </Card>
-                      </Col>
-                    </>
-                  );
-                })}
-              </Row>
-            </Container>
-          </>
+                            
+                           <strong> סה"כ פחת<hr></hr></strong>
+                            {square.pchat} מ"ר
+                      </Card.Text>
+                      </Card>
+                          </Col>               
+                      </> 
+                    );
+                  })}                        
+                     </Row>
+                     </Container>
+                 </>
         )}
-        {key === "מינימום חיבורים + כיוון סיב אחיד בין הגלילים" && (
-          <>
-            <strong>מינימום חיבורים+כיוון סיב אחיד בין הגלילים - פירוט</strong>
-            <br></br>
-            <Container>
+        
+        {key === "מינימום חיבורים" && (       
+             <>
+          <Container>
               <Row>
-                {resultMinChiburWithDirection.map((square, index) => {
-                  return (
-                    <>
-                      <Col md={3} style={{ padding: "1rem", margin: "1rem" }}>
-                        <Card border='dark' style={{ width: "18rem" }}>
-                          <Card.Title style={{ background: `${square.color}` }}>
-                            מלבן מספר {index + 1} אורך {square.initialLength}{" "}
-                            רוחב{square.initialWidth}
-                          </Card.Title>
-                          <Card.Text>
-                            <hr></hr>
-                            {square.opt4.amount
-                              ? ` סה"כ גלילים ברוחב 4 מטר : ${square.opt4.amount}, באורך ${square.opt4.length} מטר `
-                              : null}
-                            {square.opt4.amount ? <br></br> : null}
-                            {square.opt3.amount
-                              ? ` סה"כ גלילים ברוחב 3 מטר : ${square.opt3.amount}, באורך ${square.opt3.length} מטר `
-                              : null}
+
+
+            {resultMinChiburNoDirection.map((square, index) => {
+                 
+              return (
+
+                <>
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Header style={{ background: `${square.color}` }}>
+                        <h1> מלבן מספר {index + 1} </h1>
+                           אורך: {square.initialLength}מטר
+                            רוחב:{square.initialWidth}מטר
+                          </Card.Header>
+                          <Card.Text className="perutCardText">
+                          {square.opt4.amount?
+                              <><strong> גלילים ברוחב 4 מטר</strong> <hr></hr><p>כמות:{ square.opt4.amount }</p><p> באורך: { square.opt4.length } מטר </p>
+                         </> : null}
+                          {square.opt4.amount ? <br></br> : null}
+
+                            {square.opt3.amount ?
+                              <><strong> גלילים ברוחב 3 מטר</strong><hr></hr><p>כמות:{ square.opt3.amount }</p><p> באורך: { square.opt3.length } מטר </p>
+                             </> : null}
                             {square.opt3.amount ? <br></br> : null}
-                            {square.opt2.amount
-                              ? ` סה"כ גלילים ברוחב 2 מטר : ${square.opt2.amount}, באורך ${square.opt2.length} מטר `
-                              : null}
+                            
+                        {square.opt2.amount ?
+                              <><strong> גלילים ברוחב 2 מטר</strong><hr></hr><p>כמות:{ square.opt2.amount }</p><p> באורך: { square.opt2.length } מטר </p>
+                             </> : null}
                             {square.opt2.amount ? <br></br> : null}
-                            פחת{square.pchat} מ"ר
-                            <hr></hr>
-                          </Card.Text>
-                        </Card>
-                      </Col>
-                    </>
-                  );
-                })}
-              </Row>
-            </Container>
-          </>
-        )}
+                            
+                           <strong> סה"כ פחת<hr></hr></strong>
+                            {square.pchat} מ"ר
+                      </Card.Text>
+                      </Card>
+                          </Col>               
+                      </> 
+                    );
+                  })}                        
+                     </Row>
+                     </Container>
+                 </>
+            )}
+        {key === "מינימום חיבורים + כיוון סיב אחיד בין הגלילים" && (       
+             <>
+          <Container>
+              <Row>
+
+
+            {resultMinChiburWithDirection.map((square, index) => {
+                 
+              return (
+
+             
+                <>
+<Col md={3} style={{padding:'1rem', margin:"1rem"}}>
+<Card border="dark" style={{ width: '18rem' }}>
+<Card.Header style={{ background: `${square.color}` }}>
+                        <h1> מלבן מספר {index + 1} </h1>
+                           אורך: {square.initialLength}מטר
+                            רוחב:{square.initialWidth}מטר
+                          </Card.Header>
+                          <Card.Text className="perutCardText">
+                          {square.opt4.amount?
+                              <><strong> גלילים ברוחב 4 מטר</strong> <hr></hr><p>כמות:{ square.opt4.amount }</p><p> באורך: { square.opt4.length } מטר </p>
+                         </> : null}
+                          {square.opt4.amount ? <br></br> : null}
+
+                            {square.opt3.amount ?
+                              <><strong> גלילים ברוחב 3 מטר</strong><hr></hr><p>כמות:{ square.opt3.amount }</p><p> באורך: { square.opt3.length } מטר </p>
+                             </> : null}
+                            {square.opt3.amount ? <br></br> : null}
+                            
+                        {square.opt2.amount ?
+                              <><strong> גלילים ברוחב 2 מטר</strong><hr></hr><p>כמות:{ square.opt2.amount }</p><p> באורך: { square.opt2.length } מטר </p>
+                             </> : null}
+                            {square.opt2.amount ? <br></br> : null}
+                            
+                           <strong> סה"כ פחת<hr></hr></strong>
+                            {square.pchat} מ"ר
+                      </Card.Text>
+                      </Card>
+                          </Col>               
+                      </> 
+                    );
+                  })}                        
+                     </Row>
+                     </Container>
+                 </>
+            )}
+      
       </>
     );
   }
@@ -699,6 +711,7 @@ function Home({ history }) {
         <div className='summary'>
           <h3 style={{ textAlign: "center" }}>אלו התוצאות האפשריות עבורכם </h3>
           <ControlledTabs />
+      
         </div>
       )}
     </>

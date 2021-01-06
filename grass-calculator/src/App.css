@@ -29,3 +29,10 @@ label {
 .card-header{
   text-align: center!important;
 }
+/* .Card-text{
+  text-align: right;
+} */
+.perutCardText {text-align: right;
+  padding: 1rem;
+  margin-right: 1rem;
+}
