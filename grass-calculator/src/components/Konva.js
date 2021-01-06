@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Stage, Layer, Rect, Text, Group } from "react-konva";
+import { Stage, Layer, Rect, Text, Group, Arrow } from "react-konva";
 
 const Konva = ({
   squares,
@@ -61,8 +61,13 @@ const Konva = ({
                     arrayUsed[index].opt3.amount * 3 +
                     arrayUsed[index].opt4.amount * 4;
                   length[index] = square[1];
-                } else {
-                  width[index] = square[1];
+                }
+                if (
+                  arrayUsed[index].opt2.length ||
+                  arrayUsed[index].opt3.length ||
+                  arrayUsed[index].opt4.length === square[0]
+                ) {
+                  width[index] = square[0];
                   length[index] =
                     arrayUsed[index].opt2.amount * 2 +
                     arrayUsed[index].opt3.amount * 3 +
@@ -76,6 +81,26 @@ const Konva = ({
               return (
                 <>
                   <Group draggable>
+                    <Arrow
+                      x={100}
+                      y={-45}
+                      points={[0, 110, 0, 150]}
+                      // pointerLength={20}
+                      // pointerWidth={20}
+                      fill='black'
+                      stroke='black'
+                      strokeWidth={4}
+                    />
+                    <Arrow
+                      x={-285}
+                      y={40}
+                      points={[460, 0, 500, 0]}
+                      // pointerLength={20}
+                      // pointerWidth={20}
+                      fill='black'
+                      stroke='black'
+                      strokeWidth={4}
+                    />
                     <Text
                       x={110}
                       y={30}
@@ -96,22 +121,42 @@ const Konva = ({
                       width={square[0] * 30}
                       height={square[1] * 30}
                       fill={square[2]}
-                      stroke='black'
-                      strokeWidth='4'
+                      opacity={0.6}
+                      // stroke='black'
+                      // strokeWidth='4'
                     />
                     {type === "bottom" && (
                       <Rect
                         draggable
-                        x={100}
-                        y={50}
+                        x={90}
+                        y={45}
                         width={width[index] * 30}
-                        height={length[index] * 30}
+                        height={length[index] * 35}
                         fill='transparent'
                         stroke={square[2]}
                         draggable={false}
                         strokeWidth='2'
                         dash={[10, 10]}
                       ></Rect>
+                    )}
+                    {type === "bottom" && (
+                      <Text
+                        x={10}
+                        y={55}
+                        text={`אורך מקווקו ${length[index]}`}
+                        fontSize={15}
+                        fill={"black"}
+                        rotationDeg={90}
+                      />
+                    )}
+                    {type === "bottom" && (
+                      <Text
+                        x={80}
+                        y={0}
+                        text={`רוחב מקווקו ${width[index]}`}
+                        fontSize={15}
+                        fill={"black"}
+                      />
                     )}
                     <Text
                       x={120}
