@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Stage, Layer, Rect, Text, Group, Arrow } from "react-konva";
+import { Stage, Layer, Rect, Text, Group, Arrow, Line } from "react-konva";
 
 const Konva = ({
   squares,
@@ -40,7 +40,11 @@ const Konva = ({
     <>
       <div>
         <Stage
-          style={{ border: "3px solid green", margin: "3rem" }}
+          style={{
+            border: "1px solid #333",
+            margin: "3rem",
+            borderRadius: "5px",
+          }}
           width={window.innerWidth / 2}
           height={window.innerHeight / 2}
         >
@@ -48,12 +52,13 @@ const Konva = ({
             {squares.map((square, index) => {
               let width = [];
               let length = [];
+              let arrowDirection = [];
 
               if (arrayUsed.length !== 0) {
                 console.log("i am here 777");
                 if (
-                  arrayUsed[index].opt2.length ||
-                  arrayUsed[index].opt3.length ||
+                  arrayUsed[index].opt2.length === square[1] ||
+                  arrayUsed[index].opt3.length === square[1] ||
                   arrayUsed[index].opt4.length === square[1]
                 ) {
                   width[index] =
@@ -61,10 +66,10 @@ const Konva = ({
                     arrayUsed[index].opt3.amount * 3 +
                     arrayUsed[index].opt4.amount * 4;
                   length[index] = square[1];
-                }
-                if (
-                  arrayUsed[index].opt2.length ||
-                  arrayUsed[index].opt3.length ||
+                  arrowDirection[index] = "vertical";
+                } else if (
+                  arrayUsed[index].opt2.length === square[0] ||
+                  arrayUsed[index].opt3.length === square[0] ||
                   arrayUsed[index].opt4.length === square[0]
                 ) {
                   width[index] = square[0];
@@ -72,6 +77,7 @@ const Konva = ({
                     arrayUsed[index].opt2.amount * 2 +
                     arrayUsed[index].opt3.amount * 3 +
                     arrayUsed[index].opt4.amount * 4;
+                  arrowDirection[index] = "horizantal";
                 }
 
                 console.log("width : ", width);
@@ -81,26 +87,38 @@ const Konva = ({
               return (
                 <>
                   <Group draggable>
-                    <Arrow
-                      x={100}
-                      y={-45}
-                      points={[0, 110, 0, 150]}
-                      // pointerLength={20}
-                      // pointerWidth={20}
-                      fill='black'
-                      stroke='black'
-                      strokeWidth={4}
-                    />
-                    <Arrow
-                      x={-285}
-                      y={40}
-                      points={[460, 0, 500, 0]}
-                      // pointerLength={20}
-                      // pointerWidth={20}
-                      fill='black'
-                      stroke='black'
-                      strokeWidth={4}
-                    />
+                    {arrowDirection[index] === "vertical" && (
+                      <Arrow
+                        x={100}
+                        y={-45}
+                        points={[0, 110, 0, 150]}
+                        width={30}
+                        pointerLength={5}
+                        pointerWidth={5}
+                        fill='black'
+                        stroke='black'
+                      />
+                    )}
+                    <Line
+                      draggable={true}
+                      points={[10, 20, 80, 100]}
+                      stroke={square[2]}
+                      strokeWidth='2'
+                      dash={[10, 10]}
+                      rotationDeg={132}
+                    ></Line>
+                    {arrowDirection[index] === "horizantal" && (
+                      <Arrow
+                        x={-285}
+                        y={40}
+                        points={[472, 0, 500, 0]}
+                        pointerLength={5}
+                        pointerWidth={5}
+                        fill='black'
+                        stroke='black'
+                      />
+                    )}
+
                     <Text
                       x={110}
                       y={30}
@@ -116,6 +134,10 @@ const Konva = ({
                     />
 
                     <Rect
+                      onclick={(e) => {
+                        console.log(e.target.absolutePosition());
+                        console.log(e.target);
+                      }}
                       x={100}
                       y={50}
                       width={square[0] * 30}
@@ -125,13 +147,14 @@ const Konva = ({
                       // stroke='black'
                       // strokeWidth='4'
                     />
+
                     {type === "bottom" && (
                       <Rect
                         draggable
-                        x={90}
-                        y={45}
+                        x={100}
+                        y={50}
                         width={width[index] * 30}
-                        height={length[index] * 35}
+                        height={length[index] * 30}
                         fill='transparent'
                         stroke={square[2]}
                         draggable={false}
@@ -141,19 +164,19 @@ const Konva = ({
                     )}
                     {type === "bottom" && (
                       <Text
-                        x={10}
-                        y={55}
-                        text={`אורך מקווקו ${length[index]}`}
+                        x={75}
+                        y={210}
+                        text={`אורך דשא ${length[index]}`}
                         fontSize={15}
                         fill={"black"}
-                        rotationDeg={90}
+                        rotationDeg={270}
                       />
                     )}
                     {type === "bottom" && (
                       <Text
                         x={80}
                         y={0}
-                        text={`רוחב מקווקו ${width[index]}`}
+                        text={`רוחב דשא ${width[index]}`}
                         fontSize={15}
                         fill={"black"}
                       />
