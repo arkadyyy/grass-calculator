@@ -142,8 +142,8 @@ const Konva = ({
                           ][4] = e.target.absolutePosition().y;
                           setkonvasquares(squaresOriginal);
                         }}
-                        x={square[3]}
-                        y={square[4]}
+                        x={50}
+                        y={100}
                         width={square[0] * 40}
                         height={square[1] * 40}
                         fill={square[2]}
@@ -201,6 +201,7 @@ const Konva = ({
                 let width = [];
                 let length = [];
                 let arrowDirection = [];
+                let lineRenderArr = [10, 20, 40];
 
                 if (arrayUsed.length !== 0) {
                   if (
@@ -246,18 +247,30 @@ const Konva = ({
                           stroke='black'
                         />
                       )}
-                      {arrowDirection[index] === "vertical" && (
-                        <Line
-                          x={square[3] + 60}
-                          y={square[4] - 75}
-                          draggable={true}
-                          points={[square[3], 200, square[4], 100]}
-                          stroke={square[2]}
-                          strokeWidth='2'
-                          dash={[10, 10]}
-                          rotationDeg={132}
-                        ></Line>
-                      )}
+                      {arrowDirection[index] === "vertical" &&
+                        lineRenderArr.map((pos) => (
+                          <Line
+                            x={square[3] + width * 5}
+                            y={square[4]}
+                            draggable={true}
+                            points={[pos, 20, pos, 200]}
+                            stroke={square[2]}
+                            strokeWidth='2'
+                            dash={[10, 10]}
+                          ></Line>
+                        ))}
+                      {arrowDirection[index] === "horizantal" &&
+                        lineRenderArr.map((pos) => (
+                          <Line
+                            x={square[3] + width * 5}
+                            y={square[4] + length}
+                            draggable={true}
+                            points={[20, pos, 30, pos, 150, pos]}
+                            stroke={square[2]}
+                            strokeWidth='2'
+                            dash={[10, 10]}
+                          ></Line>
+                        ))}
                       {arrowDirection[index] === "horizantal" && (
                         <Rect
                           x={square[3] + 60}
@@ -270,8 +283,8 @@ const Konva = ({
                       )}
                       {arrowDirection[index] === "horizantal" && (
                         <Arrow
-                          x={square[3] + 60}
-                          y={square[4] - 75}
+                          x={square[3] - 410}
+                          y={square[4] + 85}
                           points={[472, 0, 500, 0]}
                           pointerLength={5}
                           pointerWidth={5}
