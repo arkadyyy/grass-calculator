@@ -282,8 +282,7 @@ function Home({ history }) {
     squares.forEach((square) => {
       //  פחת מינימלי בלי כיוון פריסה
       // min pchat no direction consider
-      // let result1 = ChiburCalc(square[0] / 100, square[1] / 100);
-      // let result2 = ChiburCalc(square[1] / 100, square[0] / 100);
+
       let result1 = ChiburCalc(square[0], square[1], square[2]);
       let result2 = ChiburCalc(square[1], square[0], square[2]);
       if (result1.pchat === result2.pchat) {
@@ -657,7 +656,7 @@ function Home({ history }) {
       </ol> */}
 
       <div className='App'>
-        <Konva squares={squares} setsquares={setsquares} />
+        <Konva type='top' squares={squares} setsquares={setsquares} />
 
         <InputGroup
           style={{
