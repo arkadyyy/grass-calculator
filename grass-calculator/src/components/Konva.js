@@ -10,6 +10,9 @@ const Konva = ({
   xDirectionSquare,
   yDirectionSquare,
   resultForClientPchat,
+  resultPchatWithDirection,
+  resultMinChiburWithDirection,
+  resultMinChiburNoDirection,
 }) => {
   // {
   //   opt4: { amount: 0, length: 0 },
@@ -21,18 +24,18 @@ const Konva = ({
   const [konvasquares, setkonvasquares] = useState(squares);
 
   useEffect(() => {
-    // if (tabKey === "מינימום חיבורים + כיוון סיב אחיד בין הגלילים") {
-    //   setarrayUsed(summary.minChiburWithDirection);
-    // }
+    if (tabKey === "מינימום חיבורים + כיוון סיב אחיד בין הגלילים") {
+      setarrayUsed(resultMinChiburWithDirection);
+    }
     if (tabKey === "מינימום פחת") {
       setarrayUsed(resultForClientPchat);
     }
-    // if (tabKey === "מינימום פחת + כיוון סיב אחיד בין הגלילים") {
-    //   setarrayUsed(summary.minPchatWithDirectionSummary);
-    // }
-    // if (tabKey === "מינימום חיבורים") {
-    //   setarrayUsed(summary.minChiburNoDirection);
-    // }
+    if (tabKey === "מינימום פחת + כיוון סיב אחיד בין הגלילים") {
+      setarrayUsed(resultPchatWithDirection);
+    }
+    if (tabKey === "מינימום חיבורים") {
+      setarrayUsed(resultPchatWithDirection);
+    }
     console.log("xDirectionSquare : ", xDirectionSquare);
     console.log("yDirectionSquare : ", yDirectionSquare);
     console.log("arrayUsed : ", arrayUsed);
@@ -196,12 +199,66 @@ const Konva = ({
                   </>
                 );
               })}
+
             {type === "bottom" &&
               konvasquares.map((square, index) => {
                 let width = [];
                 let length = [];
                 let arrowDirection = [];
-                let lineRenderArr = [10, 20, 40];
+
+                //4 - 140
+                //3 - 105
+                //2 - 70
+                let lineRenderArr = [];
+
+                // let lineRenderArr = [
+                //   [157, 227, 335],
+                //   [80, 230],
+                // ];
+
+                arrayUsed.forEach((square) => {
+                  let opt4Amount = +square.opt4.amount;
+                  let opt3Amount = +square.opt3.amount;
+                  let opt2Amount = +square.opt2.amount;
+                  let squareLines = [];
+
+                  while (opt4Amount > 0) {
+                    if (squareLines.length > 0) {
+                      squareLines.push(
+                        +squareLines[squareLines.length - 1] + 160
+                      );
+                    } else {
+                      squareLines.push(160);
+                    }
+                    opt4Amount--;
+                  }
+                  while (opt3Amount > 0) {
+                    if (squareLines.length > 0) {
+                      squareLines.push(
+                        +squareLines[squareLines.length - 1] + 125
+                      );
+                    } else {
+                      squareLines.push(125);
+                    }
+                    opt3Amount--;
+                  }
+                  while (opt2Amount > 0) {
+                    if (squareLines.length > 0) {
+                      squareLines.push(
+                        +squareLines[squareLines.length - 1] + 90
+                      );
+                    } else {
+                      squareLines.push(90);
+                    }
+                    opt2Amount--;
+                  }
+                  console.log("lineRenderArr : ", lineRenderArr);
+                  lineRenderArr.push(squareLines);
+                });
+
+                lineRenderArr.forEach((arr) => {
+                  arr.pop();
+                });
 
                 if (arrayUsed.length !== 0) {
                   if (
@@ -248,27 +305,30 @@ const Konva = ({
                         />
                       )}
                       {arrowDirection[index] === "vertical" &&
-                        lineRenderArr.map((pos) => (
+                        lineRenderArr.length !== 0 &&
+                        lineRenderArr[index].map((pos) => (
                           <Line
-                            x={square[3] + width * 5}
+                            x={square[3]}
                             y={square[4]}
                             draggable={true}
-                            points={[pos, 20, pos, 200]}
+                            points={[pos, 0, pos, 32]}
                             stroke={square[2]}
-                            strokeWidth='2'
+                            strokeWidth='6'
                             dash={[10, 10]}
                           ></Line>
                         ))}
                       {arrowDirection[index] === "horizantal" &&
-                        lineRenderArr.map((pos) => (
+                        lineRenderArr.length !== 0 &&
+                        lineRenderArr[index].map((pos) => (
                           <Line
-                            x={square[3] + width * 5}
-                            y={square[4] + length}
+                            x={square[3]}
+                            y={square[4]}
                             draggable={true}
-                            points={[20, pos, 30, pos, 150, pos]}
+                            points={[0, pos, 32, pos]}
                             stroke={square[2]}
-                            strokeWidth='2'
+                            strokeWidth='6'
                             dash={[10, 10]}
+                            // rotationDeg={90}
                           ></Line>
                         ))}
                       {arrowDirection[index] === "horizantal" && (
@@ -293,7 +353,7 @@ const Konva = ({
                         />
                       )}
 
-                      <Text
+                      {/* <Text
                         x={square[3]}
                         y={square[4] + 100}
                         text={` ${square[0]} ר`}
@@ -305,12 +365,13 @@ const Konva = ({
                         text={` ${square[1]} א`}
                         fontSize={15}
                         rotationDeg={270}
-                      />
+                      /> */}
 
                       <Rect
                         onClick={(e) => {
                           console.log(e.target.absolutePosition());
                           console.log(e.target);
+                          console.log("lineRenderArr : ", lineRenderArr);
                           console.log("squares : ", squares);
                           let squaresOriginal = [...squares];
                           squaresOriginal[
@@ -345,7 +406,7 @@ const Konva = ({
                           dash={[10, 10]}
                         ></Rect>
                       )}
-                      {type === "bottom" && (
+                      {/* {type === "bottom" && (
                         <Text
                           x={square[3] - 30}
                           y={square[4] + 100}
@@ -354,8 +415,8 @@ const Konva = ({
                           fill={"black"}
                           rotationDeg={270}
                         />
-                      )}
-                      {type === "bottom" && (
+                      )} */}
+                      {/* {type === "bottom" && (
                         <Text
                           x={square[3]}
                           y={square[4]}
@@ -363,14 +424,7 @@ const Konva = ({
                           fontSize={15}
                           fill={"black"}
                         />
-                      )}
-                      {/* <Text
-                        x={120}
-                        y={80}
-                        text={`${index + 1}`}
-                        fontSize={15}
-                        fill={"black"}
-                      /> */}
+                      )} */}
                     </Group>
                   </>
                 );

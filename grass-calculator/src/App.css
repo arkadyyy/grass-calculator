@@ -18,21 +18,31 @@ label {
   text-align: right;
 }
 
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-  color: #13350b!important;
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  color: #13350b !important;
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }
-.nav{
+.nav {
   direction: rtl;
 }
-.card-header{
-  text-align: center!important;
+.card-header {
+  text-align: center !important;
 }
 /* .Card-text{
   text-align: right;
 } */
-.perutCardText {text-align: right;
+.perutCardText {
+  text-align: right;
   padding: 1rem;
   margin-right: 1rem;
+}
+.summary {
+  direction: rtl;
+  margin: 4rem 0;
+  overflow-x: hidden;
+}
+.tabs {
+  margin: 0 3rem;
 }
