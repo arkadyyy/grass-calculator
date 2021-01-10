@@ -83,7 +83,7 @@ export default function ControlledTabs({
                           <Card.Text style={{ textAlign: "right" }}>
                             <strong> סה"כ פחת </strong>
                             <hr></hr>
-                            <span>מ"ר{value.pchat}</span>
+                            <span>מ"ר{(+value.pchat).toFixed(2)}</span>
                             <br></br>
                           </Card.Text>
                         </Col>

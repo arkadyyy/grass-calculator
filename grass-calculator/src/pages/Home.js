@@ -146,13 +146,26 @@ function Home({ history }) {
     setResultMinChiburNoDirection(result4);
   }
 
-  function bestResultPchatWithDirection() {
-    let result3 = PchatWithDirection(
-      x_directionResultForClient,
-      y_directionResultForClient
-    );
+  // function bestResultPchatWithDirection() {
+  //   let result3 = PchatWithDirection(
+  //     x_directionResultForClient,
+  //     y_directionResultForClient
+  //   );
 
-    setresultPchatWithDirection(result3);
+  //   setresultPchatWithDirection(result3);
+  // }
+
+  function bestResultPchatWithDirection() {
+    if (squares.length === 1) {
+      setresultPchatWithDirection(resultForClientPchat);
+    } else {
+      let result3 = PchatWithDirection(
+        x_directionResultForClient,
+        y_directionResultForClient
+      );
+
+      setresultPchatWithDirection(result3);
+    }
   }
 
   function summaryAllOptions() {
