@@ -217,12 +217,13 @@ export default function ControlledTabs({
                         ) : null}
                         {square.opt2.amount ? <br></br> : null}
 
-
-                        <strong>סה"כ פחת<hr></hr></strong>
+                        {square.pchat ? 
+                          <><strong>סה"כ פחת<hr></hr></strong>
                         {square.pchat} מ"ר
-                       {/* <p>{square.initialLength}X{square.initialWidth-(square.opt4.amount*4-square.opt3.amount*3-square.opt2.amount*2) }</p> */}
-                       <p>{square.initialLength}X{Math.abs(+square.initialWidth- +square.opt4.amount*4-(+square.opt3.amount*3)).toFixed(2)}</p>
-                                             {/* <p>({square.length},X,{square.width - square.opt4.amount - square.opt3.amount - square.opt2.amount})</p>  */}
+                       <p>מטר אורך<strong>{square.initialWidth}X{Math.abs(+square.initialLength- +square.opt4.amount*4-(+square.opt3.amount*3)).toFixed(2)}</strong>מטר אורך</p>
+                       </>
+                       : <> <strong>אין פחת<hr></hr></strong></>
+                      }
                       </Card.Text>
                     </Card>
                   </Col>
