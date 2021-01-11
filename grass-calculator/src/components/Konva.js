@@ -286,13 +286,32 @@ const Konva = ({
                               text={"8888"}
                               fontSize={15}
                             /> */}
-                            <Text
-                              x={square[3]}
-                              y={square[4]}
-                              offsetX={-pos / 1.5}
-                              text={"8888"}
-                              fontSize={15}
-                            />
+                            {lineRenderArr[index].length === index + 1 ? (
+                              <>
+                                <Text
+                                  x={square[3]}
+                                  y={square[4]}
+                                  offsetX={-pos / 1.5}
+                                  text={"33"}
+                                  fontSize={15}
+                                />
+                                <Text
+                                  x={square[3]}
+                                  y={square[4]}
+                                  offsetX={-pos / 1.5}
+                                  text={"88"}
+                                  fontSize={15}
+                                />
+                              </>
+                            ) : (
+                              <Text
+                                x={square[3]}
+                                y={square[4]}
+                                offsetX={-pos / 1.5}
+                                text={"1111"}
+                                fontSize={15}
+                              />
+                            )}
                           </>
                         ))}
                       {arrowDirection[index] === "vertical" &&
