@@ -29,7 +29,7 @@ export default function ControlledTabs({
   resultMinChiburNoDirection,
 }) {
   const [key, setKey] = useState(
-    "מינימום חיבורים + כיוון סיב אחיד בין הגלילים"
+    "מינימום פחת"
   );
   return (
     <>
@@ -57,25 +57,34 @@ export default function ControlledTabs({
                           <Card.Text style={{ textAlign: "right" }}>
                             <strong> סה"כ גלילים ברוחב 2 מטר </strong>
                             <hr></hr>
-                            <>
-                            { value.opt2length < 25 ?
-                              <><span>כמות: 1</span>
-                                <span>באורך:{value.opt2length}</span></> 
-                        : <> <div>גליל אחד באורך 25 מטר</div>
-                                <span>ועוד גליל אחד באורך:{value.opt2length-25}מטר</span></>
-                         }</>
+
+                            <>{value.opt2>=1 ?
+                              <>
+                                {value.opt2length < 25 ?
+                                  <><span>כמות: 1</span>
+                                    <span>באורך:{value.opt2length}</span></>
+                                  : <> <div>גליל אחד באורך 25 מטר</div>
+                                    <span>ועוד גליל אחד באורך:{value.opt2length - 25}מטר</span></>
+                                }
+                              </>
+                              : <> <span>כמות: 0</span> </>
+                            }</>
                             <br></br>
                           </Card.Text>
                           <Card.Text style={{ textAlign: "right" }}>
                             <strong> סה"כ גלילים ברוחב 3 מטר </strong>
                             <hr></hr>
-                            <>
-                            { value.opt3length < 25 ?
-                              <><span>כמות: 1</span>
-                                <span>באורך:{value.opt3length}</span></> 
-                        : <> <div>גליל אחד באורך 25 מטר</div>
-                                <span>ועוד גליל אחד באורך:{value.opt3length-25}מטר</span></>
-                         }</>
+                            <>{value.opt3>=1 ?
+                              <>
+                                {value.opt3length < 25 ?
+                                  <><span>כמות: 1</span>
+                                    <span>באורך:{value.opt3length}</span></>
+                                  : <> <div>גליל אחד באורך 25 מטר</div>
+                                    <span>ועוד גליל אחד באורך:{value.opt3length - 25}מטר</span></>
+                                }
+                              </>
+                              : <> <span>כמות: 0</span> </>
+                            }</>
                             <br></br>
                           </Card.Text>
                         </Col>
@@ -83,13 +92,17 @@ export default function ControlledTabs({
                           <Card.Text style={{ textAlign: "right" }}>
                             <strong> סה"כ גלילים ברוחב 4 מטר </strong>
                             <hr></hr>
-                            <>
-                            { value.opt4length < 25 ?
-                              <><span>כמות: 1</span>
-                                <span>באורך:{value.opt4length}</span></> 
-                        : <> <div>גליל אחד באורך 25 מטר</div>
-                                <span>ועוד גליל אחד באורך:{value.opt4length-25}מטר</span></>
-                         }</>
+                            <>{value.opt4>=1 ?
+                              <>
+                                {value.opt4length < 25 ?
+                                  <><span>כמות: 1</span>
+                                    <span>באורך:{value.opt4length}</span></>
+                                  : <> <div>גליל אחד באורך 25 מטר</div>
+                                    <span>ועוד גליל אחד באורך:{value.opt4length - 25}מטר</span></>
+                                }
+                              </>
+                              : <> <span>כמות: 0</span> </>
+                            }</>
                             <br></br>
                           </Card.Text>
                           <Card.Text style={{ textAlign: "right" }}>

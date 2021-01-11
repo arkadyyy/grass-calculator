@@ -336,6 +336,8 @@ const Konva = ({
                         lineRenderArr.length !== 0 &&
                         lineRenderArr[index].map((pos) => (
                           <>
+                            {console.log("111lineRenderArr:",lineRenderArr)}
+
                             <Group>
                               <Line
                                 x={square[3]}
@@ -350,14 +352,14 @@ const Konva = ({
                                 x={square[3]}
                                 y={square[4]}
                                 offsetY={-pos + 40}
-                                text={"2222"}
+                                text={'WidthUp'}
                                 fontSize={15}
                               />
                               <Text
                                 x={square[3]}
                                 y={square[4]}
                                 offsetY={-pos - 40}
-                                text={"2222"}
+                                text={"widthDown"}
                                 fontSize={15}
                               />
                             </Group>
