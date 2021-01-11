@@ -161,7 +161,7 @@ const Konva = ({
                 let width = [];
                 let length = [];
                 let arrowDirection = [];
-
+                let renderedNumbers = [];
                 //4 - 140
                 //3 - 105
                 //2 - 70
@@ -181,6 +181,7 @@ const Konva = ({
                     } else {
                       squareLines.push(160);
                     }
+                    renderedNumbers.push(4);
                     opt4Amount--;
                   }
                   while (opt3Amount > 0) {
@@ -191,6 +192,7 @@ const Konva = ({
                     } else {
                       squareLines.push(125);
                     }
+                    renderedNumbers.push(3);
                     opt3Amount--;
                   }
                   while (opt2Amount > 0) {
@@ -201,6 +203,7 @@ const Konva = ({
                     } else {
                       squareLines.push(90);
                     }
+                    renderedNumbers.push(2);
                     opt2Amount--;
                   }
                   console.log("lineRenderArr : ", lineRenderArr);
@@ -236,6 +239,8 @@ const Konva = ({
                     arrowDirection[index] = "horizantal";
                   }
                 }
+
+                console.log("renderedNumbers : ", renderedNumbers);
 
                 return (
                   <>
@@ -279,36 +284,49 @@ const Konva = ({
                               strokeWidth='6'
                               dash={[10, 10]}
                             ></Line>
-                            {/* <Text
-                              x={square[3]}
-                              y={square[4]}
-                              offsetX={-pos - 45}
-                              text={"8888"}
-                              fontSize={15}
-                            /> */}
-                            {lineRenderArr[index].length === index + 1 ? (
+
+                            {lineRenderArr[index].indexOf(pos) + 1 ===
+                            lineRenderArr[index].length ? (
                               <>
                                 <Text
                                   x={square[3]}
                                   y={square[4]}
-                                  offsetX={-pos / 1.5}
-                                  text={"33"}
+                                  offsetX={-pos + pos * -0.2}
+                                  text={
+                                    renderedNumbers[
+                                      lineRenderArr[index].indexOf(pos) + 1
+                                    ]
+                                  }
                                   fontSize={15}
                                 />
+
                                 <Text
                                   x={square[3]}
                                   y={square[4]}
                                   offsetX={-pos / 1.5}
-                                  text={"88"}
+                                  text={
+                                    renderedNumbers[
+                                      lineRenderArr[index].indexOf(pos)
+                                    ]
+                                  }
                                   fontSize={15}
                                 />
+                                {lineRenderArr[index].indexOf(pos) + 1 ===
+                                lineRenderArr[index].length
+                                  ? (function () {
+                                      renderedNumbers.splice(
+                                        0,
+                                        lineRenderArr[index].length - 1
+                                      );
+                                    })()
+                                  : null}
                               </>
                             ) : (
                               <Text
                                 x={square[3]}
                                 y={square[4]}
                                 offsetX={-pos / 1.5}
-                                text={"1111"}
+                                text={renderedNumbers[index]}
                                 fontSize={15}
                               />
                             )}
@@ -336,7 +354,15 @@ const Konva = ({
                         lineRenderArr.length !== 0 &&
                         lineRenderArr[index].map((pos) => (
                           <>
-                            {console.log("111lineRenderArr:",lineRenderArr)}
+                            {lineRenderArr[index].indexOf(pos) + 1 ===
+                            lineRenderArr[index].length
+                              ? (function () {
+                                  renderedNumbers.splice(
+                                    0,
+                                    lineRenderArr[index].length
+                                  );
+                                })()
+                              : null}
 
                             <Group>
                               <Line
@@ -348,20 +374,34 @@ const Konva = ({
                                 strokeWidth='6'
                                 dash={[10, 10]}
                               ></Line>
-                              <Text
-                                x={square[3]}
-                                y={square[4]}
-                                offsetY={-pos + 40}
-                                text={'WidthUp'}
-                                fontSize={15}
-                              />
-                              <Text
-                                x={square[3]}
-                                y={square[4]}
-                                offsetY={-pos - 40}
-                                text={"widthDown"}
-                                fontSize={15}
-                              />
+                              {lineRenderArr[index].indexOf(pos) + 1 ===
+                              lineRenderArr[index].length ? (
+                                <>
+                                  <Text
+                                    x={square[3]}
+                                    y={square[4]}
+                                    offsetY={-pos - pos * 0.1}
+                                    text={renderedNumbers[index]}
+                                    fontSize={15}
+                                  />
+
+                                  <Text
+                                    x={square[3]}
+                                    y={square[4]}
+                                    offsetY={-pos / 1.5}
+                                    text={renderedNumbers[index + 1]}
+                                    fontSize={15}
+                                  />
+                                </>
+                              ) : (
+                                <Text
+                                  x={square[3]}
+                                  y={square[4]}
+                                  offsetY={-pos / 1.5}
+                                  text={renderedNumbers[index]}
+                                  fontSize={15}
+                                />
+                              )}
                             </Group>
                           </>
                         ))}
