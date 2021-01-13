@@ -156,22 +156,26 @@ const Konva = ({
                 );
               })}
 
+            {/* {end of top konva} */}
+
             {type === "bottom" &&
               konvasquares.map((square, index) => {
                 let width = [];
                 let length = [];
                 let arrowDirection = [];
-                let renderedNumbers = [];
+
                 //4 - 140
                 //3 - 105
                 //2 - 70
                 let lineRenderArr = [];
+                let numberRenderArr = [];
 
                 arrayUsed.forEach((square) => {
                   let opt4Amount = +square.opt4.amount;
                   let opt3Amount = +square.opt3.amount;
                   let opt2Amount = +square.opt2.amount;
                   let squareLines = [];
+                  let renderedNumbers = [];
 
                   while (opt4Amount > 0) {
                     if (squareLines.length > 0) {
@@ -208,6 +212,7 @@ const Konva = ({
                   }
                   console.log("lineRenderArr : ", lineRenderArr);
                   lineRenderArr.push(squareLines);
+                  numberRenderArr.push(renderedNumbers);
                 });
 
                 lineRenderArr.forEach((arr) => {
@@ -240,11 +245,10 @@ const Konva = ({
                   }
                 }
 
-                console.log("renderedNumbers : ", renderedNumbers);
-
                 return (
                   <>
                     <Group draggable>
+                      {/* {arrow direction } */}
                       {arrowDirection[index] === "vertical" && (
                         <Arrow
                           x={square[3]}
@@ -271,6 +275,9 @@ const Konva = ({
                           stroke='black'
                         />
                       )}
+
+                      {/* {if arrow direction is vertical} */}
+
                       {arrowDirection[index] === "vertical" &&
                         lineRenderArr.length !== 0 &&
                         lineRenderArr[index].map((pos) => (
@@ -293,7 +300,7 @@ const Konva = ({
                                   y={square[4]}
                                   offsetX={-pos + pos * -0.2}
                                   text={
-                                    renderedNumbers[
+                                    numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos) + 1
                                     ]
                                   }
@@ -305,28 +312,39 @@ const Konva = ({
                                   y={square[4]}
                                   offsetX={-pos / 1.5}
                                   text={
-                                    renderedNumbers[
+                                    numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos)
                                     ]
                                   }
                                   fontSize={15}
                                 />
-                                {lineRenderArr[index].indexOf(pos) + 1 ===
+                                {/* {lineRenderArr[index].indexOf(pos) + 1 ===
                                 lineRenderArr[index].length
                                   ? (function () {
                                       renderedNumbers.splice(
                                         0,
                                         lineRenderArr[index].length - 1
                                       );
+                                      console.log(
+                                        "renderedNumbers !!: ",
+                                        renderedNumbers
+                                      );
                                     })()
-                                  : null}
+                                  : null} */}
+                                {lineRenderArr[index].forEach((arr) =>
+                                  console.log("arr : ", arr)
+                                )}
                               </>
                             ) : (
                               <Text
                                 x={square[3]}
                                 y={square[4]}
                                 offsetX={-pos / 1.5}
-                                text={renderedNumbers[index]}
+                                text={
+                                  numberRenderArr[index][
+                                    lineRenderArr[index].indexOf(pos)
+                                  ]
+                                }
                                 fontSize={15}
                               />
                             )}
@@ -350,11 +368,14 @@ const Konva = ({
                             fontSize={15}
                           />
                         )}
+
+                      {/* {if arrow direction is horizantal} */}
+
                       {arrowDirection[index] === "horizantal" &&
                         lineRenderArr.length !== 0 &&
                         lineRenderArr[index].map((pos) => (
                           <>
-                            {lineRenderArr[index].indexOf(pos) + 1 ===
+                            {/* {lineRenderArr[index].indexOf(pos) + 1 ===
                             lineRenderArr[index].length
                               ? (function () {
                                   renderedNumbers.splice(
@@ -362,7 +383,7 @@ const Konva = ({
                                     lineRenderArr[index].length
                                   );
                                 })()
-                              : null}
+                              : null} */}
 
                             <Group>
                               <Line
@@ -381,7 +402,11 @@ const Konva = ({
                                     x={square[3]}
                                     y={square[4]}
                                     offsetY={-pos - pos * 0.1}
-                                    text={renderedNumbers[index]}
+                                    text={
+                                      numberRenderArr[index][
+                                        lineRenderArr[index].indexOf(pos) + 1
+                                      ]
+                                    }
                                     fontSize={15}
                                   />
 
@@ -389,7 +414,11 @@ const Konva = ({
                                     x={square[3]}
                                     y={square[4]}
                                     offsetY={-pos / 1.5}
-                                    text={renderedNumbers[index + 1]}
+                                    text={
+                                      numberRenderArr[index][
+                                        lineRenderArr[index].indexOf(pos)
+                                      ]
+                                    }
                                     fontSize={15}
                                   />
                                 </>
@@ -398,7 +427,11 @@ const Konva = ({
                                   x={square[3]}
                                   y={square[4]}
                                   offsetY={-pos / 1.5}
-                                  text={renderedNumbers[index]}
+                                  text={
+                                    numberRenderArr[index][
+                                      lineRenderArr[index].indexOf(pos)
+                                    ]
+                                  }
                                   fontSize={15}
                                 />
                               )}
@@ -448,6 +481,8 @@ const Konva = ({
                         rotationDeg={270}
                       /> */}
 
+                      {/* {the original square from top} */}
+
                       <Rect
                         onClick={(e) => {
                           console.log(e.target.absolutePosition());
@@ -472,6 +507,8 @@ const Konva = ({
                         // stroke='black'
                         // strokeWidth='4'
                       />
+
+                      {/* {if we are in konva bottom use also square for glilim} */}
 
                       {type === "bottom" && (
                         <Rect
