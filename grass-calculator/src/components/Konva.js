@@ -41,11 +41,12 @@ const Konva = ({
         <Stage
           style={{
             border: "1px solid #333",
-            margin: "3rem",
+            marginLeft: "5rem",
+            marginRight: "5rem",
             borderRadius: "5px",
           }}
-          width={window.innerWidth / 2}
-          height={window.innerHeight / 2}
+          width={window.innerWidth}
+          height={window.innerHeight/1.2}
         >
           <Layer>
             {type === "top" &&
@@ -91,8 +92,11 @@ const Konva = ({
                           width={30}
                           pointerLength={5}
                           pointerWidth={5}
-                          fill='black'
-                          stroke='black'
+                          stroke='#1C4E20'
+                          fill='#1C4E20'
+                          
+                          // fill='black'
+                          // stroke='black'
                         />
                       )}
 
@@ -103,8 +107,10 @@ const Konva = ({
                           points={[472, 0, 500, 0]}
                           pointerLength={5}
                           pointerWidth={5}
-                          fill='black'
-                          stroke='black'
+                          // fill='black'
+                          // stroke='black'
+                          stroke='#1C4E20'
+                          fill='#1C4E20'
                         />
                       )}
 
@@ -144,8 +150,8 @@ const Konva = ({
                         }}
                         x={50}
                         y={100}
-                        width={square[0] * 40}
-                        height={square[1] * 40}
+                        width={square[0] * 30}
+                        height={square[1] * 30}
                         fill={square[2]}
                         opacity={0.6}
                         // stroke='black'
@@ -259,8 +265,10 @@ const Konva = ({
                           width={30}
                           pointerLength={5}
                           pointerWidth={5}
-                          fill='black'
-                          stroke='black'
+                          // fill='black'
+                          // stroke='black'
+                          stroke='#1C4E20'
+                          fill='#1C4E20'
                         />
                       )}
                       {arrowDirection[index] === "horizantal" && (
@@ -271,8 +279,10 @@ const Konva = ({
                           points={[20, 0, 50, 0]}
                           pointerLength={5}
                           pointerWidth={5}
-                          fill='black'
-                          stroke='black'
+                          // fill='black'
+                          // stroke='black'
+                          stroke='#1C4E20'
+                          fill='#1C4E20'
                         />
                       )}
 
@@ -295,16 +305,18 @@ const Konva = ({
                             {lineRenderArr[index].indexOf(pos) + 1 ===
                             lineRenderArr[index].length ? (
                               <>
-                                <Text
-                                  x={square[3]}
-                                  y={square[4]}
-                                  offsetX={-pos + pos * -0.2}
-                                  text={
-                                    numberRenderArr[index][
+                                  <Text
+                                    x={square[3]}
+                                    y={square[4]}
+                                    offsetX={-pos + pos * -0.2}
+                                    text={
+                                      numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos) + 1
-                                    ]
-                                  }
-                                  fontSize={15}
+                                      ]
+                                    }
+                                    fontSize={15}
+                                    fill={'#1C4E20'}
+                                    
                                 />
 
                                 <Text
@@ -440,7 +452,7 @@ const Konva = ({
                         ))}
                       {arrowDirection[index] === "horizantal" &&
                         lineRenderArr[index].length === 0 && (
-                          <Text
+                        <Text
                             x={square[3]}
                             y={square[4]}
                             offsetX={-40}
@@ -453,7 +465,8 @@ const Konva = ({
                                 ? "2"
                                 : null
                             }
-                            fontSize={15}
+                          fontSize={15}
+                          
                           />
                         )}
                       {arrowDirection[index] === "horizantal" && (
@@ -462,7 +475,7 @@ const Konva = ({
                           y={square[4] - 75}
                           draggable={true}
                           stroke={square[2]}
-                          strokeWidth='2'
+                          strokeWidth='4'
                           rotationDeg={132}
                         ></Rect>
                       )}
@@ -500,8 +513,8 @@ const Konva = ({
                         }}
                         x={square[3]}
                         y={square[4]}
-                        width={square[0] * 40}
-                        height={square[1] * 40}
+                        width={square[0] * 30}
+                        height={square[1] * 30}
                         fill={square[2]}
                         opacity={0.6}
                         // stroke='black'
@@ -515,12 +528,12 @@ const Konva = ({
                           draggable
                           x={square[3]}
                           y={square[4]}
-                          width={width[index] * 40}
-                          height={length[index] * 40}
+                          width={width[index] * 30}
+                          height={length[index] * 30}
                           fill='transparent'
                           stroke={square[2]}
                           draggable={false}
-                          strokeWidth='2'
+                          strokeWidth='4'
                           dash={[10, 10]}
                         ></Rect>
                       )}

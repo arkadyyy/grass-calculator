@@ -341,7 +341,6 @@ function Home({ history }) {
       </ol> */}
 
       <div className='App'>
-        <Konva type='top' squares={squares} setsquares={setsquares} />
 
         <InputGroup
           style={{
@@ -436,6 +435,8 @@ function Home({ history }) {
           </div>
         </InputGroup>
       </div>
+      <Konva type='top' squares={squares} setsquares={setsquares}  />
+
       <hr></hr>
 
       {openSummary && (

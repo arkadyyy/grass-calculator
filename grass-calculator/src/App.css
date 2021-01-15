@@ -12,6 +12,10 @@
 .buttons {
   max-width: 100%;
 }
+button.m-3.btn.btn-success {
+  background-color: #1C4E20;
+  border-color:#1C4E20 ;
+}
 label {
   display: inline-block;
   margin-bottom: 0.5rem;
@@ -20,7 +24,8 @@ label {
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-  color: #13350b !important;
+  color: #1C4E20 !important;
+  
   background-color: #fff;
   border-color: #dee2e6 #dee2e6 #fff;
 }

@@ -118,7 +118,10 @@ export default function ControlledTabs({
                 </Card>
               </Col>
 
-              <Col sm={6}>
+            </Row>
+
+            <Row>
+          
                 <Konva
                   yDirectionSquare={y_directionResultForClient}
                   xDirectionSquare={x_directionResultForClient}
@@ -132,8 +135,8 @@ export default function ControlledTabs({
                   setsquares={setsquares}
                   type='bottom'
                 />
-              </Col>
-            </Row>
+            
+              </Row>
             {/* </Container> */}
           </Tab>
         ))}
