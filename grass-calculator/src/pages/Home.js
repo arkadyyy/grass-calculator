@@ -341,101 +341,110 @@ function Home({ history }) {
       </ol> */}
 
       <div className='App'>
-
-        <InputGroup
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-end",
-          }}
-          className='mb-3 p-5'
-        >
-          <h1 style={{ textAlign: "right", marginBottom: "3rem" }}>
-            {" "}
-            מחשבון דשא סינטטי
-          </h1>
-
-          <Form.Label>
-            <strong style={{ textAlign: "right" }}> רוחב במטרים</strong>
-          </Form.Label>
-          <FormControl
-            value={width}
+        <Container>
+          <InputGroup
             style={{
-              width: "35%",
-              height: "2rem",
-              direction: "rtl",
-              maxHeight: "2rem",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-end",
             }}
-            aria-label='Default'
-            aria-describedby='inputGroup-sizing-default'
-            id='width'
-            onChange={(e) => {
-              setwidth(e.target.value);
-            }}
-          />
-          <Form.Label>
-            <strong>אורך מטרים</strong>
-          </Form.Label>
-          <FormControl
-            value={length}
-            style={{ width: "35%", direction: "rtl", maxHeight: "2rem" }}
-            aria-label='Default'
-            aria-describedby='inputGroup-sizing-default'
-            id='length'
-            onChange={(e) => {
-              setlength(e.target.value);
-            }}
-          />
+            className=' mt-5  '
+          >
+            <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
 
-          <div className='buttons'>
-            <Button
-              onClick={() => {
-                setColor(getRandomColour());
-                setTitleColor(getRandomColour());
-                setsquares([...squares, [+width, +length, color, 100, 50]]);
-                setwidth("");
-                setlength("");
-                summaryAllOptions();
+            <div
+              style={{
+                display: "flex",
               }}
-              className='m-3'
-              variant='success'
             >
-              הוסף מלבן
-            </Button>
-            <Button
-              className='m-3'
-              variant='success'
-              onClick={() => {
-                setopenSummary(true);
+              <div className='buttons'>
+                <Button
+                  size='sm'
+                  onClick={() => {
+                    setColor(getRandomColour());
+                    setTitleColor(getRandomColour());
+                    setsquares([...squares, [+width, +length, color, 100, 50]]);
+                    setwidth("");
+                    setlength("");
+                    summaryAllOptions();
+                  }}
+                  className='m-3'
+                  variant='success'
+                >
+                  הוסף מלבן
+                </Button>
+                <Button
+                  size='sm'
+                  className='m-3'
+                  variant='success'
+                  onClick={() => {
+                    setopenSummary(true);
 
-                summaryAllOptions();
-              }}
-            >
-              חשב
-            </Button>
-            <Button
-              onClick={() => {
-                setsquares([]);
-                setresultForClientPchat([]);
-                setSummary([]);
-                setwidth(0);
-                setlength(0);
-                setResultMinChiburNoDirection([]);
-                setResultMinChiburWithDirection([]);
-                setX_DirectionResultForClient([]);
-                setY_DirectionResultForClient([]);
-                setresultPchatWithDirection([]);
-                setopenSummary(false);
-              }}
-              className='m-3'
-              variant='success'
-            >
-              נקה
-            </Button>
-          </div>
-        </InputGroup>
+                    summaryAllOptions();
+                  }}
+                >
+                  חשב
+                </Button>
+                <Button
+                  size='sm'
+                  onClick={() => {
+                    setsquares([]);
+                    setresultForClientPchat([]);
+                    setSummary([]);
+                    setwidth(0);
+                    setlength(0);
+                    setResultMinChiburNoDirection([]);
+                    setResultMinChiburWithDirection([]);
+                    setX_DirectionResultForClient([]);
+                    setY_DirectionResultForClient([]);
+                    setresultPchatWithDirection([]);
+                    setopenSummary(false);
+                  }}
+                  className='m-3'
+                  variant='success'
+                >
+                  נקה
+                </Button>
+              </div>
+              <div>
+                <Form.Label>
+                  <strong style={{ textAlign: "right" }}> רוחב במטרים</strong>
+                </Form.Label>
+                <FormControl
+                  value={width}
+                  style={{
+                    height: "2rem",
+                    direction: "rtl",
+                    maxHeight: "2rem",
+                  }}
+                  aria-label='Default'
+                  aria-describedby='inputGroup-sizing-default'
+                  id='width'
+                  onChange={(e) => {
+                    setwidth(e.target.value);
+                  }}
+                />
+              </div>
+              <div>
+                <Form.Label>
+                  <strong>אורך מטרים</strong>
+                </Form.Label>
+                <FormControl
+                  value={length}
+                  style={{ direction: "rtl", maxHeight: "2rem" }}
+                  aria-label='Default'
+                  aria-describedby='inputGroup-sizing-default'
+                  id='length'
+                  onChange={(e) => {
+                    setlength(e.target.value);
+                  }}
+                />
+              </div>
+            </div>
+          </InputGroup>
+        </Container>
       </div>
-      <Konva type='top' squares={squares} setsquares={setsquares}  />
+      <Konva type='top' squares={squares} setsquares={setsquares} />
 
       <hr></hr>
 
