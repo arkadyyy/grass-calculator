@@ -53,30 +53,45 @@ export default function ControlledTabs({
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> סה"כ גלילים ברוחב 2 מטר </strong>
                         <hr></hr>
-
                         <>
                           {value.opt2 >= 1 ? (
                             <>
+                             
                               {value.opt2length < 25 ? (
                                 <>
-                                  <span>כמות: 1</span>
-                                  <span>באורך:{value.opt2length}</span>
+                                  <span>כמות:<strong>1</strong> </span>
+                                  <span>באורך:<strong>{value.opt2length}מטר</strong></span>
                                 </>
-                              ) : (
-                                <>
-                                  {" "}
-                                  <div>גליל אחד באורך 25 מטר</div>
-                                  <span>
-                                    ועוד גליל אחד באורך:
-                                    {value.opt2length - 25}מטר
+                              )
+                                :
+                                
+                                value.opt2length > 25 ? (
+                                  <>
+                          
+                                    <div><strong>{Math.floor(value.opt2length/25)}</strong>  גלילים באורך 25 מטר  </div>
+                                    {value.opt2length%25 ?
+                                    <span>
+                                    ועוד <strong>גליל אחד</strong>  באורך  
+{value.opt2length%25} מטר
                                   </span>
+                                    : null}
+                                </> 
+                            ) 
+
+                                
+                               : <>
+                            
+                                  <div>גליל אחד באורך 25 מטר</div>
+                                  
                                 </>
-                              )}
+                                
+                                   
+                              }
                             </>
                           ) : (
                             <>
-                              {" "}
-                              <span>כמות: 0</span>{" "}
+                              
+                              <span>כמות: 0</span>
                             </>
                           )}
                         </>
@@ -87,32 +102,46 @@ export default function ControlledTabs({
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> סה"כ גלילים ברוחב 3 מטר </strong>
                         <hr></hr>
-                        <>
-                          {value.opt3 >= 1 ? (
+                        {value.opt3 >= 1 ? (
                             <>
+                             
                               {value.opt3length < 25 ? (
                                 <>
-                                  <span>כמות: 1</span>
-                                  <span>באורך:{value.opt3length}</span>
+                                  <span>כמות:<strong>1</strong> </span>
+                                  <span>באורך:<strong>{value.opt3length}מטר</strong></span>
                                 </>
-                              ) : (
-                                <>
-                                  {" "}
-                                  <div>גליל אחד באורך 25 מטר</div>
-                                  <span>
-                                    ועוד גליל אחד באורך:
-                                    {value.opt3length - 25}מטר
+                              )
+                                :
+                                
+                                value.opt3length > 25 ? (
+                                  <>
+                          
+                                    <div><strong>{Math.floor(value.opt3length/25)}</strong>  גלילים באורך 25 מטר  </div>
+                                    {value.opt3length%25 ?
+                                    <span>
+                                    ועוד <strong>גליל אחד</strong>  באורך  
+{value.opt3length%25} מטר
                                   </span>
+                                    : null}
+                                </> 
+                            ) 
+
+                                
+                               : <>
+                            
+                                  <div>גליל אחד באורך 25 מטר</div>
+                                  
                                 </>
-                              )}
+                                
+                                   
+                              }
                             </>
                           ) : (
                             <>
-                              {" "}
-                              <span>כמות: 0</span>{" "}
+                              
+                              <span>כמות: 0</span>
                             </>
                           )}
-                        </>
                         <br></br>
                       </Card.Text>
                     </Col>
@@ -120,32 +149,46 @@ export default function ControlledTabs({
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> סה"כ גלילים ברוחב 4 מטר </strong>
                         <hr></hr>
-                        <>
-                          {value.opt4 >= 1 ? (
+                        {value.opt4 >= 1 ? (
                             <>
+                             
                               {value.opt4length < 25 ? (
                                 <>
-                                  <span>כמות: 1</span>
-                                  <span>באורך:{value.opt4length}</span>
+                                  <span>כמות:<strong>1</strong> </span>
+                                  <span>באורך:<strong>{value.opt4length}מטר</strong></span>
                                 </>
-                              ) : (
-                                <>
-                                  {" "}
-                                  <div>גליל אחד באורך 25 מטר</div>
-                                  <span>
-                                    ועוד גליל אחד באורך:
-                                    {value.opt4length - 25}מטר
+                              )
+                                :
+                                
+                                value.opt4length > 25 ? (
+                                  <>
+                          
+                                    <div><strong>{Math.floor(value.opt4length/25)}</strong>  גלילים באורך 25 מטר  </div>
+                                    {value.opt4length%25 ?
+                                    <span>
+                                    ועוד <strong>גליל אחד</strong>  באורך  
+{value.opt4length%25} מטר
                                   </span>
+                                    : null}
+                                </> 
+                            ) 
+
+                                
+                               : <>
+                            
+                                  <div>גליל אחד באורך 25 מטר</div>
+                                  
                                 </>
-                              )}
+                                
+                                   
+                              }
                             </>
                           ) : (
                             <>
-                              {" "}
-                              <span>כמות: 0</span>{" "}
+                              
+                              <span>כמות: 0</span>
                             </>
                           )}
-                        </>
                         <br></br>
                       </Card.Text>
                     </Col>
@@ -212,37 +255,41 @@ export default function ControlledTabs({
                         {square.initialWidth}מטר
                       </Card.Header>
                       <Card.Text className='perutCardText'>
-                        {square.opt4.amount === 1 && square.opt4.length < 25 ? (
+                      {square.opt4.amount === 1 && square.opt4.length <= 25 ? (
                           <>
                             <strong> גליל אחד ברוחב 4 מטר</strong> <hr></hr>
-                            {/* <p>כמות:{square.opt4.amount}</p> */}
                             <p> באורך: {square.opt4.length} מטר </p>
                           </>
                         ) : square.opt4.amount > 1 &&
                           square.opt4.length < 25 ? (
                           <>
                             <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>כמות:{square.opt4.amount}</p>
+                            <p>כמות:{square.opt2.amount}</p>
                             <p> באורך: {square.opt4.length} מטר כל אחד </p>
                           </>
                         ) : square.opt4.length > 25 ? (
                           <>
                             <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>גליל אחד באורך 25 מטר</p>
-                            <p>
-                              {" "}
-                              ובנוסף: גליל אחד באורך {square.opt4.length -
-                                25}{" "}
-                              מטר
-                            </p>
+                                <p>{Math.floor(square.opt4.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt4.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt4.length % 25}   מטר
+                           
+                            </p> : null } 
                           </>
-                        ) : null}
+                            ) : square.opt4.length === 25 ? (
+                            <div>גליל אחד באורך 25 מטר</div>
+                              
+                            )
+                              
+                              : null }
                         {square.opt4.amount ? <br></br> : null}
 
-                        {square.opt3.amount === 1 && square.opt3.length < 25 ? (
+
+
+                        {square.opt3.amount === 1 && square.opt3.length <= 25 ? (
                           <>
                             <strong> גליל אחד ברוחב 3 מטר</strong> <hr></hr>
-                            {/* <p>כמות:{square.opt4.amount}</p> */}
                             <p> באורך: {square.opt3.length} מטר </p>
                           </>
                         ) : square.opt3.amount > 1 &&
@@ -255,18 +302,25 @@ export default function ControlledTabs({
                         ) : square.opt3.length > 25 ? (
                           <>
                             <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
-                            <p>גליל אחד באורך 25 מטר</p>
-                            <p>
-                              {" "}
-                              ובנוסף: גליל אחד באורך {square.opt3.length -
-                                25}{" "}
-                              מטר
-                            </p>
+                                <p>{Math.floor(square.opt3.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt3.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt3.length % 25}   מטר
+                           
+                            </p> : null } 
                           </>
-                        ) : null}
+                            ) : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                                
+                              )
+                              
+                              : null}
                         {square.opt3.amount ? <br></br> : null}
-
-                        {square.opt2.amount === 1 && square.opt2.length < 25 ? (
+                        
+                        
+                        
+                       
+                        {square.opt2.amount === 1 && square.opt2.length <= 25 ? (
                           <>
                             <strong> גליל אחד ברוחב 2 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt2.length} מטר </p>
@@ -281,15 +335,18 @@ export default function ControlledTabs({
                         ) : square.opt2.length > 25 ? (
                           <>
                             <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
-                            <p>גליל אחד באורך 25 מטר</p>
-                            <p>
-                              {" "}
-                              ובנוסף: גליל אחד באורך {square.opt2.length -
-                                25}{" "}
-                              מטר
-                            </p>
+                                <p>{Math.floor(square.opt2.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt2.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt2.length % 25}   מטר
+                           
+                            </p> : null } 
                           </>
-                        ) : null}
+                            )
+                            : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                              
+                              )  : null}
                         {square.opt2.amount ? <br></br> : null}
 
                         {square.pchat ? (
@@ -343,37 +400,127 @@ export default function ControlledTabs({
                         {square.initialWidth}מטר
                       </Card.Header>
                       <Card.Text className='perutCardText'>
-                        {square.opt4.amount ? (
+                      {square.opt4.amount === 1 && square.opt4.length <= 25 ? (
                           <>
-                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>כמות:{square.opt4.amount}</p>
+                            <strong> גליל אחד ברוחב 4 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt4.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt4.amount ? <br></br> : null}
-                        {square.opt3.amount ? (
+                        ) : square.opt4.amount > 1 &&
+                          square.opt4.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 3 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt3.amount}</p>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt4.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt4.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt4.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt4.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt4.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt4.length === 25 ? (
+                            <div>גליל אחד באורך 25 מטר</div>
+                              
+                            )
+                              
+                              : null }
+                        {square.opt4.amount ? <br></br> : null}
+
+
+
+                        {square.opt3.amount === 1 && square.opt3.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 3 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt3.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt3.amount ? <br></br> : null}
-                        {square.opt2.amount ? (
+                        ) : square.opt3.amount > 1 &&
+                          square.opt3.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 2 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt2.amount}</p>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt3.amount}</p>
+                            <p> באורך: {square.opt3.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt3.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt3.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt3.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt3.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                                
+                              )
+                              
+                              : null}
+                        {square.opt3.amount ? <br></br> : null}
+                        
+                        
+                        
+                       
+                        {square.opt2.amount === 1 && square.opt2.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 2 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt2.length} מטר </p>
                           </>
-                        ) : null}
+                        ) : square.opt2.amount > 1 &&
+                          square.opt2.length < 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt2.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt2.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt2.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt2.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt2.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            )
+                            : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                              
+                              )  : null}
                         {square.opt2.amount ? <br></br> : null}
-                        <strong>
-                          {" "}
-                          סה"כ פחת<hr></hr>
-                        </strong>
-                        {square.pchat} מ"ר
+
+                        {square.pchat ? (
+                          <>
+                            <strong>
+                              סה"כ פחת<hr></hr>
+                            </strong>
+                            {square.pchat} מ"ר
+                            <p>
+                              מטר אורך
+                              <strong>
+                                {square.initialWidth}X
+                                {Math.abs(
+                                  +square.initialLength -
+                                    +square.opt4.amount * 4 -
+                                    +square.opt3.amount * 3
+                                ).toFixed(2)}
+                              </strong>
+                              מטר אורך
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <strong>
+                              אין פחת<hr></hr>
+                            </strong>
+                          </>
+                        )}
                       </Card.Text>
                     </Card>
                   </Col>
@@ -398,37 +545,127 @@ export default function ControlledTabs({
                         {square.initialWidth}מטר
                       </Card.Header>
                       <Card.Text className='perutCardText'>
-                        {square.opt4.amount ? (
+                      {square.opt4.amount === 1 && square.opt4.length <= 25 ? (
                           <>
-                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>כמות:{square.opt4.amount}</p>
+                            <strong> גליל אחד ברוחב 4 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt4.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt4.amount ? <br></br> : null}
-                        {square.opt3.amount ? (
+                        ) : square.opt4.amount > 1 &&
+                          square.opt4.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 3 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt3.amount}</p>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt4.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt4.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt4.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt4.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt4.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt4.length === 25 ? (
+                            <div>גליל אחד באורך 25 מטר</div>
+                              
+                            )
+                              
+                              : null }
+                        {square.opt4.amount ? <br></br> : null}
+
+
+
+                        {square.opt3.amount === 1 && square.opt3.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 3 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt3.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt3.amount ? <br></br> : null}
-                        {square.opt2.amount ? (
+                        ) : square.opt3.amount > 1 &&
+                          square.opt3.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 2 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt2.amount}</p>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt3.amount}</p>
+                            <p> באורך: {square.opt3.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt3.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt3.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt3.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt3.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                                
+                              )
+                              
+                              : null}
+                        {square.opt3.amount ? <br></br> : null}
+                        
+                        
+                        
+                       
+                        {square.opt2.amount === 1 && square.opt2.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 2 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt2.length} מטר </p>
                           </>
-                        ) : null}
+                        ) : square.opt2.amount > 1 &&
+                          square.opt2.length < 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt2.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt2.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt2.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt2.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt2.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            )
+                            : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                              
+                              )  : null}
                         {square.opt2.amount ? <br></br> : null}
-                        <strong>
-                          {" "}
-                          סה"כ פחת<hr></hr>
-                        </strong>
-                        {square.pchat} מ"ר
+
+                        {square.pchat ? (
+                          <>
+                            <strong>
+                              סה"כ פחת<hr></hr>
+                            </strong>
+                            {square.pchat} מ"ר
+                            <p>
+                              מטר אורך
+                              <strong>
+                                {square.initialWidth}X
+                                {Math.abs(
+                                  +square.initialLength -
+                                    +square.opt4.amount * 4 -
+                                    +square.opt3.amount * 3
+                                ).toFixed(2)}
+                              </strong>
+                              מטר אורך
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <strong>
+                              אין פחת<hr></hr>
+                            </strong>
+                          </>
+                        )}
                       </Card.Text>
                     </Card>
                   </Col>
@@ -452,37 +689,127 @@ export default function ControlledTabs({
                         {square.initialWidth}מטר
                       </Card.Header>
                       <Card.Text className='perutCardText'>
-                        {square.opt4.amount ? (
+                      {square.opt4.amount === 1 && square.opt4.length <= 25 ? (
                           <>
-                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>כמות:{square.opt4.amount}</p>
+                            <strong> גליל אחד ברוחב 4 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt4.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt4.amount ? <br></br> : null}
-                        {square.opt3.amount ? (
+                        ) : square.opt4.amount > 1 &&
+                          square.opt4.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 3 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt3.amount}</p>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt4.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt4.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt4.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt4.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt4.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt4.length === 25 ? (
+                            <div>גליל אחד באורך 25 מטר</div>
+                              
+                            )
+                              
+                              : null }
+                        {square.opt4.amount ? <br></br> : null}
+
+
+
+                        {square.opt3.amount === 1 && square.opt3.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 3 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt3.length} מטר </p>
                           </>
-                        ) : null}
-                        {square.opt3.amount ? <br></br> : null}
-                        {square.opt2.amount ? (
+                        ) : square.opt3.amount > 1 &&
+                          square.opt3.length < 25 ? (
                           <>
-                            <strong> גלילים ברוחב 2 מטר</strong>
-                            <hr></hr>
-                            <p>כמות:{square.opt2.amount}</p>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt3.amount}</p>
+                            <p> באורך: {square.opt3.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt3.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt3.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt3.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt3.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            ) : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                                
+                              )
+                              
+                              : null}
+                        {square.opt3.amount ? <br></br> : null}
+                        
+                        
+                        
+                       
+                        {square.opt2.amount === 1 && square.opt2.length <= 25 ? (
+                          <>
+                            <strong> גליל אחד ברוחב 2 מטר</strong> <hr></hr>
                             <p> באורך: {square.opt2.length} מטר </p>
                           </>
-                        ) : null}
+                        ) : square.opt2.amount > 1 &&
+                          square.opt2.length < 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                            <p>כמות:{square.opt2.amount}</p>
+                            <p> באורך: {square.opt2.length} מטר כל אחד </p>
+                          </>
+                        ) : square.opt2.length > 25 ? (
+                          <>
+                            <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
+                                <p>{Math.floor(square.opt2.length / 25)} גלילים באורך 25 מטר</p>
+                                {square.opt2.length % 25 ?
+                                  <p>
+                                    ובנוסף: גליל אחד באורך {square.opt2.length % 25}   מטר
+                           
+                            </p> : null } 
+                          </>
+                            )
+                            : square.opt3.length === 25 ? (
+                              <div>גליל אחד באורך 25 מטר</div>
+                              
+                              )  : null}
                         {square.opt2.amount ? <br></br> : null}
-                        <strong>
-                          {" "}
-                          סה"כ פחת<hr></hr>
-                        </strong>
-                        {square.pchat} מ"ר
+
+                        {square.pchat ? (
+                          <>
+                            <strong>
+                              סה"כ פחת<hr></hr>
+                            </strong>
+                            {square.pchat} מ"ר
+                            <p>
+                              מטר אורך
+                              <strong>
+                                {square.initialWidth}X
+                                {Math.abs(
+                                  +square.initialLength -
+                                    +square.opt4.amount * 4 -
+                                    +square.opt3.amount * 3
+                                ).toFixed(2)}
+                              </strong>
+                              מטר אורך
+                            </p>
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <strong>
+                              אין פחת<hr></hr>
+                            </strong>
+                          </>
+                        )}
                       </Card.Text>
                     </Card>
                   </Col>

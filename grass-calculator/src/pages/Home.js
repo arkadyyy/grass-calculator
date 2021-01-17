@@ -115,6 +115,8 @@ function Home({ history }) {
     return "rgb(" + red + "," + green + "," + blue + " )";
   }
 
+
+  
   const [openSummary, setopenSummary] = useState(false);
 
   useEffect(() => {
