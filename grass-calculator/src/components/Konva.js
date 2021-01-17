@@ -298,9 +298,19 @@ const Konva = ({
                             lineRenderArr[index].length ? (
                               <>
                                 <Text
+                                  fontStyle='bold'
+                                  textDecoration='underline'
                                   x={square[3]}
                                   y={square[4]}
-                                  offsetX={-pos + pos * -0.2}
+                                  offsetX={
+                                    arrayUsed[index].opt4.amount > 0
+                                      ? -pos - 40
+                                      : arrayUsed[index].opt3.amount > 0
+                                      ? -pos - 40
+                                      : arrayUsed[index].opt2.amount > 0
+                                      ? -pos - 40
+                                      : null
+                                  }
                                   text={
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos) + 1
@@ -311,9 +321,19 @@ const Konva = ({
                                 />
 
                                 <Text
+                                  fontStyle='bold'
+                                  textDecoration='underline'
                                   x={square[3]}
                                   y={square[4]}
-                                  offsetX={-pos / 1.5}
+                                  offsetX={
+                                    arrayUsed[index].opt4.amount > 0
+                                      ? -pos + 40
+                                      : arrayUsed[index].opt3.amount > 0
+                                      ? -pos + 40
+                                      : arrayUsed[index].opt2.amount > 0
+                                      ? -pos + 40
+                                      : null
+                                  }
                                   text={
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos)
@@ -328,9 +348,19 @@ const Konva = ({
                               </>
                             ) : (
                               <Text
+                                fontStyle='bold'
+                                textDecoration='underline'
                                 x={square[3]}
                                 y={square[4]}
-                                offsetX={-pos / 1.5}
+                                offsetX={
+                                  arrayUsed[index].opt4.amount > 0
+                                    ? -pos + 20
+                                    : arrayUsed[index].opt3.amount > 0
+                                    ? -pos + 20
+                                    : arrayUsed[index].opt2.amount > 0
+                                    ? -pos + 20
+                                    : null
+                                }
                                 text={
                                   numberRenderArr[index][
                                     lineRenderArr[index].indexOf(pos)
@@ -344,6 +374,8 @@ const Konva = ({
                       {arrowDirection[index] === "vertical" &&
                         lineRenderArr[index].length === 0 && (
                           <Text
+                            fontStyle='bold'
+                            textDecoration='underline'
                             x={square[3]}
                             y={square[4]}
                             offsetX={-40}
@@ -380,21 +412,12 @@ const Konva = ({
                               lineRenderArr[index].length ? (
                                 <>
                                   <Text
+                                    fontStyle='bold'
+                                    textDecoration='underline'
+                                    rotation={270}
                                     x={square[3]}
                                     y={square[4]}
-                                    offsetY={-pos - pos * 0.1}
-                                    text={
-                                      numberRenderArr[index][
-                                        lineRenderArr[index].indexOf(pos) + 1
-                                      ]
-                                    }
-                                    fontSize={15}
-                                  />
-
-                                  <Text
-                                    x={square[3]}
-                                    y={square[4]}
-                                    offsetY={-pos / 1.5}
+                                    offsetX={pos - 40}
                                     text={
                                       numberRenderArr[index][
                                         lineRenderArr[index].indexOf(pos)
@@ -402,12 +425,30 @@ const Konva = ({
                                     }
                                     fontSize={15}
                                   />
+
+                                  <Text
+                                    fontStyle='bold'
+                                    textDecoration='underline'
+                                    rotation={270}
+                                    x={square[3]}
+                                    y={square[4]}
+                                    offsetX={pos + pos * 0.3}
+                                    text={
+                                      numberRenderArr[index][
+                                        lineRenderArr[index].indexOf(pos) + 1
+                                      ]
+                                    }
+                                    fontSize={15}
+                                  />
                                 </>
                               ) : (
                                 <Text
+                                  fontStyle='bold'
+                                  textDecoration='underline'
+                                  rotation={270}
                                   x={square[3]}
                                   y={square[4]}
-                                  offsetY={-pos / 1.5}
+                                  offsetX={pos + pos * -0.3}
                                   text={
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos)
@@ -422,6 +463,8 @@ const Konva = ({
                       {arrowDirection[index] === "horizantal" &&
                         lineRenderArr[index].length === 0 && (
                           <Text
+                            fontStyle='bold'
+                            textDecoration='underline'
                             x={square[3]}
                             y={square[4]}
                             offsetX={-40}
