@@ -50,8 +50,8 @@ const Konva = ({
             marginRight: "5rem",
             borderRadius: "5px",
           }}
-          width={window.innerWidth / 1.3}
-          height={window.innerHeight / 1.4}
+          width={window.innerWidth}
+          height={window.innerHeight}
         >
           <Layer>
             {type === "top" &&
@@ -239,7 +239,7 @@ const Konva = ({
                           y={square[4]}
                           offsetX={-30}
                           offsetY={30}
-                          points={[0, 100, 0, 120]}
+                          points={[0, 45, 0, 70]}
                           width={30}
                           pointerLength={5}
                           pointerWidth={5}
@@ -260,23 +260,27 @@ const Konva = ({
                         />
                       )}
 
-                      <Text
-                        x={square[3]}
-                        y={square[4]}
-                        offsetX={-10}
-                        offsetY={0}
-                        text={`ר ${square[0]} `}
-                        fontSize={15}
-                      />
-                      <Text
-                        x={square[3]}
-                        y={square[4]}
-                        rotation={270}
-                        offsetX={40}
-                        offsetY={0}
-                        text={` א ${square[1]} `}
-                        fontSize={15}
-                      />
+                      {arrowDirection[index] === "horizantal" && (
+                        <Text
+                          x={square[3]}
+                          y={square[4]}
+                          offsetX={-25}
+                          offsetY={0}
+                          text={`אורך ${square[0]} `}
+                          fontSize={15}
+                        />
+                      )}
+                      {arrowDirection[index] === "vertical" && (
+                        <Text
+                          x={square[3]}
+                          y={square[4]}
+                          rotation={270}
+                          offsetX={80}
+                          offsetY={0}
+                          text={` אורך ${square[1]} `}
+                          fontSize={15}
+                        />
+                      )}
 
                       {/* {if arrow direction is vertical} */}
 
@@ -304,20 +308,21 @@ const Konva = ({
                                   y={square[4]}
                                   offsetX={
                                     arrayUsed[index].opt4.amount > 0
-                                      ? -pos - 40
+                                      ? -pos - 15
                                       : arrayUsed[index].opt3.amount > 0
-                                      ? -pos - 40
+                                      ? -pos - 15
                                       : arrayUsed[index].opt2.amount > 0
-                                      ? -pos - 40
+                                      ? -pos - 15
                                       : null
                                   }
                                   text={
+                                    "גליל" +
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos) + 1
                                     ]
                                   }
                                   fontSize={15}
-                                  fill={"#1C4E20"}
+                                  fill={"black"}
                                 />
 
                                 <Text
@@ -327,14 +332,15 @@ const Konva = ({
                                   y={square[4]}
                                   offsetX={
                                     arrayUsed[index].opt4.amount > 0
-                                      ? -pos + 40
+                                      ? -pos + 50
                                       : arrayUsed[index].opt3.amount > 0
-                                      ? -pos + 40
+                                      ? -pos + 50
                                       : arrayUsed[index].opt2.amount > 0
-                                      ? -pos + 40
+                                      ? -pos + 50
                                       : null
                                   }
                                   text={
+                                    "גליל" +
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos)
                                     ]
@@ -354,14 +360,15 @@ const Konva = ({
                                 y={square[4]}
                                 offsetX={
                                   arrayUsed[index].opt4.amount > 0
-                                    ? -pos + 20
+                                    ? -pos + 50
                                     : arrayUsed[index].opt3.amount > 0
-                                    ? -pos + 20
+                                    ? -pos + 50
                                     : arrayUsed[index].opt2.amount > 0
-                                    ? -pos + 20
+                                    ? -pos + 50
                                     : null
                                 }
                                 text={
+                                  "גליל" +
                                   numberRenderArr[index][
                                     lineRenderArr[index].indexOf(pos)
                                   ]
@@ -381,11 +388,11 @@ const Konva = ({
                             offsetX={-40}
                             text={
                               arrayUsed[index].opt4.amount > 0
-                                ? "4"
+                                ? "גליל 4  "
                                 : arrayUsed[index].opt3.amount > 0
-                                ? "3"
+                                ? "גליל 3"
                                 : arrayUsed[index].opt2.amount > 0
-                                ? "2"
+                                ? "גליל 2"
                                 : null
                             }
                             fontSize={15}
@@ -417,8 +424,17 @@ const Konva = ({
                                     rotation={270}
                                     x={square[3]}
                                     y={square[4]}
-                                    offsetX={pos - 40}
+                                    offsetX={
+                                      arrayUsed[index].opt4.amount > 0
+                                        ? pos - 60
+                                        : arrayUsed[index].opt3.amount > 0
+                                        ? pos - 60
+                                        : arrayUsed[index].opt2.amount > 0
+                                        ? pos - 60
+                                        : null
+                                    }
                                     text={
+                                      "גליל" +
                                       numberRenderArr[index][
                                         lineRenderArr[index].indexOf(pos)
                                       ]
@@ -432,8 +448,17 @@ const Konva = ({
                                     rotation={270}
                                     x={square[3]}
                                     y={square[4]}
-                                    offsetX={pos + pos * 0.3}
+                                    offsetX={
+                                      arrayUsed[index].opt4.amount > 0
+                                        ? pos + 50
+                                        : arrayUsed[index].opt3.amount > 0
+                                        ? pos + 50
+                                        : arrayUsed[index].opt2.amount > 0
+                                        ? pos + 50
+                                        : null
+                                    }
                                     text={
+                                      "גליל" +
                                       numberRenderArr[index][
                                         lineRenderArr[index].indexOf(pos) + 1
                                       ]
@@ -448,8 +473,17 @@ const Konva = ({
                                   rotation={270}
                                   x={square[3]}
                                   y={square[4]}
-                                  offsetX={pos + pos * -0.3}
+                                  offsetX={
+                                    arrayUsed[index].opt4.amount > 0
+                                      ? pos - 70
+                                      : arrayUsed[index].opt3.amount > 0
+                                      ? pos - 70
+                                      : arrayUsed[index].opt2.amount > 0
+                                      ? pos - 70
+                                      : null
+                                  }
                                   text={
+                                    "גליל" +
                                     numberRenderArr[index][
                                       lineRenderArr[index].indexOf(pos)
                                     ]
@@ -467,14 +501,16 @@ const Konva = ({
                             textDecoration='underline'
                             x={square[3]}
                             y={square[4]}
-                            offsetX={-40}
+                            // offsetY={-40}
+                            offsetX={60}
+                            rotationDeg={270}
                             text={
                               arrayUsed[index].opt4.amount > 0
-                                ? "4"
+                                ? "גליל 4  "
                                 : arrayUsed[index].opt3.amount > 0
-                                ? "3"
+                                ? "גליל 3"
                                 : arrayUsed[index].opt2.amount > 0
-                                ? "2"
+                                ? "גליל 2"
                                 : null
                             }
                             fontSize={15}
@@ -504,6 +540,22 @@ const Konva = ({
                         fontSize={15}
                         rotationDeg={270}
                       /> */}
+                      {/* {if we are in konva bottom use also square for glilim} */}
+
+                      {type === "bottom" && (
+                        <Rect
+                          draggable
+                          x={square[3]}
+                          y={square[4]}
+                          width={width[index] * 30}
+                          height={length[index] * 30}
+                          fill='transparent'
+                          stroke='darkgreen'
+                          draggable={false}
+                          strokeWidth='4'
+                          dash={[10, 10]}
+                        ></Rect>
+                      )}
 
                       {/* {the original square from top} */}
 
@@ -528,45 +580,7 @@ const Konva = ({
                         height={square[1] * 30}
                         fill={square[2]}
                         opacity={0.6}
-                        // stroke='black'
-                        // strokeWidth='4'
                       />
-
-                      {/* {if we are in konva bottom use also square for glilim} */}
-
-                      {type === "bottom" && (
-                        <Rect
-                          draggable
-                          x={square[3]}
-                          y={square[4]}
-                          width={width[index] * 30}
-                          height={length[index] * 30}
-                          fill='transparent'
-                          stroke='darkgreen'
-                          draggable={false}
-                          strokeWidth='4'
-                          dash={[10, 10]}
-                        ></Rect>
-                      )}
-                      {/* {type === "bottom" && (
-                        <Text
-                          x={square[3] - 30}
-                          y={square[4] + 100}
-                          text={`אורך דשא ${length[index]}`}
-                          fontSize={15}
-                          fill={"black"}
-                          rotationDeg={270}
-                        />
-                      )} */}
-                      {/* {type === "bottom" && (
-                        <Text
-                          x={square[3]}
-                          y={square[4]}
-                          text={`רוחב דשא ${width[index]}`}
-                          fontSize={15}
-                          fill={"black"}
-                        />
-                      )} */}
                     </Group>
                   </>
                 );
