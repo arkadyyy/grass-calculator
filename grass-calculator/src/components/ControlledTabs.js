@@ -264,7 +264,7 @@ export default function ControlledTabs({
                           square.opt4.length < 25 ? (
                           <>
                             <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
-                            <p>כמות:{square.opt2.amount}</p>
+                            <p>כמות:{square.opt4.amount}</p>
                             <p> באורך: {square.opt4.length} מטר כל אחד </p>
                           </>
                         ) : square.opt4.length > 25 ? (
@@ -282,7 +282,8 @@ export default function ControlledTabs({
                               
                             )
                               
-                              : null }
+                                : null}
+                         {/* {square.opt4.amount > 1 */}
                         {square.opt4.amount ? <br></br> : null}
 
 
