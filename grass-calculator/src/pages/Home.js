@@ -354,13 +354,17 @@ function Home({ history }) {
             className=' mt-5  '
           >
             <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
-
+            <span>יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא</span>
+            <span>לאחר מכן יש לבחור בכפתור הוסף מלבן </span>
+            <span>במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן נוסף </span>
+            <span>לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת לראות את האפשרויות המוצעות</span>
+            <span>ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח</span>
             <div
               style={{
                 display: "flex",
               }}
             >
-              <div className='buttons'>
+              <div className='buttons' style={{display:"flex", flexDirection:"row-reverse"}}>
                 <Button
                     disabled ={ display }
                   size='sm'
@@ -463,8 +467,9 @@ function Home({ history }) {
               marginBottom: "3rem",
             }}
           >
-            אלו התוצאות האפשריות עבורכם{" "}
+            אלו התוצאות האפשריות עבורכם   -   יש לבחור את האפשרות המועדפת
           </h3>
+          
           <ControlledTabs
             summary={summary}
             x_directionResultForClient={x_directionResultForClient}

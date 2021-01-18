@@ -148,10 +148,10 @@ export default function ControlledTabs({
                             {value.opt4length < 25 ? (
                               <>
                                 <span>
-                                  כמות:<strong>1</strong>{" "}
+                                  כמות: <strong>1</strong>{" "}
                                 </span>
                                 <span>
-                                  באורך:<strong>{value.opt4length}מטר</strong>
+                                  באורך: <strong>{value.opt4length}מטר</strong>
                                 </span>
                               </>
                             ) : value.opt4length > 25 ? (
@@ -187,7 +187,7 @@ export default function ControlledTabs({
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> סה"כ פחת </strong>
                         <hr></hr>
-                        <span>מ"ר{(+value.pchat).toFixed(2)}</span>
+                        <span> {(+value.pchat).toFixed(2)} מ"ר</span>
                         <br></br>
                       </Card.Text>
                     </Col>
