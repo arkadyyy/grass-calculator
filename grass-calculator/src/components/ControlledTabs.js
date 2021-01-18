@@ -276,6 +276,7 @@ export default function ControlledTabs({
                         ) : square.opt4.length === 25 ? (
                           <div>גליל אחד באורך 25 מטר</div>
                         ) : null}
+                        {/* {square.opt4.amount > 1 */}
                         {square.opt4.amount ? <br></br> : null}
 
                         {square.opt3.amount === 1 &&

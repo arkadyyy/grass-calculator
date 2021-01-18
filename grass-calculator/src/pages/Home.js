@@ -118,6 +118,7 @@ function Home({ history }) {
 
   
   const [openSummary, setopenSummary] = useState(false);
+  const [display, setDisplay] = useState(false);
 
   useEffect(() => {
     bestResult();
@@ -361,6 +362,7 @@ function Home({ history }) {
             >
               <div className='buttons'>
                 <Button
+                    disabled ={ display }
                   size='sm'
                   onClick={() => {
                     setColor(getRandomColour());
@@ -376,12 +378,13 @@ function Home({ history }) {
                   הוסף מלבן
                 </Button>
                 <Button
+                    disabled ={ display }
                   size='sm'
                   className='m-3'
                   variant='success'
                   onClick={() => {
                     setopenSummary(true);
-
+                    setDisplay(true);
                     summaryAllOptions();
                   }}
                 >
@@ -401,6 +404,7 @@ function Home({ history }) {
                     setY_DirectionResultForClient([]);
                     setresultPchatWithDirection([]);
                     setopenSummary(false);
+                    setDisplay(false);
                   }}
                   className='m-3'
                   variant='success'
