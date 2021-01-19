@@ -328,20 +328,7 @@ function Home({ history }) {
 
   return (
     <>
-      {/* <h4 style={{ textAlign: "right" }}>  הוראות שימוש</h4>
-
-      <ol style={{margin: "2rem", direction:"rtl", float:"right" }}> */}
-      {/* {titleList.map(line => {
-          return (
-            <li key={line.key} style={{ display: "flex" }}>{line.key+1}.{line.description} </li>
-          );
-        })} */}
-      {/* <div style={{textAlign:"start"}}>
-         <h5 >בתחתית המסך יופיעו התוצאות האפשריות להזמנה.</h5>
-        <h4> בתחילה תופיע רשימה של {<strong>סיכום</strong>}.</h4>
-        <h4>לאחר מכן יופיע {<strong>פירוט</strong>}. </h4>
-        </div>
-      </ol> */}
+   
 
       <div className='App'>
         <Container>

@@ -117,6 +117,7 @@ const Konva = ({
                         text={` ${square[1]} אורך`}
                         fontSize={15}
                       />
+                    
 
                       <Rect
                         onClick={() => {
