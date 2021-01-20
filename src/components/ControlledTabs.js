@@ -161,9 +161,7 @@ export default function ControlledTabs({
                         <>
                           <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
                         </>
-                        <p>{"opt4" + value.opt4length}</p>
-                        <p>{"opt3" + value.opt3length}</p>
-                        <p>{"opt2" + value.opt2length}</p>
+                   
 
                         {value.opt4length > 25 ? (
                           <>
