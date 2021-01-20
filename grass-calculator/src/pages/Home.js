@@ -115,8 +115,6 @@ function Home({ history }) {
     return "rgb(" + red + "," + green + "," + blue + " )";
   }
 
-
-  
   const [openSummary, setopenSummary] = useState(false);
   const [display, setDisplay] = useState(false);
 
@@ -182,11 +180,11 @@ function Home({ history }) {
     let pchatP = 0;
     resultForClientPchat.forEach((square) => {
       opt2AmountP += square.opt2.amount;
-      opt2lengthP += square.opt2.length;
+      opt2lengthP += square.opt2.length * square.opt2.amount;
       opt3AmountP += square.opt3.amount;
-      opt3lengthP += square.opt3.length;
+      opt3lengthP += square.opt3.length * square.opt3.amount;
       opt4AmountP += square.opt4.amount;
-      opt4lengthP += square.opt4.length;
+      opt4lengthP += square.opt4.length * square.opt4.amount;
       pchatP += square.pchat;
     });
     // "PD"=Pchat+ considering the Direction
@@ -200,11 +198,11 @@ function Home({ history }) {
 
     resultPchatWithDirection.forEach((square) => {
       opt2AmountPD += square.opt2.amount;
-      opt2lengthPD += square.opt2.length;
+      opt2lengthPD += square.opt2.length * square.opt2.amount;
       opt3AmountPD += square.opt3.amount;
-      opt3lengthPD += square.opt3.length;
+      opt3lengthPD += square.opt3.length * square.opt3.amount;
       opt4AmountPD += square.opt4.amount;
-      opt4lengthPD += square.opt4.length;
+      opt4lengthPD += square.opt4.length * square.opt4.amount;
       pchatPD += square.pchat;
     });
     // result  of Min "Chiburim" (connections) Not consider Direction
@@ -218,11 +216,11 @@ function Home({ history }) {
 
     resultMinChiburNoDirection.forEach((square) => {
       opt2AmountC += square.opt2.amount;
-      opt2lengthC += square.opt2.length;
+      opt2lengthC += square.opt2.length * square.opt2.amount;
       opt3AmountC += square.opt3.amount;
-      opt3lengthC += square.opt3.length;
+      opt3lengthC += square.opt3.length * square.opt3.amount;
       opt4AmountC += square.opt4.amount;
-      opt4lengthC += square.opt4.length;
+      opt4lengthC += square.opt4.length * square.opt4.amount;
       pchatC += square.pchat;
     });
 
@@ -235,13 +233,13 @@ function Home({ history }) {
     let opt4lengthCD = 0;
     let pchatCD = 0;
 
-    resultMinChiburWithDirection.forEach((square) => {
+    resultMinChiburWithDirection.forEach((square, index) => {
       opt2AmountCD += square.opt2.amount;
-      opt2lengthCD += square.opt2.length * opt2AmountCD
+      opt2lengthCD += square.opt2.length * square.opt2.amount;
       opt3AmountCD += square.opt3.amount;
-      opt3lengthCD += square.opt3.length * opt3AmountCD
+      opt3lengthCD += square.opt3.length * square.opt3.amount;
       opt4AmountCD += square.opt4.amount;
-      opt4lengthCD += square.opt4.length * opt4AmountCD;
+      opt4lengthCD += square.opt4.length * square.opt4.amount;
       pchatCD += square.pchat;
     });
 
@@ -328,8 +326,6 @@ function Home({ history }) {
 
   return (
     <>
-   
-
       <div className='App'>
         <Container>
           <InputGroup
@@ -341,19 +337,29 @@ function Home({ history }) {
             className=' mt-5  '
           >
             <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
-            <span>יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא</span>
+            <span>
+              יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
+            </span>
             <span>לאחר מכן יש לבחור בכפתור הוסף מלבן </span>
-            <span>במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן נוסף </span>
-            <span>לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת לראות את האפשרויות המוצעות</span>
+            <span>
+              במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן נוסף{" "}
+            </span>
+            <span>
+              לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת לראות
+              את האפשרויות המוצעות
+            </span>
             <span>ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח</span>
             <div
               style={{
                 display: "flex",
               }}
             >
-              <div className='buttons' style={{display:"flex", flexDirection:"row-reverse"}}>
+              <div
+                className='buttons'
+                style={{ display: "flex", flexDirection: "row-reverse" }}
+              >
                 <Button
-                    disabled ={ display }
+                  disabled={display}
                   size='sm'
                   onClick={() => {
                     setColor(getRandomColour());
@@ -369,7 +375,7 @@ function Home({ history }) {
                   הוסף מלבן
                 </Button>
                 <Button
-                    disabled ={ display }
+                  disabled={display}
                   size='sm'
                   className='m-3'
                   variant='success'
@@ -454,9 +460,9 @@ function Home({ history }) {
               marginBottom: "3rem",
             }}
           >
-            אלו התוצאות האפשריות עבורכם   -   יש לבחור את האפשרות המועדפת
+            אלו התוצאות האפשריות עבורכם - יש לבחור את האפשרות המועדפת
           </h3>
-          
+
           <ControlledTabs
             summary={summary}
             x_directionResultForClient={x_directionResultForClient}
