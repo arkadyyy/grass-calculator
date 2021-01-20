@@ -171,30 +171,33 @@ export default function ControlledTabs({
                           </>
                       
                         
-                          {value.opt4 > 25 ? (
+                        {value.opt4length > 25 ? (
                           <>
                                               
+                                              <p> סהכ אורך:   {value.opt4length} </p>
 
                             <p> כמות גלילים באורך 25 מטר:   {Math.floor(value.opt4length / 25)} </p>
                             {value.opt4length % 25 ? (
-                            <p>ובנוסף גליל באורך {value.opt4* value.opt4length % 25} </p>
+                              <p>ובנוסף גליל באורך {value.opt4length % 25} </p>
 
                             ) : null}
                           </>
                      
-                        ) : 
-                        value.opt4 * value.opt4length >= 25  ? (
-                          <>
-                       
-                          <p>כמות גלילים באורך 25 מטר:  {Math.floor(value.opt4 * value.opt4length / 25)}</p>
+                        ) :
+                          // value.opt4 * value.opt4length >= 25 ? (                            // console.log('value:', value) 
+                          // <>
+                          //     {console.log('valueOpt4length:', value.opt4length)}
+                          //     {console.log('valueOpt4:', value.opt4)}
 
-                          {value.opt4 * value.opt4length % 25?(
-                            <>
-                            <p>ובנוסף גליל באורך {value.opt4 * value.opt4length % 25} </p>
-                            </>
-                            ):null}
+                          // <p>כמות גלילים באורך 25 מטר:  {Math.floor(value.opt4 * value.opt4length / 25)}</p>
+
+                          // {value.opt4 * value.opt4length % 25?(
+                          //   <>
+                          //   <p>ובנוסף גליל באורך {value.opt4 * value.opt4length % 25} </p>
+                          //   </>
+                          //   ):null}
                               
-                          </>) : 
+                          // </>) : 
                             <>
                           <p>כמות:{value.opt4}</p>
                        <p> באורך: {value.opt4length} מטר </p>
@@ -401,19 +404,16 @@ export default function ControlledTabs({
                             <strong>
                               פחת<hr></hr>
                             </strong>
-                        סה"כ    {square.pchat} מ"ר
-                            <p>
-אורך                             
-                                {square.initialWidth}
-                                </p>
+                    <p>סה"כ    {square.pchat} מ"ר</p>
+                           {/* <p>   {square.initialWidth-}</p>
                               <p>
                                 {Math.abs(
                                   +square.initialLength -
                                     +square.opt4.amount * 4 -
                                     +square.opt3.amount * 3
                                 ).toFixed(2)}
-                            
-רוחב                            </p>
+                            רוחב
+                            </p> */}
                           </>
                         ) : (
                           <>

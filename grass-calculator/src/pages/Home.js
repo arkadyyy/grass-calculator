@@ -237,11 +237,11 @@ function Home({ history }) {
 
     resultMinChiburWithDirection.forEach((square) => {
       opt2AmountCD += square.opt2.amount;
-      opt2lengthCD += square.opt2.length;
+      opt2lengthCD += square.opt2.length * opt2AmountCD
       opt3AmountCD += square.opt3.amount;
-      opt3lengthCD += square.opt3.length;
+      opt3lengthCD += square.opt3.length * opt3AmountCD
       opt4AmountCD += square.opt4.amount;
-      opt4lengthCD += square.opt4.length;
+      opt4lengthCD += square.opt4.length * opt4AmountCD;
       pchatCD += square.pchat;
     });
 
@@ -268,7 +268,7 @@ function Home({ history }) {
         opt3length: opt3lengthPD,
         opt4: opt4AmountPD,
         opt4length: opt4lengthPD,
-        pchat: pchatPD,
+        pchat: pchatPD.toFixed(2),
       },
       minChiburNoDirection: {
         title: "מינימום חיבורים",
@@ -279,7 +279,7 @@ function Home({ history }) {
         opt3length: opt3lengthC,
         opt4: opt4AmountC,
         opt4length: opt4lengthC,
-        pchat: pchatC,
+        pchat: pchatC.toFixed(2),
       },
       minChiburWithDirection: {
         title: `מינימום חיבורים + כיוון סיב אחיד בין הגלילים`,
@@ -290,7 +290,7 @@ function Home({ history }) {
         opt3length: opt3lengthCD,
         opt4: opt4AmountCD,
         opt4length: opt4lengthCD,
-        pchat: pchatCD,
+        pchat: pchatCD.toFixed(2),
       },
     });
   }
