@@ -1,3 +1,4 @@
+
 import "../App.css";
 import Konva from "../components/Konva";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -96,16 +97,11 @@ export default function ControlledTabs({
                           //   ):null}
                               
                           //   </>) :
-                             <>
-                             <p>כמות:{value.opt2} גלילים.</p>
+                            ( <>
+                             <p>גליל אחד</p>
                           <p> באורך: {value.opt2length} מטר. </p>
                           </>
-                        ) : (
-                          <>
-                            <p>כמות:{value.opt2}</p>
-                            <p> באורך: {value.opt2length} מטר </p>
-                          </>
-                        )}
+                        ) }
                         {value.opt2 ? <br></br> : null}
                       </Card.Text>
                     </Col>
@@ -139,7 +135,7 @@ export default function ControlledTabs({
                               
                         //     </>) : 
                             <>
-                            <p>כמות:{value.opt3} גלילים.</p>
+                            <p>גליל אחד.</p>
                          <p> באורך: {value.opt3length} מטר. </p>
                          </>}
                           
@@ -165,25 +161,25 @@ export default function ControlledTabs({
                             ) : null}
                           </>
                         ) : (
-                          // value.opt4 * value.opt4length >= 25 ? (                            // console.log('value:', value)
-                          // <>
-                          //     {console.log('valueOpt4length:', value.opt4length)}
-                          //     {console.log('valueOpt4:', value.opt4)}
+                            // value.opt4 * value.opt4length >= 25 ? (                            // console.log('value:', value)
+                            // <>
+                            //     {console.log('valueOpt4length:', value.opt4length)}
+                            //     {console.log('valueOpt4:', value.opt4)}
 
-                          // <p>כמות גלילים באורך 25 מטר:  {Math.floor(value.opt4 * value.opt4length / 25)}</p>
+                            // <p>כמות גלילים באורך 25 מטר:  {Math.floor(value.opt4 * value.opt4length / 25)}</p>
 
-                          // {value.opt4 * value.opt4length % 25?(
-                          //   <>
-                          //   <p>ובנוסף גליל באורך {value.opt4 * value.opt4length % 25} </p>
-                          //   </>
-                          //   ):null}
+                            // {value.opt4 * value.opt4length % 25?(
+                            //   <>
+                            //   <p>ובנוסף גליל באורך {value.opt4 * value.opt4length % 25} </p>
+                            //   </>
+                            //   ):null}
                               
-                          // </>) : 
+                            // </>) : 
                             <>
-                          <p>כמות:{value.opt4} גלילים.</p>
-                       <p> באורך: {value.opt4length} מטר. </p>
-                       </>
-                              }
+                              <p>גליל אחד</p>
+                              <p> באורך: {value.opt4length} מטר. </p>
+                            </>
+                          )}
                           
                                                                                                   
                          {value.opt4 ? <br></br> : null}
