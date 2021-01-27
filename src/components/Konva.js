@@ -42,13 +42,14 @@ const Konva = ({
 
   return (
     <>
-      <div style={{ marginTop: 30 }}>
+      <div style={{ marginTop: 30, overflowX: "hidden" }}>
         <Stage
           style={{
             border: "1px solid #333",
             marginLeft: "5rem",
             marginRight: "5rem",
             borderRadius: "5px",
+            cursor: "pointer",
           }}
           width={window.innerWidth}
           height={window.innerHeight}
@@ -117,7 +118,6 @@ const Konva = ({
                         text={` ${square[1]} אורך`}
                         fontSize={15}
                       />
-                    
 
                       <Rect
                         onClick={() => {

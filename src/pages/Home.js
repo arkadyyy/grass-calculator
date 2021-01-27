@@ -333,22 +333,33 @@ function Home({ history }) {
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-end",
+              marginLeft: "10%",
             }}
             className=' mt-5  '
           >
             <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
+            <hr></hr>
             <span>
-              יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
-            </span>
-            <span>לאחר מכן יש לבחור בכפתור הוסף מלבן </span>
-            <span>
-              במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן נוסף{" "}
+              <p> יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא</p>
             </span>
             <span>
-              לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת לראות
-              את האפשרויות המוצעות
+              <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
             </span>
-            <span>ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח</span>
+            <span>
+              <p>
+                במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן
+                נוסף
+              </p>
+            </span>
+            <span>
+              <p>
+                לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת
+                לראות את האפשרויות המוצעות
+              </p>
+            </span>
+            <span>
+              <p>ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח</p>
+            </span>
             <div
               style={{
                 display: "flex",
@@ -356,7 +367,10 @@ function Home({ history }) {
             >
               <div
                 className='buttons'
-                style={{ display: "flex", flexDirection: "row-reverse" }}
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+                }}
               >
                 <Button
                   disabled={display}
@@ -409,9 +423,18 @@ function Home({ history }) {
                   נקה
                 </Button>
               </div>
-              <div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row-reverse",
+
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
                 <Form.Label>
-                  <strong style={{ textAlign: "right" }}> רוחב במטרים</strong>
+                  <strong style={{ margin: "4px" }}>רוחב</strong>
+                  <strong style={{ margin: "4px" }}>במטרים</strong>
                 </Form.Label>
                 <FormControl
                   value={width}
@@ -419,6 +442,9 @@ function Home({ history }) {
                     height: "2rem",
                     direction: "rtl",
                     maxHeight: "2rem",
+                    width: "5rem",
+                    marginRight: "10px",
+                    marginLeft: "15px",
                   }}
                   aria-label='Default'
                   aria-describedby='inputGroup-sizing-default'
@@ -427,14 +453,20 @@ function Home({ history }) {
                     setwidth(e.target.value);
                   }}
                 />
-              </div>
-              <div>
+
                 <Form.Label>
-                  <strong>אורך מטרים</strong>
+                  <strong style={{ margin: "4px" }}>אורך</strong>
+                  <strong style={{ margin: "4px" }}>במטרים</strong>
                 </Form.Label>
                 <FormControl
                   value={length}
-                  style={{ direction: "rtl", maxHeight: "2rem" }}
+                  style={{
+                    height: "2rem",
+                    direction: "rtl",
+                    maxHeight: "2rem",
+                    width: "5rem",
+                    marginRight: "10px",
+                  }}
                   aria-label='Default'
                   aria-describedby='inputGroup-sizing-default'
                   id='length'
