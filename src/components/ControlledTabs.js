@@ -285,13 +285,14 @@ export default function ControlledTabs({
                           <p>אורך : {square.opt4.length} מטר לכל גליל.</p>
                         </>
                       ) : null}
-                      {square.opt4.amount === 1 && square.opt4.length > 25 ? (
+                      {square.opt4.amount >= 1 && square.opt4.length > 25 ? (
                         <>
                           <hr></hr>
   <p>שים לב !</p>
   <p>אורך גליל מקסימלי הוא 25 מטר. </p>
   <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
-  <p>כמות גליל באורך מלא : {Math.floor(square.opt4.length/25)}.</p>
+  <p>כמות גליל באורך מלא : {Math.floor(square.opt4.length*square.opt4.amount/25)}.</p>
+  <p>ובנוסף גליל אחד באורך{square.opt4.length * square.opt4.amount % 25}מטר.</p>
                         
                           <p> *במקרה והזנת משטחים נוספים,
                           יש להסתכל למעלה בסיכום ההזמנה.</p>
@@ -337,14 +338,14 @@ export default function ControlledTabs({
                         </>
                       ) : null}
 
-{square.opt3.amount === 1 && square.opt3.length > 25 ? (
+{square.opt3.amount >= 1 && square.opt3.length > 25 ? (
                         <>
                           <hr></hr>
   <p>שים לב !</p>
   <p>אורך גליל מקסימלי הוא 25 מטר. </p>
   <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
-  <p>כמות גליל באורך מלא : {Math.floor(square.opt3.length/25)}.</p>
-                        
+  <p>כמות גליל באורך מלא : {Math.floor(square.opt3.length*square.opt3.amount/25)}.</p>
+  <p>ובנוסף גליל אחד באורך{square.opt3.length * square.opt3.amount % 25}מטר.</p>   
                           <p> *במקרה והזנת משטחים נוספים,
                           יש להסתכל למעלה בסיכום ההזמנה.</p>
                           </>
@@ -395,7 +396,8 @@ export default function ControlledTabs({
   <p>שים לב !</p>
   <p>אורך גליל מקסימלי הוא 25 מטר. </p>
   <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
-  <p>כמות גליל באורך מלא : {Math.floor(square.opt2.length/25)}.</p>
+  <p>כמות גליל באורך מלא : {Math.floor(square.opt2.length*square.opt2.amount/25)}.</p>
+  <p>ובנוסף גליל אחד באורך{square.opt2.length * square.opt2.amount % 25}מטר.</p>
                         
                           <p> *במקרה והזנת משטחים נוספים,
                           יש להסתכל למעלה בסיכום ההזמנה.</p>
