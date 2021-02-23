@@ -222,7 +222,12 @@ export default function ControlledTabs({
       <h1
         ref={myRef}
         className='tabs'
-        style={{ textAlign: "right", marginTop: "40px" }}
+        style={{
+          textAlign: "right",
+          marginBottom: "3rem",
+          marginTop: "60px",
+          marginRight: "5rem",
+        }}
       >
         פירוט - {perutTitle}
       </h1>
@@ -231,7 +236,7 @@ export default function ControlledTabs({
       <>
         {/* <strong>מינימום פחת-פירוט</strong><br></br> */}
 
-        <Row className='m-3'>
+        <Row style={{ paddingRight: "2rem" }} className='m-3'>
           {arrayUsed.map((square, index) => {
             return (
               <>

@@ -488,7 +488,7 @@ function Home({ history }) {
           <h3
             style={{
               textAlign: "right",
-              marginRight: "3rem",
+              marginRight: "5rem",
               marginBottom: "3rem",
             }}
           >
