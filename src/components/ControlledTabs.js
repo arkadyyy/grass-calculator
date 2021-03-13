@@ -21,6 +21,7 @@ const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
 export default function ControlledTabs({
   summary,
+  setopenSummary,
   squares,
   setsquares,
   x_directionResultForClient,
@@ -67,8 +68,8 @@ export default function ControlledTabs({
             {/* <Container style={{ textAlign: "right", display:"flex", flexDirection:"column", alignItems:"center"}}> */}
             <Row style={{ direction: "rtl", margin: "0 20px" }}>
               <Card
-                className='mr-5 mt-5 '
-                border='secondary'
+                className='mr-5 mt-5 border-white '
+                border='none'
                 style={{ width: "92.7%" }}
               >
                 <Card.Body>
@@ -76,7 +77,12 @@ export default function ControlledTabs({
                     <Col md={3}>
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> גלילים ברוחב 2 מטר</strong> <hr></hr>
-                        {value.opt2 > 25 ? (
+                        {value.opt2length > 0 ? (
+                          <>
+                            <p> באורך: {value.opt2length} מטר </p>
+                          </>
+                        ) : null}
+                        {/* {value.opt2 > 25 ? (
                           <>
                             <p> סהכ אורך:{value.opt2length.toFixed(2)} מטר.</p>
                             <p>
@@ -99,7 +105,7 @@ export default function ControlledTabs({
                             <p>גליל אחד</p>
                             <p> באורך: {value.opt2length} מטר </p>
                           </>
-                        ) : null}
+                        ) : null} */}
                         {value.opt2 ? <br></br> : null}
                       </Card.Text>
                     </Col>
@@ -107,7 +113,12 @@ export default function ControlledTabs({
                     <Col md={3}>
                       <Card.Text style={{ textAlign: "right" }}>
                         <strong> גלילים ברוחב 3 מטר</strong> <hr></hr>
-                        {value.opt3 > 25 ? (
+                        {value.opt3length > 0 ? (
+                          <>
+                            <p> באורך: {value.opt3length} מטר </p>
+                          </>
+                        ) : null}
+                        {/* {value.opt3 > 25 ? (
                           <>
                             <p> סהכ אורך:{value.opt3length.toFixed(2)} מטר.</p>
                             <p>
@@ -131,7 +142,7 @@ export default function ControlledTabs({
                             <p>גליל אחד.</p>
                             <p> באורך: {value.opt3length} מטר. </p>
                           </>
-                        ) : null}
+                        ) : null} */}
                         {value.opt3 ? <br></br> : null}
                       </Card.Text>
                     </Col>
@@ -143,7 +154,18 @@ export default function ControlledTabs({
                           <strong> גלילים ברוחב 4 מטר</strong> <hr></hr>
                         </>
 
-                        {value.opt4length >= 25 ? (
+                        <>
+                          {value.opt4 > 0 ? (
+                            <>
+                              {/* <p>כמות:גליל אחד</p> */}
+                              <p> באורך: {value.opt4length} מטר. </p>
+                            </>
+                          ) : null}
+                        </>
+
+                        {/* 
+                        {
+                          value.opt4length >= 25 ? (
                           <>
                             <p>
                               {" "}
@@ -167,7 +189,7 @@ export default function ControlledTabs({
                               </>
                             ) : null}{" "}
                           </>
-                        ) : null}
+                        ) : null} */}
 
                         {value.opt4 ? <br></br> : null}
                       </Card.Text>
@@ -191,6 +213,15 @@ export default function ControlledTabs({
                       style={{ margin: "10px" }}
                     >
                       לפירוט הזמנה
+                    </Button>
+                    <Button
+                      variant='success'
+                      style={{ margin: "10px" }}
+                      onClick={() => {
+                        setopenSummary(false);
+                      }}
+                    >
+                      חישוב חדש
                     </Button>
                   </Row>
                 </Card.Body>
@@ -250,7 +281,12 @@ export default function ControlledTabs({
                     text={"black"}
                     style={{ width: "18rem" }}
                   >
-                    <Card.Header style={{ background: `${square.color}` }}>
+                    <Card.Header
+                      style={{
+                        background: `${square.color}`,
+                        opacity: "0.8",
+                      }}
+                    >
                       <h1> מלבן מספר {index + 1} </h1>
                       אורך: {square.initialLength}מטר רוחב:
                       {square.initialWidth}מטר
@@ -263,90 +299,57 @@ export default function ControlledTabs({
                           <p>אורך : {square.opt4.length} מטר לכל גליל.</p>
                         </>
                       ) : null}
+                      {square.opt4.amount >= 1 && square.opt4.length > 25 ? (
+                        <>
+                          <hr></hr>
+                          <p>שים לב !</p>
+                          <p>אורך גליל מקסימלי הוא 25 מטר. </p>
+                          <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
+                          <p>
+                            כמות גליל באורך מלא :{" "}
+                            {Math.floor(
+                              (square.opt4.length * square.opt4.amount) / 25
+                            )}
+                            .
+                          </p>
+                          <p>
+                            ובנוסף גליל אחד באורך
+                            {(square.opt4.length * square.opt4.amount) % 25}מטר.
+                          </p>
+
+                          <p>
+                            {" "}
+                            *במקרה והזנת משטחים נוספים, יש להסתכל למעלה בסיכום
+                            ההזמנה.
+                          </p>
+                        </>
+                      ) : null}
 
                       {square.opt4.amount > 1 &&
                       square.opt4.length * square.opt4.amount < 25 ? (
                         <>
+                          <hr></hr>
+                          <p>סה"כ למלבן זה:</p>
                           <p>
-                            סה"כ: גליל אחד באורך{" "}
+                            גליל אחד באורך{" "}
                             {square.opt4.length * square.opt4.amount} מטר.
                           </p>
                         </>
                       ) : null}
 
-                      {square.opt4.length > 25 ? (
+                      {square.opt4.amount > 1 &&
+                      square.opt4.length * square.opt4.amount > 25 &&
+                      (square.opt4.length * square.opt4.amount) % 25 === 0 ? (
                         <>
                           <strong>סה"כ גלילים של 4 להזמנה</strong>
 
                           <p>
-                            {" "}
                             כמות גלילים באורך 25 מטר:{" "}
                             {Math.floor(
                               (square.opt4.length * square.opt4.amount) / 25
-                            )}{" "}
-                            גלילים.{" "}
-                          </p>
-                          {square.opt4.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt4.amount * square.opt4.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                              מטר.
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt4.amount * square.opt4.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 4 להזמנה</strong>
-                          <p>
-                            {Math.floor(
-                              (square.opt4.amount * square.opt4.length) / 25
                             )}
-                            גלילים מלאים(באורך 25 מטר).
+                            גלילים.
                           </p>
-                          {Math.floor(square.opt4.length / 25) > 0 ? (
-                            <p>
-                              כמות גלילים באורך 25 מטר:
-                              {Math.floor(square.opt4.length / 25)}
-                            </p>
-                          ) : null}
-                          {square.opt4.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt4.amount * square.opt4.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                              מטר
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt4.amount * square.opt4.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 4 להזמנה</strong>
-                          <p>
-                            כמות גלילים באורך 25 מטר:
-                            {Math.floor(
-                              (square.opt4.amount * square.opt4.length) / 25
-                            )}
-                          </p>
-
-                          {(square.opt4.amount * square.opt4.length) % 25 ? (
-                            <>
-                              <p>
-                                ובנוסף גליל באורך{" "}
-                                {(
-                                  (square.opt4.amount * square.opt4.length) %
-                                  25
-                                ).toFixed(2)}{" "}
-                                מטר.
-                              </p>
-                            </>
-                          ) : null}
                         </>
                       ) : null}
 
@@ -360,88 +363,56 @@ export default function ControlledTabs({
                         </>
                       ) : null}
 
+                      {square.opt3.amount >= 1 && square.opt3.length > 25 ? (
+                        <>
+                          <hr></hr>
+                          <p>שים לב !</p>
+                          <p>אורך גליל מקסימלי הוא 25 מטר. </p>
+                          <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
+                          <p>
+                            כמות גליל באורך מלא :{" "}
+                            {Math.floor(
+                              (square.opt3.length * square.opt3.amount) / 25
+                            )}
+                            .
+                          </p>
+                          <p>
+                            ובנוסף גליל אחד באורך
+                            {(square.opt3.length * square.opt3.amount) % 25}מטר.
+                          </p>
+                          <p>
+                            {" "}
+                            *במקרה והזנת משטחים נוספים, יש להסתכל למעלה בסיכום
+                            ההזמנה.
+                          </p>
+                        </>
+                      ) : null}
+
                       {square.opt3.amount > 1 &&
                       square.opt3.length * square.opt3.amount < 25 ? (
                         <>
+                          <hr></hr>
+                          <p>סה"כ למלבן זה:</p>
                           <p>
-                            סה"כ: גליל אחד באורך{" "}
+                            גליל אחד באורך{" "}
                             {square.opt3.length * square.opt3.amount} מטר.
                           </p>
                         </>
                       ) : null}
 
-                      {square.opt3.length > 25 ? (
+                      {square.opt3.amount > 1 &&
+                      square.opt3.length * square.opt3.amount > 25 &&
+                      (square.opt3.length * square.opt3.amount) % 25 === 0 ? (
                         <>
                           <strong>סה"כ גלילים של 3 להזמנה</strong>
 
                           <p>
-                            {" "}
+                            כמות גלילים באורך 25 מטר:{" "}
                             {Math.floor(
                               (square.opt3.length * square.opt3.amount) / 25
                             )}
-                            גלילים מלאים(באורך 25 מטר).
+                            גלילים.
                           </p>
-                          {square.opt3.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt3.amount * square.opt3.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                              מטר.
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt3.amount * square.opt3.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 3 להזמנה</strong>
-                          <p>
-                            {" "}
-                            {Math.floor(
-                              (square.opt3.amount * square.opt3.length) / 25
-                            )}{" "}
-                            גלילים מלאים(באורך 25 מטר).
-                          </p>
-
-                          <p>
-                            {" "}
-                            כמות גלילים באורך 25 מטר:{" "}
-                            {Math.floor(square.opt3.length / 25)}{" "}
-                          </p>
-                          {square.opt3.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt3.amount * square.opt3.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt3.amount * square.opt3.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 3 להזמנה</strong>
-                          <p>
-                            כמות גלילים באורך 25 מטר:{" "}
-                            {Math.floor(
-                              (square.opt3.amount * square.opt3.length) / 25
-                            )}
-                          </p>
-
-                          {(square.opt3.amount * square.opt3.length) % 25 ? (
-                            <>
-                              <p>
-                                ובנוסף גליל באורך{" "}
-                                {(
-                                  (square.opt3.amount * square.opt3.length) %
-                                  25
-                                ).toFixed(2)}{" "}
-                                מטר.{" "}
-                              </p>
-                            </>
-                          ) : null}
                         </>
                       ) : null}
 
@@ -455,88 +426,57 @@ export default function ControlledTabs({
                         </>
                       ) : null}
 
+                      {square.opt2.amount === 1 && square.opt2.length > 25 ? (
+                        <>
+                          <hr></hr>
+                          <p>שים לב !</p>
+                          <p>אורך גליל מקסימלי הוא 25 מטר. </p>
+                          <p>ולכן עבור מלבן זה* תצטרך להזמין</p>
+                          <p>
+                            כמות גליל באורך מלא :{" "}
+                            {Math.floor(
+                              (square.opt2.length * square.opt2.amount) / 25
+                            )}
+                            .
+                          </p>
+                          <p>
+                            ובנוסף גליל אחד באורך
+                            {(square.opt2.length * square.opt2.amount) % 25}מטר.
+                          </p>
+
+                          <p>
+                            {" "}
+                            *במקרה והזנת משטחים נוספים, יש להסתכל למעלה בסיכום
+                            ההזמנה.
+                          </p>
+                        </>
+                      ) : null}
+
                       {square.opt2.amount > 1 &&
                       square.opt2.length * square.opt2.amount < 25 ? (
                         <>
+                          <hr></hr>
+                          <p>סה"כ למלבן זה:</p>
                           <p>
-                            סה"כ: גליל אחד באורך{" "}
+                            גליל אחד באורך{" "}
                             {square.opt2.length * square.opt2.amount} מטר.
                           </p>
                         </>
                       ) : null}
 
-                      {square.opt2.length > 25 ? (
+                      {square.opt2.amount > 1 &&
+                      square.opt2.length * square.opt2.amount > 25 &&
+                      (square.opt2.length * square.opt2.amount) % 25 === 0 ? (
                         <>
                           <strong>סה"כ גלילים של 2 להזמנה</strong>
 
                           <p>
-                            {" "}
+                            כמות גלילים באורך 25 מטר:{" "}
                             {Math.floor(
                               (square.opt2.length * square.opt2.amount) / 25
-                            )}{" "}
-                            גלילים מלאים(באורך 25 מטר).
-                          </p>
-                          {square.opt2.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt2.amount * square.opt2.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                              מטר.
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt2.amount * square.opt2.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 2 להזמנה</strong>
-                          <p>
-                            {" "}
-                            {Math.floor(
-                              (square.opt2.amount * square.opt2.length) / 25
-                            )}{" "}
-                            מטר.
-                          </p>
-
-                          <p>
-                            {" "}
-                            כמות גלילים באורך 25 מטר:{" "}
-                            {Math.floor(square.opt2.length / 25)}{" "}
-                          </p>
-                          {square.opt2.length % 25 ? (
-                            <p>
-                              ובנוסף גליל באורך{" "}
-                              {(
-                                (square.opt2.amount * square.opt2.length) %
-                                25
-                              ).toFixed(2)}{" "}
-                            </p>
-                          ) : null}
-                        </>
-                      ) : // ) : null}
-                      square.opt2.amount * square.opt2.length >= 25 ? (
-                        <>
-                          <strong>סה"כ גלילים של 2 להזמנה</strong>
-                          <p>
-                            כמות גלילים באורך 25 מטר:{" "}
-                            {Math.floor(
-                              (square.opt2.amount * square.opt2.length) / 25
                             )}
+                            גלילים.
                           </p>
-
-                          {(square.opt2.amount * square.opt2.length) % 25 ? (
-                            <>
-                              <p>
-                                ובנוסף גליל באורך{" "}
-                                {(
-                                  (square.opt2.amount * square.opt2.length) %
-                                  25
-                                ).toFixed(2)}{" "}
-                                מטר.
-                              </p>
-                            </>
-                          ) : null}
                         </>
                       ) : null}
 

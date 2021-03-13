@@ -15,7 +15,7 @@ import {
   Tab,
   CardColumns,
 } from "react-bootstrap";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 // import calculateBestOption from "../calculator";
 import ChiburCalc from "../chiburCalc";
 import PchatWithDirection from "../PchatWithDirection";
@@ -25,7 +25,12 @@ import ControlledTabs from "../components/ControlledTabs";
 
 ////////////////////////////////////////////////////////////////////////
 
+// const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
+
 function Home({ history }) {
+  // const myRef = useRef(null);
+  // const executeScroll = () => scrollToRef(myRef);
+
   //all squares entered
   const [squares, setsquares] = useState([]);
 
@@ -109,7 +114,7 @@ function Home({ history }) {
 
   function getRandomColour() {
     var red = Math.floor(Math.random() * 255);
-    var green = Math.floor(Math.random() * 255);
+    var green = Math.floor(Math.random() * 100);
     var blue = Math.floor(Math.random() * 255);
 
     return "rgb(" + red + "," + green + "," + blue + " )";
@@ -326,188 +331,237 @@ function Home({ history }) {
 
   return (
     <>
-      <div className='App'>
-        <Container>
-          <InputGroup
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-end",
-              marginLeft: "10%",
-            }}
-            className=' mt-5  '
-          >
-            <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
-            <hr></hr>
-            <span>
-              <p> יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא</p>
-            </span>
-            <span>
-              <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
-            </span>
-            <span>
-              <p>
-                במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף מלבן
-                נוסף
-              </p>
-            </span>
-            <span>
-              <p>
-                לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על מנת
-                לראות את האפשרויות המוצעות
-              </p>
-            </span>
-            <span>
-              <p>ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח</p>
-            </span>
-            <div
+      {openSummary === false ? (
+        <>
+          <div className='App'>
+            <Container>
+              <InputGroup
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "flex-end",
+                  marginLeft: "10%",
+                }}
+                className=' mt-5  '
+              >
+                <h1 style={{ textAlign: "right" }}> מחשבון דשא סינטטי</h1>
+                <hr></hr>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row-reverse",
+
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ backgroundColor: "lightcoral", padding: 6 }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      1
+                    </h2>
+                    <p>
+                      {" "}
+                      יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
+                    </p>
+                  </div>
+                  <div style={{ backgroundColor: "yellow" }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      2
+                    </h2>
+                    <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
+                  </div>
+                  <span>
+                    <p>
+                      במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
+                      מלבן נוסף
+                    </p>
+                  </span>
+                  <span>
+                    <p>
+                      לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על
+                      מנת לראות את האפשרויות המוצעות
+                    </p>
+                  </span>
+                  <span>
+                    <p>
+                      ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח
+                    </p>
+                  </span>
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                  }}
+                >
+                  <div
+                    className='buttons'
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+                    }}
+                  >
+                    <Button
+                      disabled={display}
+                      size='sm'
+                      onClick={() => {
+                        setColor(getRandomColour());
+                        setTitleColor(getRandomColour());
+                        setsquares([
+                          ...squares,
+                          [+width, +length, color, 100, 50],
+                        ]);
+                        setwidth("");
+                        setlength("");
+                        summaryAllOptions();
+                      }}
+                      className='m-3'
+                      variant='success'
+                    >
+                      הוסף מלבן
+                    </Button>
+                    <Button
+                      disabled={display}
+                      size='sm'
+                      className='m-3'
+                      variant='success'
+                      onClick={() => {
+                        setopenSummary(true);
+                        setDisplay(true);
+                        summaryAllOptions();
+                      }}
+                    >
+                      חשב
+                    </Button>
+                    <Button
+                      size='sm'
+                      onClick={() => {
+                        setsquares([]);
+                        setresultForClientPchat([]);
+                        setSummary([]);
+                        setwidth(0);
+                        setlength(0);
+                        setResultMinChiburNoDirection([]);
+                        setResultMinChiburWithDirection([]);
+                        setX_DirectionResultForClient([]);
+                        setY_DirectionResultForClient([]);
+                        setresultPchatWithDirection([]);
+                        setopenSummary(false);
+                        setDisplay(false);
+                      }}
+                      className='m-3'
+                      variant='success'
+                    >
+                      נקה
+                    </Button>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row-reverse",
+
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Form.Label>
+                      <strong style={{ margin: "4px" }}>רוחב</strong>
+                      <strong style={{ margin: "4px" }}>במטרים</strong>
+                    </Form.Label>
+                    <FormControl
+                      value={width}
+                      style={{
+                        height: "2rem",
+                        direction: "rtl",
+                        maxHeight: "2rem",
+                        width: "5rem",
+                        marginRight: "10px",
+                        marginLeft: "15px",
+                      }}
+                      aria-label='Default'
+                      aria-describedby='inputGroup-sizing-default'
+                      id='width'
+                      onChange={(e) => {
+                        setwidth(e.target.value);
+                      }}
+                    />
+
+                    <Form.Label>
+                      <strong style={{ margin: "4px" }}>אורך</strong>
+                      <strong style={{ margin: "4px" }}>במטרים</strong>
+                    </Form.Label>
+                    <FormControl
+                      value={length}
+                      style={{
+                        height: "2rem",
+                        direction: "rtl",
+                        maxHeight: "2rem",
+                        width: "5rem",
+                        marginRight: "10px",
+                      }}
+                      aria-label='Default'
+                      aria-describedby='inputGroup-sizing-default'
+                      id='length'
+                      onChange={(e) => {
+                        setlength(e.target.value);
+                      }}
+                    />
+                  </div>
+                </div>
+              </InputGroup>
+            </Container>
+          </div>
+          <Konva type='top' squares={squares} setsquares={setsquares} />
+        </>
+      ) : (
+        <>
+          <div className='summary'>
+            <h3
               style={{
-                display: "flex",
+                textAlign: "right",
+                marginRight: "5rem",
+                marginBottom: "3rem",
               }}
             >
-              <div
-                className='buttons'
-                style={{
-                  display: "flex",
-                  flexDirection: "row-reverse",
-                }}
-              >
-                <Button
-                  disabled={display}
-                  size='sm'
-                  onClick={() => {
-                    setColor(getRandomColour());
-                    setTitleColor(getRandomColour());
-                    setsquares([...squares, [+width, +length, color, 100, 50]]);
-                    setwidth("");
-                    setlength("");
-                    summaryAllOptions();
-                  }}
-                  className='m-3'
-                  variant='success'
-                >
-                  הוסף מלבן
-                </Button>
-                <Button
-                  disabled={display}
-                  size='sm'
-                  className='m-3'
-                  variant='success'
-                  onClick={() => {
-                    setopenSummary(true);
-                    setDisplay(true);
-                    summaryAllOptions();
-                  }}
-                >
-                  חשב
-                </Button>
-                <Button
-                  size='sm'
-                  onClick={() => {
-                    setsquares([]);
-                    setresultForClientPchat([]);
-                    setSummary([]);
-                    setwidth(0);
-                    setlength(0);
-                    setResultMinChiburNoDirection([]);
-                    setResultMinChiburWithDirection([]);
-                    setX_DirectionResultForClient([]);
-                    setY_DirectionResultForClient([]);
-                    setresultPchatWithDirection([]);
-                    setopenSummary(false);
-                    setDisplay(false);
-                  }}
-                  className='m-3'
-                  variant='success'
-                >
-                  נקה
-                </Button>
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "row-reverse",
+              אלו התוצאות האפשריות עבורכם - יש לבחור את האפשרות המועדפת
+            </h3>
 
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Form.Label>
-                  <strong style={{ margin: "4px" }}>רוחב</strong>
-                  <strong style={{ margin: "4px" }}>במטרים</strong>
-                </Form.Label>
-                <FormControl
-                  value={width}
-                  style={{
-                    height: "2rem",
-                    direction: "rtl",
-                    maxHeight: "2rem",
-                    width: "5rem",
-                    marginRight: "10px",
-                    marginLeft: "15px",
-                  }}
-                  aria-label='Default'
-                  aria-describedby='inputGroup-sizing-default'
-                  id='width'
-                  onChange={(e) => {
-                    setwidth(e.target.value);
-                  }}
-                />
-
-                <Form.Label>
-                  <strong style={{ margin: "4px" }}>אורך</strong>
-                  <strong style={{ margin: "4px" }}>במטרים</strong>
-                </Form.Label>
-                <FormControl
-                  value={length}
-                  style={{
-                    height: "2rem",
-                    direction: "rtl",
-                    maxHeight: "2rem",
-                    width: "5rem",
-                    marginRight: "10px",
-                  }}
-                  aria-label='Default'
-                  aria-describedby='inputGroup-sizing-default'
-                  id='length'
-                  onChange={(e) => {
-                    setlength(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-          </InputGroup>
-        </Container>
-      </div>
-      <Konva type='top' squares={squares} setsquares={setsquares} />
+            <ControlledTabs
+              // ref={myRef}
+              summary={summary}
+              setopenSummary={setopenSummary}
+              x_directionResultForClient={x_directionResultForClient}
+              y_directionResultForClient={y_directionResultForClient}
+              resultForClientPchat={resultForClientPchat}
+              squares={squares}
+              setsquares={setsquares}
+              resultPchatWithDirection={resultPchatWithDirection}
+              resultMinChiburWithDirection={resultMinChiburWithDirection}
+              resultMinChiburNoDirection={resultMinChiburNoDirection}
+            />
+          </div>
+        </>
+      )}
 
       <hr></hr>
-
-      {openSummary && (
-        <div className='summary'>
-          <h3
-            style={{
-              textAlign: "right",
-              marginRight: "5rem",
-              marginBottom: "3rem",
-            }}
-          >
-            אלו התוצאות האפשריות עבורכם - יש לבחור את האפשרות המועדפת
-          </h3>
-
-          <ControlledTabs
-            summary={summary}
-            x_directionResultForClient={x_directionResultForClient}
-            y_directionResultForClient={y_directionResultForClient}
-            resultForClientPchat={resultForClientPchat}
-            squares={squares}
-            setsquares={setsquares}
-            resultPchatWithDirection={resultPchatWithDirection}
-            resultMinChiburWithDirection={resultMinChiburWithDirection}
-            resultMinChiburNoDirection={resultMinChiburNoDirection}
-          />
-        </div>
-      )}
     </>
   );
 }
