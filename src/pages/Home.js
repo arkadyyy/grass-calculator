@@ -389,23 +389,63 @@ function Home({ history }) {
                     </h2>
                     <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
                   </div>
-                  <span>
-                    <p>
-                      במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
-                      מלבן נוסף
-                    </p>
-                  </span>
-                  <span>
+                  <div style={{ backgroundColor: "lightblue" }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      3
+                    </h2>
+                    <p> במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
+                      מלבן נוסף</p>
+                  </div>
+                 
+                  
+                  
+                  <div style={{background:"lightgreen"}}>
+                  <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      4
+                    </h2>
                     <p>
                       לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על
                       מנת לראות את האפשרויות המוצעות
                     </p>
-                  </span>
-                  <span>
+                  </div>
+                  <div style={{background:"orange"}}>
+                  <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      5
+                    </h2>
                     <p>
                       ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח
                     </p>
-                  </span>
+                  </div>
                 </div>
                 <div
                   style={{

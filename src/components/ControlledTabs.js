@@ -16,6 +16,8 @@ import {
   CardColumns,
 } from "react-bootstrap";
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
+import {Arrow} from "react-konva";
+import { FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
@@ -223,6 +225,37 @@ export default function ControlledTabs({
                     >
                       חישוב חדש
                     </Button>
+                    <div style={{ paddingRight: "20rem", paddingTop: "1rem", textDecorationLine: "underline", textDecorationColor: "red", color: "red" }}>
+                      מקראה:</div>
+
+                    </Row>
+                  <Row style={{display:"flex"}}>
+                      {/* <span style={{paddingRight:"20rem"}}></span> */}
+                      <div style={{ height: "2rem",backgroundColor: "pink" }}>
+                    <span style={{fontWeight:"bold",}}>קו מקווקו</span>
+                    <span style={{fontWeight:"bold"}}>- - -</span>
+                    <span style={{ fontWeight: "bold", transform:`rotate(90deg)`,zIndex:200 }}>- - - </span>
+                    <span style={{}}>סימון גבולות משטחי הדשא</span>
+                    </div>
+                    
+                   <div style={{paddingRight:"2rem",backgroundColor:"lightBlue"}}>
+                    <span>
+                    <FaArrowLeft />
+                    <FaArrowRight />
+                    <FaArrowUp />
+                    <FaArrowDown />
+כיוון פריסת הגלילים
+                    </span>
+                    </div>
+                    <div style={{backgroundColor:"lightGreen"}}>
+                    <span >סוג הגליל</span>
+                    <span style={{textDecorationLine:"underline"}}>גליל 2</span>
+                    <span style={{textDecorationLine:"underline"}}>גליל 3</span>
+                      <span style={{ textDecorationLine: "underline" }}>גליל 4</span>
+                      </div>
+                    <div>
+                    <span style={{backgroundColor:"orange"}}>משטח לבן- שטח פחת</span>
+                    </div>                    
                   </Row>
                 </Card.Body>
               </Card>
