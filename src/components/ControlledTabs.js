@@ -229,7 +229,7 @@ export default function ControlledTabs({
                       מקראה:</div>
 
                     </Row>
-                  <Row style={{display:"flex"}}>
+                  <Row style={{display:"flex",}}>
                       {/* <span style={{paddingRight:"20rem"}}></span> */}
                       <div style={{ height: "2rem",backgroundColor: "pink" }}>
                     <span style={{fontWeight:"bold",}}>קו מקווקו</span>
