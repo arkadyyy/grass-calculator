@@ -354,7 +354,7 @@ function Home({ history }) {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{ backgroundColor: "lightcoral", padding: 6 }}>
+                  <div style={{ backgroundColor: "#ffe8d6", padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -373,7 +373,7 @@ function Home({ history }) {
                       יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
                     </p>
                   </div>
-                  <div style={{ backgroundColor: "yellow" }}>
+                  <div style={{ backgroundColor: "#d4c7b0", padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -389,27 +389,69 @@ function Home({ history }) {
                     </h2>
                     <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
                   </div>
-                  <span>
+                  <div style={{ backgroundColor: "#b7b7a4", padding: 10 }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      3
+                    </h2>
                     <p>
+                      {" "}
                       במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
                       מלבן נוסף
                     </p>
-                  </span>
-                  <span>
+                  </div>
+
+                  <div style={{ background: "#a5a58d", padding: 10 }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      4
+                    </h2>
                     <p>
                       לאחר הזנת כל המשטחים יש להקיש חשב ולגלול לתחתית המסך על
                       מנת לראות את האפשרויות המוצעות
                     </p>
-                  </span>
-                  <span>
+                  </div>
+                  <div style={{ background: "#6b705c", padding: 10 }}>
+                    <h2
+                      style={{
+                        backgroundColor: "white",
+                        padding: 23,
+
+                        width: 70,
+                        height: 70,
+                        borderRadius: "50%",
+                        display: "inline-block",
+                      }}
+                    >
+                      5
+                    </h2>
                     <p>
                       ניתן לגרור את המשטחים בעזרת העכבר על מנת לדמות את השטח
                     </p>
-                  </span>
+                  </div>
                 </div>
                 <div
                   style={{
                     display: "flex",
+                    marginTop: 20,
                   }}
                 >
                   <div

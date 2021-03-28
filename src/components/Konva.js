@@ -236,8 +236,8 @@ const Konva = ({
                       {/* {arrow direction } */}
                       {arrowDirection[index] === "vertical" && (
                         <Arrow
-                          x={square[3]}
-                          y={square[4]}
+                          x={square[3] + 250}
+                          y={square[4] + 100}
                           offsetX={-30}
                           offsetY={30}
                           points={[0, 45, 0, 70]}
@@ -250,8 +250,8 @@ const Konva = ({
                       )}
                       {arrowDirection[index] === "horizantal" && (
                         <Arrow
-                          x={square[3]}
-                          y={square[4]}
+                          x={square[3] + 250}
+                          y={square[4] + 100}
                           offsetY={-30}
                           points={[30, 0, 50, 0]}
                           pointerLength={5}
@@ -263,8 +263,8 @@ const Konva = ({
 
                       {arrowDirection[index] === "horizantal" && (
                         <Text
-                          x={square[3]}
-                          y={square[4]}
+                          x={square[3] + 250}
+                          y={square[4] + 100}
                           offsetX={-25}
                           offsetY={0}
                           text={`אורך ${square[0]} `}
@@ -273,8 +273,8 @@ const Konva = ({
                       )}
                       {arrowDirection[index] === "vertical" && (
                         <Text
-                          x={square[3]}
-                          y={square[4]}
+                          x={square[3] + 250}
+                          y={square[4] + 100}
                           rotation={270}
                           offsetX={80}
                           offsetY={0}
@@ -290,8 +290,8 @@ const Konva = ({
                         lineRenderArr[index].map((pos) => (
                           <>
                             <Line
-                              x={square[3]}
-                              y={square[4]}
+                              x={square[3] + 250}
+                              y={square[4] + 100}
                               draggable={true}
                               points={[pos, 0, pos, 32]}
                               stroke='darkgreen'
@@ -305,8 +305,8 @@ const Konva = ({
                                 <Text
                                   fontStyle='bold'
                                   textDecoration='underline'
-                                  x={square[3]}
-                                  y={square[4]}
+                                  x={square[3] + 250}
+                                  y={square[4] + 100}
                                   offsetX={
                                     arrayUsed[index].opt4.amount > 0
                                       ? -pos - 15
@@ -384,8 +384,8 @@ const Konva = ({
                           <Text
                             fontStyle='bold'
                             textDecoration='underline'
-                            x={square[3]}
-                            y={square[4]}
+                            x={square[3] + 250}
+                            y={square[4] + 100}
                             offsetX={-40}
                             text={
                               arrayUsed[index].opt4.amount > 0
@@ -408,8 +408,8 @@ const Konva = ({
                           <>
                             <Group>
                               <Line
-                                x={square[3]}
-                                y={square[4]}
+                                x={square[3] + 250}
+                                y={square[4] + 100}
                                 draggable={true}
                                 points={[0, pos, 32, pos]}
                                 stroke='darkgreen'
@@ -423,8 +423,8 @@ const Konva = ({
                                     fontStyle='bold'
                                     textDecoration='underline'
                                     rotation={270}
-                                    x={square[3]}
-                                    y={square[4]}
+                                    x={square[3] + 250}
+                                    y={square[4] + 100}
                                     offsetX={
                                       arrayUsed[index].opt4.amount > 0
                                         ? pos - 60
@@ -447,8 +447,8 @@ const Konva = ({
                                     fontStyle='bold'
                                     textDecoration='underline'
                                     rotation={270}
-                                    x={square[3]}
-                                    y={square[4]}
+                                    x={square[3] + 250}
+                                    y={square[4] + 100}
                                     offsetX={
                                       arrayUsed[index].opt4.amount > 0
                                         ? pos + 50
@@ -472,8 +472,8 @@ const Konva = ({
                                   fontStyle='bold'
                                   textDecoration='underline'
                                   rotation={270}
-                                  x={square[3]}
-                                  y={square[4]}
+                                  x={square[3] + 250}
+                                  y={square[4] + 100}
                                   offsetX={
                                     arrayUsed[index].opt4.amount > 0
                                       ? pos - 70
@@ -500,8 +500,8 @@ const Konva = ({
                           <Text
                             fontStyle='bold'
                             textDecoration='underline'
-                            x={square[3]}
-                            y={square[4]}
+                            x={square[3] + 250}
+                            y={square[4] + 100}
                             // offsetY={-40}
                             offsetX={60}
                             rotationDeg={270}
@@ -546,8 +546,8 @@ const Konva = ({
                       {type === "bottom" && (
                         <Rect
                           draggable
-                          x={square[3]}
-                          y={square[4]}
+                          x={square[3] + 250}
+                          y={square[4] + 100}
                           width={width[index] * 30}
                           height={length[index] * 30}
                           fill='transparent'
@@ -575,8 +575,8 @@ const Konva = ({
                           ][4] = e.target.absolutePosition().y;
                           setkonvasquares(squaresOriginal);
                         }}
-                        x={square[3]}
-                        y={square[4]}
+                        x={square[3] + 250}
+                        y={square[4] + 100}
                         width={square[0] * 30}
                         height={square[1] * 30}
                         fill={square[2]}

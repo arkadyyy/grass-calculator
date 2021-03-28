@@ -16,6 +16,9 @@ import {
   CardColumns,
 } from "react-bootstrap";
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
+import { Arrow } from "react-konva";
+import image from "../components/tarshim.png";
+// import { FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
@@ -207,22 +210,41 @@ export default function ControlledTabs({
                         )}
                       </Card.Text>
                     </Col>
-                    <Button
-                      onClick={executeScroll}
-                      variant='success'
-                      style={{ margin: "10px" }}
-                    >
-                      לפירוט הזמנה
-                    </Button>
-                    <Button
-                      variant='success'
-                      style={{ margin: "10px" }}
-                      onClick={() => {
-                        setopenSummary(false);
+                    <div
+                      style={{
+                        marginTop: "6rem",
+                        flexDirection: "row",
+                        display: "flex",
                       }}
                     >
-                      חישוב חדש
-                    </Button>
+                      <Button
+                        onClick={executeScroll}
+                        variant='success'
+                        style={{ margin: "10px" }}
+                      >
+                        לפירוט הזמנה
+                      </Button>
+                      <Button
+                        variant='success'
+                        style={{ margin: "10px" }}
+                        onClick={() => {
+                          setopenSummary(false);
+                        }}
+                      >
+                        חישוב חדש
+                      </Button>
+                      <div
+                        style={{
+                          backgroundImage: "url(" + image + ")",
+
+                          // backgroundPosition: "center",
+                          backgroundSize: "contain",
+                          backgroundRepeat: "no-repeat",
+                          width: "1000px",
+                          height: "60px",
+                        }}
+                      ></div>
+                    </div>
                   </Row>
                 </Card.Body>
               </Card>
