@@ -354,7 +354,7 @@ function Home({ history }) {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{ backgroundColor: "#ffe8d6", padding: 10 }}>
+                  <div style={{  padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -373,7 +373,7 @@ function Home({ history }) {
                       יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
                     </p>
                   </div>
-                  <div style={{ backgroundColor: "#d4c7b0", padding: 10 }}>
+                  <div style={{  padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -389,7 +389,7 @@ function Home({ history }) {
                     </h2>
                     <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
                   </div>
-                  <div style={{ backgroundColor: "#b7b7a4", padding: 10 }}>
+                  <div style={{  padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -410,7 +410,7 @@ function Home({ history }) {
                     </p>
                   </div>
 
-                  <div style={{ background: "#a5a58d", padding: 10 }}>
+                  <div style={{  padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -429,7 +429,7 @@ function Home({ history }) {
                       מנת לראות את האפשרויות המוצעות
                     </p>
                   </div>
-                  <div style={{ background: "#6b705c", padding: 10 }}>
+                  <div style={{  padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
