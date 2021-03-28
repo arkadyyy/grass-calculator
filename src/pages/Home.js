@@ -354,7 +354,7 @@ function Home({ history }) {
                     justifyContent: "space-between",
                   }}
                 >
-                  <div style={{ backgroundColor: "lightcoral", padding: 6 }}>
+                  <div style={{ backgroundColor: "#ffe8d6", padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -373,7 +373,7 @@ function Home({ history }) {
                       יש להזין נתוני אורך ורוחב עבור כל משטח שמיועד לכיסוי בדשא
                     </p>
                   </div>
-                  <div style={{ backgroundColor: "yellow" }}>
+                  <div style={{ backgroundColor: "#d4c7b0", padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -389,7 +389,7 @@ function Home({ history }) {
                     </h2>
                     <p> לאחר מכן יש לבחור בכפתור הוסף מלבן</p>
                   </div>
-                  <div style={{ backgroundColor: "lightblue" }}>
+                  <div style={{ backgroundColor: "#b7b7a4", padding: 10 }}>
                     <h2
                       style={{
                         backgroundColor: "white",
@@ -403,14 +403,15 @@ function Home({ history }) {
                     >
                       3
                     </h2>
-                    <p> במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
-                      מלבן נוסף</p>
+                    <p>
+                      {" "}
+                      במידה וישנו משטח נוסף לכיסוי יש לחזור על התהליך ולהוסיף
+                      מלבן נוסף
+                    </p>
                   </div>
-                 
-                  
-                  
-                  <div style={{background:"lightgreen"}}>
-                  <h2
+
+                  <div style={{ background: "#a5a58d", padding: 10 }}>
+                    <h2
                       style={{
                         backgroundColor: "white",
                         padding: 23,
@@ -428,8 +429,8 @@ function Home({ history }) {
                       מנת לראות את האפשרויות המוצעות
                     </p>
                   </div>
-                  <div style={{background:"orange"}}>
-                  <h2
+                  <div style={{ background: "#6b705c", padding: 10 }}>
+                    <h2
                       style={{
                         backgroundColor: "white",
                         padding: 23,
@@ -450,6 +451,7 @@ function Home({ history }) {
                 <div
                   style={{
                     display: "flex",
+                    marginTop: 20,
                   }}
                 >
                   <div

@@ -3,12 +3,7 @@ import Konva from "../components/Konva";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   Button,
-  InputGroup,
-  FormControl,
-  Modal,
-  Form,
   Card,
-  Container,
   Row,
   Col,
   Tabs,
@@ -16,8 +11,9 @@ import {
   CardColumns,
 } from "react-bootstrap";
 import { useEffect, useLayoutEffect, useState, useRef } from "react";
-import {Arrow} from "react-konva";
-import { FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
+import { Arrow } from "react-konva";
+import image from "../components/tarshim.png";
+// import { FaArrowDown, FaArrowLeft, FaArrowRight, FaArrowUp } from 'react-icons/fa';
 
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop);
 
@@ -209,53 +205,41 @@ export default function ControlledTabs({
                         )}
                       </Card.Text>
                     </Col>
-                    <Button
-                      onClick={executeScroll}
-                      variant='success'
-                      style={{ margin: "10px" }}
-                    >
-                      לפירוט הזמנה
-                    </Button>
-                    <Button
-                      variant='success'
-                      style={{ margin: "10px" }}
-                      onClick={() => {
-                        setopenSummary(false);
+                    <div
+                      style={{
+                        marginTop: "6rem",
+                        flexDirection: "row",
+                        display: "flex",
                       }}
                     >
-                      חישוב חדש
-                    </Button>
-                    <div style={{ paddingRight: "20rem", paddingTop: "1rem", textDecorationLine: "underline", textDecorationColor: "red", color: "red" }}>
-                      מקראה:</div>
+                      <Button
+                        onClick={executeScroll}
+                        variant='success'
+                        style={{ margin: "10px" }}
+                      >
+                        לפירוט הזמנה
+                      </Button>
+                      <Button
+                        variant='success'
+                        style={{ margin: "10px" }}
+                        onClick={() => {
+                          setopenSummary(false);
+                        }}
+                      >
+                        חישוב חדש
+                      </Button>
+                      <div
+                        style={{
+                          backgroundImage: "url(" + image + ")",
 
-                    </Row>
-                  <Row style={{display:"flex",}}>
-                      {/* <span style={{paddingRight:"20rem"}}></span> */}
-                      <div style={{ height: "2rem",backgroundColor: "pink" }}>
-                    <span style={{fontWeight:"bold",}}>קו מקווקו</span>
-                    <span style={{fontWeight:"bold"}}>- - -</span>
-                    <span style={{ fontWeight: "bold", transform:`rotate(90deg)`,zIndex:200 }}>- - - </span>
-                    <span style={{}}>סימון גבולות משטחי הדשא</span>
+                          // backgroundPosition: "center",
+                          backgroundSize: "contain",
+                          backgroundRepeat: "no-repeat",
+                          width: "1000px",
+                          height: "60px",
+                        }}
+                      ></div>
                     </div>
-                    
-                   <div style={{paddingRight:"2rem",backgroundColor:"lightBlue"}}>
-                    <span>
-                    <FaArrowLeft />
-                    <FaArrowRight />
-                    <FaArrowUp />
-                    <FaArrowDown />
-כיוון פריסת הגלילים
-                    </span>
-                    </div>
-                    <div style={{backgroundColor:"lightGreen"}}>
-                    <span >סוג הגליל</span>
-                    <span style={{textDecorationLine:"underline"}}>גליל 2</span>
-                    <span style={{textDecorationLine:"underline"}}>גליל 3</span>
-                      <span style={{ textDecorationLine: "underline" }}>גליל 4</span>
-                      </div>
-                    <div>
-                    <span style={{backgroundColor:"orange"}}>משטח לבן- שטח פחת</span>
-                    </div>                    
                   </Row>
                 </Card.Body>
               </Card>
