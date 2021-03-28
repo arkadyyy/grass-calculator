@@ -28,6 +28,18 @@ export default function ControlledTabs({
   resultPchatWithDirection,
   resultMinChiburWithDirection,
   resultMinChiburNoDirection,
+
+  
+  setresultForClientPchat,
+  setSummary,
+  setwidth,
+  setlength,
+  setResultMinChiburNoDirection,
+  setResultMinChiburWithDirection,
+  setX_DirectionResultForClient,
+  setY_DirectionResultForClient,
+  setresultPchatWithDirection,
+  setDisplay
 }) {
   const [key, setKey] = useState(
     "מינימום חיבורים + כיוון סיב אחיד בין הגלילים"
@@ -224,6 +236,19 @@ export default function ControlledTabs({
                         style={{ margin: "10px" }}
                         onClick={() => {
                           setopenSummary(false);
+
+                          setsquares([]);
+                          setresultForClientPchat([]);
+                          setSummary([]);
+                          setwidth(0);
+                          setlength(0);
+                          setResultMinChiburNoDirection([]);
+                          setResultMinChiburWithDirection([]);
+                          setX_DirectionResultForClient([]);
+                          setY_DirectionResultForClient([]);
+                          setresultPchatWithDirection([]);
+                          setopenSummary(false);
+                          setDisplay(false);
                         }}
                       >
                         חישוב חדש

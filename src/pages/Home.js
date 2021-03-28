@@ -588,16 +588,27 @@ function Home({ history }) {
 
             <ControlledTabs
               // ref={myRef}
-              summary={summary}
-              setopenSummary={setopenSummary}
-              x_directionResultForClient={x_directionResultForClient}
-              y_directionResultForClient={y_directionResultForClient}
-              resultForClientPchat={resultForClientPchat}
-              squares={squares}
-              setsquares={setsquares}
-              resultPchatWithDirection={resultPchatWithDirection}
-              resultMinChiburWithDirection={resultMinChiburWithDirection}
-              resultMinChiburNoDirection={resultMinChiburNoDirection}
+                summary={summary}
+                setopenSummary={setopenSummary}
+                x_directionResultForClient={x_directionResultForClient}
+                y_directionResultForClient={y_directionResultForClient}
+                resultForClientPchat={resultForClientPchat}
+                squares={squares}
+                setsquares={setsquares}
+                resultPchatWithDirection={resultPchatWithDirection}
+                resultMinChiburWithDirection={resultMinChiburWithDirection}
+                resultMinChiburNoDirection={resultMinChiburNoDirection}
+
+                setresultForClientPchat={setresultForClientPchat}
+                setSummary={setSummary}
+                setwidth={setwidth}
+                setlength={setlength}
+                setResultMinChiburNoDirection={setResultMinChiburNoDirection}
+                setResultMinChiburWithDirection={setResultMinChiburWithDirection}
+                setX_DirectionResultForClient={setX_DirectionResultForClient}
+                setY_DirectionResultForClient={setY_DirectionResultForClient}
+                setresultPchatWithDirection={ setresultPchatWithDirection}
+                setDisplay={setDisplay}
             />
           </div>
         </>
